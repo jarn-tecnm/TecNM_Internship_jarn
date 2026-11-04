@@ -1,0 +1,21 @@
+FROM mcr.microsoft.com/dotnet/sdk:10.0 AS build
+WORKDIR /src
+
+COPY ["TecNM.Research.csproj", "./"]
+RUN dotnet restore "TecNM.Research.csproj"
+
+COPY . .
+RUN dotnet publish "TecNM.Research.csproj" -c Release -o /app/publish /p:UseAppHost=false
+
+FROM mcr.microsoft.com/dotnet/aspnet:10.0 AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+
+# Crear directorio de uploads para documentos escaneados
+RUN mkdir -p /app/uploads/documents
+
+ENV ASPNETCORE_URLS=http://+:5185
+ENV ASPNETCORE_ENVIRONMENT=Production
+EXPOSE 5185
+
+ENTRYPOINT ["dotnet", "TecNM.Research.dll"]

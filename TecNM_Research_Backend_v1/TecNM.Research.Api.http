@@ -1,0 +1,6 @@
+@TecNM.Research.Api_HostAddress = http://localhost:5185
+
+GET {{TecNM.Research.Api_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
