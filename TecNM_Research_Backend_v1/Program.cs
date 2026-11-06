@@ -1,12 +1,19 @@
-using System.Text;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
+using TecNM.Research.Data;
+using TecNM.Research.Features.Calls;
 
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuración de límites de tamaño para subida de archivos (30MB de buffer para formatos y documentos)
+// Register the Controllers (JSON: camelCase)
+builder.Services.AddControllers();
+
+// Respuestas estándar para errores inesperados.
+builder.Services.AddProblemDetails();
+
+// Setting size limits for file uploads (30MB buffer for formats and documents)
 builder.WebHost.ConfigureKestrel(serverOptions =>
 {
     serverOptions.Limits.MaxRequestBodySize = 30 * 1024 * 1024;
@@ -18,7 +25,11 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Features.FormOptions>(optio
     options.ValueLengthLimit = 30 * 1024 * 1024;
 });
 
-builder.Services.AddControllers();
+if(builder.Environment.IsDevelopment())
+{
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+}
 
 builder.Services.AddCors(options =>
 {
@@ -30,86 +41,28 @@ builder.Services.AddCors(options =>
     });
 });
 
-// builder.Services.Configure<JwtSettings>(
-//     builder.Configuration.GetSection("Jwt"));
+// PostgreSQL Database Context
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
-// builder.Services.AddDbContext<AppDbContext>(options =>
-//     options.UseNpgsql(
-//         builder.Configuration.GetConnectionString("DefaultConnection")));
 
-// builder.Services.AddAuthentication(options =>
-// {
-//     options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
-//     options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-// })
-// .AddJwtBearer(options =>
-// {
-//     var jwtSettings = builder.Configuration.GetSection("Jwt").Get<JwtSettings>()!;
-//     options.TokenValidationParameters = new TokenValidationParameters
-//     {
-//         ValidateIssuer = true,
-//         ValidateAudience = true,
-//         ValidateLifetime = true,
-//         ValidateIssuerSigningKey = true,
-//         ValidIssuer = jwtSettings.Issuer,
-//         ValidAudience = jwtSettings.Audience,
-//         IssuerSigningKey = new SymmetricSecurityKey(
-//             Encoding.UTF8.GetBytes(jwtSettings.Secret)),
-//         ClockSkew = TimeSpan.Zero
-//     };
-// });
+// Feature Services
+builder.Services.AddScoped<ICallsService, CallsService>();
 
-// builder.Services.AddAuthorization();
-
-builder.Services.AddHttpContextAccessor();
-// builder.Services.AddScoped<ICurrentUserService, CurrentUserService>();
-
-// builder.Services.AddScoped<IAuthRepository, AuthRepository>();
-// builder.Services.AddScoped<IAuthService, AuthService>();
-// builder.Services.AddScoped<IRoleRepository, RoleRepository>();
-// builder.Services.AddScoped<IRoleService, RoleService>();
-// builder.Services.AddScoped<IStudentRepository, StudentRepository>();
-// builder.Services.AddScoped<IStudentService, StudentService>();
-// builder.Services.AddScoped<IAdvisorRepository, AdvisorRepository>();
-// builder.Services.AddScoped<IAdvisorService, AdvisorService>();
-// builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
-// builder.Services.AddScoped<IProjectService, ProjectService>();
-// builder.Services.AddScoped<IActivityRepository, ActivityRepository>();
-// builder.Services.AddScoped<IActivityService, ActivityService>();
-// builder.Services.AddScoped<IEvaluationRepository, EvaluationRepository>();
-// builder.Services.AddScoped<IEvaluationService, EvaluationService>();
-// builder.Services.AddScoped<IDashboardMetricsService, DashboardMetricsService>();
-// builder.Services.AddScoped<IReportGeneratorService, ReportGeneratorService>();
-// builder.Services.AddScoped<IDocumentRepository, DocumentRepository>();
-// builder.Services.AddScoped<IDocumentService, DocumentService>();
-// builder.Services.AddScoped<ICompanyRepository, CompanyRepository>();
-// builder.Services.AddScoped<ICompanyService, CompanyService>();
-// builder.Services.AddSingleton<SearchRegistry>();
-// builder.Services.AddScoped<ISearchService, SearchService>();
-// builder.Services.AddScoped<ICareerRepository, CareerRepository>();
-// builder.Services.AddScoped<ICareerService, CareerService>();
-// builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
-// builder.Services.AddScoped<INotificationService, NotificationService>();
-// builder.Services.AddScoped<IOfficialTemplateRepository, OfficialTemplateRepository>();
-// builder.Services.AddScoped<IOfficialTemplateService, OfficialTemplateService>();
-
-// Email Notification Services
-// builder.Services.Configure<SmtpOptions>(builder.Configuration.GetSection(SmtpOptions.SectionName));
-// builder.Services.AddSingleton<IEmailQueue, EmailQueue>();
-// builder.Services.AddSingleton<IEmailTemplateService, EmailTemplateService>();
-// builder.Services.AddScoped<ISystemSettingService, SystemSettingService>();
-// builder.Services.AddHostedService<EmailBackgroundWorker>();
-
-// // Institutional Email Verification & Options
-// builder.Services.Configure<InstitutionalEmailOptions>(builder.Configuration.GetSection(InstitutionalEmailOptions.SectionName));
-// var instEmailConfig = builder.Configuration.GetSection(InstitutionalEmailOptions.SectionName).Get<InstitutionalEmailOptions>();
-// if (instEmailConfig?.AllowedDomains != null && instEmailConfig.AllowedDomains.Count > 0)
-// {
-//     InstitutionalEmail.AllowedDomains = instEmailConfig.AllowedDomains;
-// }
-// builder.Services.AddScoped<IEmailVerificationService, EmailVerificationService>();
+// Application Settings
 
 var app = builder.Build();
+
+// Centralize unexpected errors.
+app.UseExceptionHandler();
+
+// Swagger exclusively in development.
+
+if(app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
 
 app.UseCors("AllowAll");
 
@@ -118,52 +71,7 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-// using (var scope = app.Services.CreateScope())
-// {
-//     var uploadsDir = Path.GetFullPath(Path.Combine(app.Environment.ContentRootPath, app.Configuration["Uploads:Path"] ?? "uploads", "documents"));
-//     if (!Directory.Exists(uploadsDir))
-//     {
-//         Directory.CreateDirectory(uploadsDir);
-//     }
 
-//     var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-//     try
-//     {
-//         // Bootstrap de catálogos RBAC y admin inicial: corre SIEMPRE (producción incluida).
-//         var adminPassword = app.Configuration["Seed:AdminPassword"];
-//         if (string.IsNullOrWhiteSpace(adminPassword))
-//         {
-//             adminPassword = "Admin2026!";
-//             if (!app.Environment.IsDevelopment())
-//                 Console.WriteLine("[Seed Warning] 'Seed:AdminPassword' no configurada; usando contraseña por defecto para el admin inicial.");
-//         }
-//         await DbSeeder.BootstrapSystemAsync(dbContext, adminPassword);
-
-//         // Remediación idempotente de acreditaciones InnovaTec completadas indebidamente
-//         await AccreditationRemediation.RemediateAutocompletedAccreditationsAsync(dbContext, app.Logger);
-
-//         // Confirmar solicitudes para todos los estudiantes con anteproyecto activo enviado
-//         await SolicitudRemediation.RemediateActiveProjectSolicitudesAsync(dbContext, app.Logger);
-
-//         // Sincronizar perfil dual de Asesor para Jefes de Carrera
-//         await CareerHeadAdvisorRemediation.RemediateCareerHeadAdvisorsAsync(dbContext, app.Logger);
-
-//         // Generar/Asegurar plantillas Excel por defecto (Plantilla_Alumnos.xlsx y Plantilla_Empresas.xlsx)
-//         ExcelTemplateSeeder.EnsureTemplatesExist(app.Environment.ContentRootPath, app.Logger);
-
-//         // Datos demo (usuarios de prueba y anteproyecto con cronograma): solo desarrollo.
-//         var demoEnabled = app.Environment.IsDevelopment()
-//                           || app.Configuration.GetValue<bool>("Seed:Enabled");
-//         if (demoEnabled)
-//         {
-//             await DbSeeder.SeedDemoDataAsync(dbContext);
-//         }
-//     }
-//     catch (Exception ex)
-//     {
-//         Console.WriteLine($"[Database Warning] {ex.ToString()}");
-//     }
-// }
 
 app.Lifetime.ApplicationStarted.Register(() =>
 {
