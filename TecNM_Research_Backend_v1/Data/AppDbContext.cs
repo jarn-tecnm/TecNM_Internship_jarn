@@ -12,161 +12,161 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<AcademicAuthorizationsHistory> AcademicAuthorizationsHistories { get; set; }
+    public virtual DbSet<AcademicAuthorizationsHistory> AcademicAuthorizationsHistory { get; set; }
 
-    public virtual DbSet<AuditLog> AuditLogs { get; set; }
+    public virtual DbSet<AuditLogs> AuditLogs { get; set; }
 
-    public virtual DbSet<CAcademicAuthorizationStatus> CAcademicAuthorizationStatuses { get; set; }
+    public virtual DbSet<CAcademicAuthorizationStatuses> CAcademicAuthorizationStatuses { get; set; }
 
-    public virtual DbSet<CAcademicField> CAcademicFields { get; set; }
+    public virtual DbSet<CAcademicFields> CAcademicFields { get; set; }
 
-    public virtual DbSet<CAcademicProgram> CAcademicPrograms { get; set; }
+    public virtual DbSet<CAcademicPrograms> CAcademicPrograms { get; set; }
 
-    public virtual DbSet<CBudgetCategory> CBudgetCategories { get; set; }
+    public virtual DbSet<CBudgetCategories> CBudgetCategories { get; set; }
 
-    public virtual DbSet<CCall> CCalls { get; set; }
+    public virtual DbSet<CCallTypes> CCallTypes { get; set; }
 
-    public virtual DbSet<CCallType> CCallTypes { get; set; }
+    public virtual DbSet<CCalls> CCalls { get; set; }
 
-    public virtual DbSet<CCommitteeRole> CCommitteeRoles { get; set; }
+    public virtual DbSet<CCommitteeRoles> CCommitteeRoles { get; set; }
 
-    public virtual DbSet<CCurrency> CCurrencies { get; set; }
+    public virtual DbSet<CCurrencies> CCurrencies { get; set; }
 
-    public virtual DbSet<CDegreeLevel> CDegreeLevels { get; set; }
+    public virtual DbSet<CDegreeLevels> CDegreeLevels { get; set; }
 
-    public virtual DbSet<CDocumentTemplate> CDocumentTemplates { get; set; }
+    public virtual DbSet<CDocumentTemplates> CDocumentTemplates { get; set; }
 
-    public virtual DbSet<CDocumentType> CDocumentTypes { get; set; }
+    public virtual DbSet<CDocumentTypes> CDocumentTypes { get; set; }
 
-    public virtual DbSet<CFundingSource> CFundingSources { get; set; }
+    public virtual DbSet<CFundingSources> CFundingSources { get; set; }
 
-    public virtual DbSet<CMilestoneStatus> CMilestoneStatuses { get; set; }
+    public virtual DbSet<CMilestoneStatuses> CMilestoneStatuses { get; set; }
 
-    public virtual DbSet<CObjectiveStatus> CObjectiveStatuses { get; set; }
+    public virtual DbSet<CObjectiveStatuses> CObjectiveStatuses { get; set; }
 
-    public virtual DbSet<COrganization> COrganizations { get; set; }
+    public virtual DbSet<COrganizationTypes> COrganizationTypes { get; set; }
 
-    public virtual DbSet<COrganizationType> COrganizationTypes { get; set; }
+    public virtual DbSet<COrganizations> COrganizations { get; set; }
 
-    public virtual DbSet<CPermission> CPermissions { get; set; }
+    public virtual DbSet<CPermissions> CPermissions { get; set; }
 
-    public virtual DbSet<CProjectStatus> CProjectStatuses { get; set; }
+    public virtual DbSet<CProjectStatuses> CProjectStatuses { get; set; }
 
-    public virtual DbSet<CResearchLine> CResearchLines { get; set; }
+    public virtual DbSet<CResearchLines> CResearchLines { get; set; }
 
-    public virtual DbSet<CResearchOutputsType> CResearchOutputsTypes { get; set; }
+    public virtual DbSet<CResearchOutputsTypes> CResearchOutputsTypes { get; set; }
 
-    public virtual DbSet<CResearchersRole> CResearchersRoles { get; set; }
+    public virtual DbSet<CResearchersRoles> CResearchersRoles { get; set; }
 
-    public virtual DbSet<CReviewOutcome> CReviewOutcomes { get; set; }
+    public virtual DbSet<CReviewOutcomes> CReviewOutcomes { get; set; }
 
-    public virtual DbSet<CReviewStatus> CReviewStatuses { get; set; }
+    public virtual DbSet<CReviewStatuses> CReviewStatuses { get; set; }
 
-    public virtual DbSet<CRole> CRoles { get; set; }
+    public virtual DbSet<CRoles> CRoles { get; set; }
 
-    public virtual DbSet<CTaskStatus> CTaskStatuses { get; set; }
+    public virtual DbSet<CTaskStatuses> CTaskStatuses { get; set; }
 
-    public virtual DbSet<CallsDocumentRequirement> CallsDocumentRequirements { get; set; }
+    public virtual DbSet<CallsDocumentRequirements> CallsDocumentRequirements { get; set; }
 
-    public virtual DbSet<CallsRequirement> CallsRequirements { get; set; }
+    public virtual DbSet<CallsRequirements> CallsRequirements { get; set; }
 
-    public virtual DbSet<Committee> Committees { get; set; }
+    public virtual DbSet<Committees> Committees { get; set; }
 
-    public virtual DbSet<CommitteesMember> CommitteesMembers { get; set; }
+    public virtual DbSet<CommitteesMembers> CommitteesMembers { get; set; }
 
-    public virtual DbSet<Document> Documents { get; set; }
+    public virtual DbSet<Documents> Documents { get; set; }
 
-    public virtual DbSet<ExternalResearchOutput> ExternalResearchOutputs { get; set; }
+    public virtual DbSet<ExternalResearchOutputs> ExternalResearchOutputs { get; set; }
 
-    public virtual DbSet<ExternalResearchOutputsDocument> ExternalResearchOutputsDocuments { get; set; }
+    public virtual DbSet<ExternalResearchOutputsDocuments> ExternalResearchOutputsDocuments { get; set; }
 
-    public virtual DbSet<ExternalResearchOutputsResearcher> ExternalResearchOutputsResearchers { get; set; }
+    public virtual DbSet<ExternalResearchOutputsResearchers> ExternalResearchOutputsResearchers { get; set; }
 
-    public virtual DbSet<Milestone> Milestones { get; set; }
+    public virtual DbSet<Milestones> Milestones { get; set; }
 
-    public virtual DbSet<MilestonesCurrentStatus> MilestonesCurrentStatuses { get; set; }
+    public virtual DbSet<MilestonesCurrentStatus> MilestonesCurrentStatus { get; set; }
 
-    public virtual DbSet<MilestonesStatusHistory> MilestonesStatusHistories { get; set; }
+    public virtual DbSet<MilestonesStatusHistory> MilestonesStatusHistory { get; set; }
 
-    public virtual DbSet<MilestonesStatusHistoryDocument> MilestonesStatusHistoryDocuments { get; set; }
+    public virtual DbSet<MilestonesStatusHistoryDocuments> MilestonesStatusHistoryDocuments { get; set; }
 
-    public virtual DbSet<Objective> Objectives { get; set; }
+    public virtual DbSet<Objectives> Objectives { get; set; }
 
-    public virtual DbSet<ObjectivesCurrentStatus> ObjectivesCurrentStatuses { get; set; }
+    public virtual DbSet<ObjectivesCurrentStatus> ObjectivesCurrentStatus { get; set; }
 
-    public virtual DbSet<ObjectivesStatusHistory> ObjectivesStatusHistories { get; set; }
+    public virtual DbSet<ObjectivesStatusHistory> ObjectivesStatusHistory { get; set; }
 
-    public virtual DbSet<ObjectivesStatusHistoryDocument> ObjectivesStatusHistoryDocuments { get; set; }
+    public virtual DbSet<ObjectivesStatusHistoryDocuments> ObjectivesStatusHistoryDocuments { get; set; }
 
-    public virtual DbSet<Project> Projects { get; set; }
+    public virtual DbSet<Projects> Projects { get; set; }
 
-    public virtual DbSet<ProjectsApplication> ProjectsApplications { get; set; }
+    public virtual DbSet<ProjectsApplications> ProjectsApplications { get; set; }
 
-    public virtual DbSet<ProjectsApplicationsDocument> ProjectsApplicationsDocuments { get; set; }
+    public virtual DbSet<ProjectsApplicationsDocuments> ProjectsApplicationsDocuments { get; set; }
 
-    public virtual DbSet<ProjectsBudgetDocument> ProjectsBudgetDocuments { get; set; }
+    public virtual DbSet<ProjectsBudgetDocuments> ProjectsBudgetDocuments { get; set; }
 
-    public virtual DbSet<ProjectsBudgetItem> ProjectsBudgetItems { get; set; }
+    public virtual DbSet<ProjectsBudgetItems> ProjectsBudgetItems { get; set; }
 
-    public virtual DbSet<ProjectsCurrentStatus> ProjectsCurrentStatuses { get; set; }
+    public virtual DbSet<ProjectsCurrentStatus> ProjectsCurrentStatus { get; set; }
 
-    public virtual DbSet<ProjectsDocument> ProjectsDocuments { get; set; }
+    public virtual DbSet<ProjectsDocuments> ProjectsDocuments { get; set; }
 
-    public virtual DbSet<ProjectsExpense> ProjectsExpenses { get; set; }
+    public virtual DbSet<ProjectsExpenses> ProjectsExpenses { get; set; }
 
-    public virtual DbSet<ProjectsExpensesDocument> ProjectsExpensesDocuments { get; set; }
+    public virtual DbSet<ProjectsExpensesDocuments> ProjectsExpensesDocuments { get; set; }
 
-    public virtual DbSet<ProjectsFunding> ProjectsFundings { get; set; }
+    public virtual DbSet<ProjectsFunding> ProjectsFunding { get; set; }
 
-    public virtual DbSet<ProjectsFundingDocument> ProjectsFundingDocuments { get; set; }
+    public virtual DbSet<ProjectsFundingDocuments> ProjectsFundingDocuments { get; set; }
 
-    public virtual DbSet<ProjectsLead> ProjectsLeads { get; set; }
+    public virtual DbSet<ProjectsLeads> ProjectsLeads { get; set; }
 
-    public virtual DbSet<ProjectsResearchLine> ProjectsResearchLines { get; set; }
+    public virtual DbSet<ProjectsResearchLines> ProjectsResearchLines { get; set; }
 
-    public virtual DbSet<ProjectsResearcher> ProjectsResearchers { get; set; }
+    public virtual DbSet<ProjectsResearchers> ProjectsResearchers { get; set; }
 
-    public virtual DbSet<ProjectsReview> ProjectsReviews { get; set; }
+    public virtual DbSet<ProjectsReviews> ProjectsReviews { get; set; }
 
-    public virtual DbSet<ProjectsStatusHistory> ProjectsStatusHistories { get; set; }
+    public virtual DbSet<ProjectsStatusHistory> ProjectsStatusHistory { get; set; }
 
-    public virtual DbSet<ProjectsStudent> ProjectsStudents { get; set; }
+    public virtual DbSet<ProjectsStudents> ProjectsStudents { get; set; }
 
-    public virtual DbSet<ProjectsSubmission> ProjectsSubmissions { get; set; }
+    public virtual DbSet<ProjectsSubmissions> ProjectsSubmissions { get; set; }
 
-    public virtual DbSet<ResearchOutput> ResearchOutputs { get; set; }
+    public virtual DbSet<ResearchOutputs> ResearchOutputs { get; set; }
 
-    public virtual DbSet<ResearchOutputsDocument> ResearchOutputsDocuments { get; set; }
+    public virtual DbSet<ResearchOutputsDocuments> ResearchOutputsDocuments { get; set; }
 
-    public virtual DbSet<ResearchOutputsResearcher> ResearchOutputsResearchers { get; set; }
+    public virtual DbSet<ResearchOutputsResearchers> ResearchOutputsResearchers { get; set; }
 
-    public virtual DbSet<Researcher> Researchers { get; set; }
+    public virtual DbSet<Researchers> Researchers { get; set; }
 
-    public virtual DbSet<ResearchersDegree> ResearchersDegrees { get; set; }
+    public virtual DbSet<ResearchersDegrees> ResearchersDegrees { get; set; }
 
-    public virtual DbSet<ResearchersExperience> ResearchersExperiences { get; set; }
+    public virtual DbSet<ResearchersExperiences> ResearchersExperiences { get; set; }
 
-    public virtual DbSet<ResearchersOrganization> ResearchersOrganizations { get; set; }
+    public virtual DbSet<ResearchersOrganizations> ResearchersOrganizations { get; set; }
 
-    public virtual DbSet<ResearchersResearchLine> ResearchersResearchLines { get; set; }
+    public virtual DbSet<ResearchersResearchLines> ResearchersResearchLines { get; set; }
 
-    public virtual DbSet<RolesPermission> RolesPermissions { get; set; }
+    public virtual DbSet<RolesPermissions> RolesPermissions { get; set; }
 
-    public virtual DbSet<Student> Students { get; set; }
+    public virtual DbSet<Students> Students { get; set; }
 
-    public virtual DbSet<SubmissionsDocument> SubmissionsDocuments { get; set; }
+    public virtual DbSet<SubmissionsDocuments> SubmissionsDocuments { get; set; }
 
-    public virtual DbSet<Task> Tasks { get; set; }
+    public virtual DbSet<Tasks> Tasks { get; set; }
 
-    public virtual DbSet<TasksCurrentStatus> TasksCurrentStatuses { get; set; }
+    public virtual DbSet<TasksCurrentStatus> TasksCurrentStatus { get; set; }
 
-    public virtual DbSet<TasksStatusHistory> TasksStatusHistories { get; set; }
+    public virtual DbSet<TasksStatusHistory> TasksStatusHistory { get; set; }
 
-    public virtual DbSet<TasksStatusHistoryDocument> TasksStatusHistoryDocuments { get; set; }
+    public virtual DbSet<TasksStatusHistoryDocuments> TasksStatusHistoryDocuments { get; set; }
 
-    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Users> Users { get; set; }
 
-    public virtual DbSet<UsersRole> UsersRoles { get; set; }
+    public virtual DbSet<UsersRoles> UsersRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -213,28 +213,28 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.AuthorizedByNavigation).WithMany(p => p.AcademicAuthorizationsHistories)
+            entity.HasOne(d => d.AuthorizedByNavigation).WithMany(p => p.AcademicAuthorizationsHistory)
                 .HasForeignKey(d => d.AuthorizedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_authorized_by_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.AcademicAuthorizationsHistories)
+            entity.HasOne(d => d.Document).WithMany(p => p.AcademicAuthorizationsHistory)
                 .HasForeignKey(d => d.DocumentId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_document_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.AcademicAuthorizationsHistories)
+            entity.HasOne(d => d.Status).WithMany(p => p.AcademicAuthorizationsHistory)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_status_id_fkey");
 
-            entity.HasOne(d => d.Submission).WithMany(p => p.AcademicAuthorizationsHistories)
+            entity.HasOne(d => d.Submission).WithMany(p => p.AcademicAuthorizationsHistory)
                 .HasForeignKey(d => d.SubmissionId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_submission_id_fkey");
         });
 
-        modelBuilder.Entity<AuditLog>(entity =>
+        modelBuilder.Entity<AuditLogs>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("audit_logs_pkey");
 
@@ -297,7 +297,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("audit_logs_project_id_fkey");
         });
 
-        modelBuilder.Entity<CAcademicAuthorizationStatus>(entity =>
+        modelBuilder.Entity<CAcademicAuthorizationStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_authorization_statuses_pkey");
 
@@ -333,7 +333,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CAcademicField>(entity =>
+        modelBuilder.Entity<CAcademicFields>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_fields_pkey");
 
@@ -369,7 +369,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CAcademicProgram>(entity =>
+        modelBuilder.Entity<CAcademicPrograms>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_programs_pkey");
 
@@ -413,7 +413,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_academic_programs_organization_id_fkey");
         });
 
-        modelBuilder.Entity<CBudgetCategory>(entity =>
+        modelBuilder.Entity<CBudgetCategories>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_budget_categories_pkey");
 
@@ -449,7 +449,43 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CCall>(entity =>
+        modelBuilder.Entity<CCallTypes>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("c_call_types_pkey");
+
+            entity.ToTable("c_call_types", "calls");
+
+            entity.HasIndex(e => e.Code, "c_call_types_code_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(80)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(250)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<CCalls>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_calls_pkey");
 
@@ -503,43 +539,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_calls_organization_id_fkey");
         });
 
-        modelBuilder.Entity<CCallType>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("c_call_types_pkey");
-
-            entity.ToTable("c_call_types", "calls");
-
-            entity.HasIndex(e => e.Code, "c_call_types_code_key").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Code)
-                .HasMaxLength(80)
-                .HasColumnName("code");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Name)
-                .HasMaxLength(250)
-                .HasColumnName("name");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-        });
-
-        modelBuilder.Entity<CCommitteeRole>(entity =>
+        modelBuilder.Entity<CCommitteeRoles>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_committee_roles_pkey");
 
@@ -575,7 +575,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CCurrency>(entity =>
+        modelBuilder.Entity<CCurrencies>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_currencies_pkey");
 
@@ -611,7 +611,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CDegreeLevel>(entity =>
+        modelBuilder.Entity<CDegreeLevels>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_degree_levels_pkey");
 
@@ -647,7 +647,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CDocumentTemplate>(entity =>
+        modelBuilder.Entity<CDocumentTemplates>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_document_templates_pkey");
 
@@ -704,7 +704,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.VersionNumber).HasColumnName("version_number");
         });
 
-        modelBuilder.Entity<CDocumentType>(entity =>
+        modelBuilder.Entity<CDocumentTypes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_document_types_pkey");
 
@@ -748,7 +748,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_document_types_template_id_fkey");
         });
 
-        modelBuilder.Entity<CFundingSource>(entity =>
+        modelBuilder.Entity<CFundingSources>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_funding_sources_pkey");
 
@@ -784,7 +784,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CMilestoneStatus>(entity =>
+        modelBuilder.Entity<CMilestoneStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_milestone_statuses_pkey");
 
@@ -820,7 +820,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CObjectiveStatus>(entity =>
+        modelBuilder.Entity<CObjectiveStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_objective_statuses_pkey");
 
@@ -856,7 +856,43 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<COrganization>(entity =>
+        modelBuilder.Entity<COrganizationTypes>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("c_organization_types_pkey");
+
+            entity.ToTable("c_organization_types", "academic");
+
+            entity.HasIndex(e => e.Code, "c_organization_types_code_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(80)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(250)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<COrganizations>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_organizations_pkey");
 
@@ -904,43 +940,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_organizations_organization_type_id_fkey");
         });
 
-        modelBuilder.Entity<COrganizationType>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("c_organization_types_pkey");
-
-            entity.ToTable("c_organization_types", "academic");
-
-            entity.HasIndex(e => e.Code, "c_organization_types_code_key").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Code)
-                .HasMaxLength(80)
-                .HasColumnName("code");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Name)
-                .HasMaxLength(250)
-                .HasColumnName("name");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-        });
-
-        modelBuilder.Entity<CPermission>(entity =>
+        modelBuilder.Entity<CPermissions>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_permissions_pkey");
 
@@ -976,7 +976,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CProjectStatus>(entity =>
+        modelBuilder.Entity<CProjectStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_project_statuses_pkey");
 
@@ -1012,7 +1012,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CResearchLine>(entity =>
+        modelBuilder.Entity<CResearchLines>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_research_lines_pkey");
 
@@ -1056,7 +1056,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_research_lines_academic_field_id_fkey");
         });
 
-        modelBuilder.Entity<CResearchOutputsType>(entity =>
+        modelBuilder.Entity<CResearchOutputsTypes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_research_outputs_types_pkey");
 
@@ -1092,7 +1092,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CResearchersRole>(entity =>
+        modelBuilder.Entity<CResearchersRoles>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_researchers_roles_pkey");
 
@@ -1128,7 +1128,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CReviewOutcome>(entity =>
+        modelBuilder.Entity<CReviewOutcomes>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_review_outcomes_pkey");
 
@@ -1164,7 +1164,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CReviewStatus>(entity =>
+        modelBuilder.Entity<CReviewStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_review_statuses_pkey");
 
@@ -1200,7 +1200,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CRole>(entity =>
+        modelBuilder.Entity<CRoles>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_roles_pkey");
 
@@ -1236,7 +1236,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CTaskStatus>(entity =>
+        modelBuilder.Entity<CTaskStatuses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_task_statuses_pkey");
 
@@ -1272,7 +1272,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CallsDocumentRequirement>(entity =>
+        modelBuilder.Entity<CallsDocumentRequirements>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calls_document_requirements_pkey");
 
@@ -1328,7 +1328,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("calls_document_requirements_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<CallsRequirement>(entity =>
+        modelBuilder.Entity<CallsRequirements>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calls_requirements_pkey");
 
@@ -1370,7 +1370,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("calls_requirements_call_id_fkey");
         });
 
-        modelBuilder.Entity<Committee>(entity =>
+        modelBuilder.Entity<Committees>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("committees_pkey");
 
@@ -1410,7 +1410,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("committees_academic_program_id_fkey");
         });
 
-        modelBuilder.Entity<CommitteesMember>(entity =>
+        modelBuilder.Entity<CommitteesMembers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("committees_members_pkey");
 
@@ -1473,7 +1473,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("committees_members_user_id_fkey");
         });
 
-        modelBuilder.Entity<Document>(entity =>
+        modelBuilder.Entity<Documents>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("documents_pkey");
 
@@ -1535,7 +1535,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("documents_uploaded_by_fkey");
         });
 
-        modelBuilder.Entity<ExternalResearchOutput>(entity =>
+        modelBuilder.Entity<ExternalResearchOutputs>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("external_research_outputs_pkey");
 
@@ -1580,7 +1580,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("external_research_outputs_output_type_id_fkey");
         });
 
-        modelBuilder.Entity<ExternalResearchOutputsDocument>(entity =>
+        modelBuilder.Entity<ExternalResearchOutputsDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("external_research_outputs_documents_pkey");
 
@@ -1627,14 +1627,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("external_research_outputs_docu_external_research_output_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ExternalResearchOutputsDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ExternalResearchOutputsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("external_research_outputs_doc_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ExternalResearchOutputsResearcher>(entity =>
+        modelBuilder.Entity<ExternalResearchOutputsResearchers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("external_research_outputs_researchers_pkey");
 
@@ -1688,7 +1688,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("external_research_outputs_researchers_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<Milestone>(entity =>
+        modelBuilder.Entity<Milestones>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("milestones_pkey");
 
@@ -1797,23 +1797,23 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.MilestonesStatusHistories)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.MilestonesStatusHistory)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Milestone).WithMany(p => p.MilestonesStatusHistories)
+            entity.HasOne(d => d.Milestone).WithMany(p => p.MilestonesStatusHistory)
                 .HasForeignKey(d => d.MilestoneId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_milestone_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.MilestonesStatusHistories)
+            entity.HasOne(d => d.Status).WithMany(p => p.MilestonesStatusHistory)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<MilestonesStatusHistoryDocument>(entity =>
+        modelBuilder.Entity<MilestonesStatusHistoryDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("milestones_status_history_documents_pkey");
 
@@ -1860,14 +1860,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.MilestonesStatusHistoryDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.MilestonesStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("milestones_status_history_doc_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<Objective>(entity =>
+        modelBuilder.Entity<Objectives>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("objectives_pkey");
 
@@ -1906,8 +1906,8 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.Project).WithOne(p => p.Objective)
-                .HasForeignKey<Objective>(d => d.ProjectId)
+            entity.HasOne(d => d.Project).WithOne(p => p.Objectives)
+                .HasForeignKey<Objectives>(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_project_id_fkey");
         });
@@ -1981,23 +1981,23 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ObjectivesStatusHistories)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ObjectivesStatusHistory)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Objective).WithMany(p => p.ObjectivesStatusHistories)
+            entity.HasOne(d => d.Objective).WithMany(p => p.ObjectivesStatusHistory)
                 .HasForeignKey(d => d.ObjectiveId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_objective_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.ObjectivesStatusHistories)
+            entity.HasOne(d => d.Status).WithMany(p => p.ObjectivesStatusHistory)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<ObjectivesStatusHistoryDocument>(entity =>
+        modelBuilder.Entity<ObjectivesStatusHistoryDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("objectives_status_history_documents_pkey");
 
@@ -2044,14 +2044,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ObjectivesStatusHistoryDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ObjectivesStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("objectives_status_history_doc_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<Project>(entity =>
+        modelBuilder.Entity<Projects>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_pkey");
 
@@ -2112,7 +2112,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_currency_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsApplication>(entity =>
+        modelBuilder.Entity<ProjectsApplications>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_applications_pkey");
 
@@ -2168,7 +2168,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_applications_project_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsApplicationsDocument>(entity =>
+        modelBuilder.Entity<ProjectsApplicationsDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_applications_documents_pkey");
 
@@ -2215,14 +2215,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_applications_documents_application_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsApplicationsDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsApplicationsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_applications_documen_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsBudgetDocument>(entity =>
+        modelBuilder.Entity<ProjectsBudgetDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_budget_documents_pkey");
 
@@ -2269,14 +2269,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_budget_documents_budget_item_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsBudgetDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsBudgetDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_budget_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsBudgetItem>(entity =>
+        modelBuilder.Entity<ProjectsBudgetItems>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_budget_items_pkey");
 
@@ -2356,7 +2356,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<ProjectsDocument>(entity =>
+        modelBuilder.Entity<ProjectsDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_documents_pkey");
 
@@ -2405,14 +2405,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_documents_project_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsExpense>(entity =>
+        modelBuilder.Entity<ProjectsExpenses>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_expenses_pkey");
 
@@ -2466,7 +2466,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_expenses_funding_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsExpensesDocument>(entity =>
+        modelBuilder.Entity<ProjectsExpensesDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_expenses_documents_pkey");
 
@@ -2513,7 +2513,7 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_expenses_documents_expense_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsExpensesDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsExpensesDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -2570,23 +2570,23 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.FundingSource).WithMany(p => p.ProjectsFundings)
+            entity.HasOne(d => d.FundingSource).WithMany(p => p.ProjectsFunding)
                 .HasForeignKey(d => d.FundingSourceId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_funding_source_id_fkey");
 
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsFundings)
+            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsFunding)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_project_id_fkey");
 
-            entity.HasOne(d => d.ProjectsApplication).WithMany(p => p.ProjectsFundings)
+            entity.HasOne(d => d.ProjectsApplications).WithMany(p => p.ProjectsFunding)
                 .HasPrincipalKey(p => new { p.Id, p.ProjectId })
                 .HasForeignKey(d => new { d.ApplicationId, d.ProjectId })
                 .HasConstraintName("projects_funding_application_id_project_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsFundingDocument>(entity =>
+        modelBuilder.Entity<ProjectsFundingDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_funding_documents_pkey");
 
@@ -2633,14 +2633,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_documents_funding_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsFundingDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsFundingDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_funding_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsLead>(entity =>
+        modelBuilder.Entity<ProjectsLeads>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_leads_pkey");
 
@@ -2679,13 +2679,13 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ProjectResearcher).WithOne(p => p.ProjectsLead)
-                .HasForeignKey<ProjectsLead>(d => d.ProjectResearcherId)
+            entity.HasOne(d => d.ProjectResearcher).WithOne(p => p.ProjectsLeads)
+                .HasForeignKey<ProjectsLeads>(d => d.ProjectResearcherId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_leads_project_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsResearchLine>(entity =>
+        modelBuilder.Entity<ProjectsResearchLines>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_research_lines_pkey");
 
@@ -2732,7 +2732,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_research_lines_research_line_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsResearcher>(entity =>
+        modelBuilder.Entity<ProjectsResearchers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_researchers_pkey");
 
@@ -2792,7 +2792,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_researchers_researcher_role_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsReview>(entity =>
+        modelBuilder.Entity<ProjectsReviews>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_reviews_pkey");
 
@@ -2845,13 +2845,13 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_reviews_status_id_fkey");
 
-            entity.HasOne(d => d.CommitteesMember).WithMany(p => p.ProjectsReviews)
+            entity.HasOne(d => d.CommitteesMembers).WithMany(p => p.ProjectsReviews)
                 .HasPrincipalKey(p => new { p.Id, p.CommitteeId })
                 .HasForeignKey(d => new { d.CommitteeMemberId, d.CommitteeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_reviews_committee_member_id_committee_id_fkey");
 
-            entity.HasOne(d => d.ProjectsSubmission).WithMany(p => p.ProjectsReviews)
+            entity.HasOne(d => d.ProjectsSubmissions).WithMany(p => p.ProjectsReviews)
                 .HasPrincipalKey(p => new { p.Id, p.CommitteeId })
                 .HasForeignKey(d => new { d.SubmissionId, d.CommitteeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -2897,23 +2897,23 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ProjectsStatusHistories)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ProjectsStatusHistory)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsStatusHistories)
+            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsStatusHistory)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_project_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.ProjectsStatusHistories)
+            entity.HasOne(d => d.Status).WithMany(p => p.ProjectsStatusHistory)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsStudent>(entity =>
+        modelBuilder.Entity<ProjectsStudents>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_students_pkey");
 
@@ -2963,7 +2963,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_students_student_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsSubmission>(entity =>
+        modelBuilder.Entity<ProjectsSubmissions>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_submissions_pkey");
 
@@ -3031,7 +3031,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.VersionNumber).HasColumnName("version_number");
 
-            entity.HasOne(d => d.AcademicAuthorizedByNavigation).WithMany(p => p.ProjectsSubmissionAcademicAuthorizedByNavigations)
+            entity.HasOne(d => d.AcademicAuthorizedByNavigation).WithMany(p => p.ProjectsSubmissionsAcademicAuthorizedByNavigation)
                 .HasForeignKey(d => d.AcademicAuthorizedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_academic_authorized_by_fkey");
@@ -3051,23 +3051,23 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_committee_id_fkey");
 
-            entity.HasOne(d => d.Project).WithOne(p => p.ProjectsSubmission)
-                .HasForeignKey<ProjectsSubmission>(d => d.ProjectId)
+            entity.HasOne(d => d.Project).WithOne(p => p.ProjectsSubmissions)
+                .HasForeignKey<ProjectsSubmissions>(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_project_id_fkey");
 
-            entity.HasOne(d => d.SubmittedByNavigation).WithMany(p => p.ProjectsSubmissionSubmittedByNavigations)
+            entity.HasOne(d => d.SubmittedByNavigation).WithMany(p => p.ProjectsSubmissionsSubmittedByNavigation)
                 .HasForeignKey(d => d.SubmittedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_submitted_by_fkey");
 
-            entity.HasOne(d => d.ProjectsApplication).WithMany(p => p.ProjectsSubmissions)
+            entity.HasOne(d => d.ProjectsApplications).WithMany(p => p.ProjectsSubmissions)
                 .HasPrincipalKey(p => new { p.Id, p.ProjectId })
                 .HasForeignKey(d => new { d.ApplicationId, d.ProjectId })
                 .HasConstraintName("projects_submissions_application_id_project_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutput>(entity =>
+        modelBuilder.Entity<ResearchOutputs>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_pkey");
 
@@ -3120,7 +3120,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("research_outputs_project_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutputsDocument>(entity =>
+        modelBuilder.Entity<ResearchOutputsDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_documents_pkey");
 
@@ -3167,14 +3167,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("research_outputs_documents_research_output_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.ResearchOutputsDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.ResearchOutputsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("research_outputs_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutputsResearcher>(entity =>
+        modelBuilder.Entity<ResearchOutputsResearchers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_researchers_pkey");
 
@@ -3228,7 +3228,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("research_outputs_researchers_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<Researcher>(entity =>
+        modelBuilder.Entity<Researchers>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_pkey");
 
@@ -3266,13 +3266,13 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.User).WithOne(p => p.Researcher)
-                .HasForeignKey<Researcher>(d => d.UserId)
+            entity.HasOne(d => d.User).WithOne(p => p.Researchers)
+                .HasForeignKey<Researchers>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("researchers_user_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersDegree>(entity =>
+        modelBuilder.Entity<ResearchersDegrees>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_degrees_pkey");
 
@@ -3325,7 +3325,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_degrees_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersExperience>(entity =>
+        modelBuilder.Entity<ResearchersExperiences>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_experiences_pkey");
 
@@ -3369,7 +3369,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_experiences_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersOrganization>(entity =>
+        modelBuilder.Entity<ResearchersOrganizations>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_organizations_pkey");
 
@@ -3421,7 +3421,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_organizations_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersResearchLine>(entity =>
+        modelBuilder.Entity<ResearchersResearchLines>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_research_lines_pkey");
 
@@ -3468,7 +3468,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_research_lines_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<RolesPermission>(entity =>
+        modelBuilder.Entity<RolesPermissions>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("roles_permissions_pkey");
 
@@ -3515,7 +3515,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("roles_permissions_role_id_fkey");
         });
 
-        modelBuilder.Entity<Student>(entity =>
+        modelBuilder.Entity<Students>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("students_pkey");
 
@@ -3562,13 +3562,13 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("students_academic_program_id_fkey");
 
-            entity.HasOne(d => d.User).WithOne(p => p.Student)
-                .HasForeignKey<Student>(d => d.UserId)
+            entity.HasOne(d => d.User).WithOne(p => p.Students)
+                .HasForeignKey<Students>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("students_user_id_fkey");
         });
 
-        modelBuilder.Entity<SubmissionsDocument>(entity =>
+        modelBuilder.Entity<SubmissionsDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("submissions_documents_pkey");
 
@@ -3613,7 +3613,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("submissions_documents_submission_id_fkey");
         });
 
-        modelBuilder.Entity<Task>(entity =>
+        modelBuilder.Entity<Tasks>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("tasks_pkey");
 
@@ -3731,23 +3731,23 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.TasksStatusHistories)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.TasksStatusHistory)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.TasksStatusHistories)
+            entity.HasOne(d => d.Status).WithMany(p => p.TasksStatusHistory)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_status_id_fkey");
 
-            entity.HasOne(d => d.Task).WithMany(p => p.TasksStatusHistories)
+            entity.HasOne(d => d.Task).WithMany(p => p.TasksStatusHistory)
                 .HasForeignKey(d => d.TaskId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_task_id_fkey");
         });
 
-        modelBuilder.Entity<TasksStatusHistoryDocument>(entity =>
+        modelBuilder.Entity<TasksStatusHistoryDocuments>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("tasks_status_history_documents_pkey");
 
@@ -3794,14 +3794,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.TasksStatusHistoryDocuments)
+            entity.HasOne(d => d.Documents).WithMany(p => p.TasksStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("tasks_status_history_document_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<User>(entity =>
+        modelBuilder.Entity<Users>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("users_pkey");
 
@@ -3845,7 +3845,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<UsersRole>(entity =>
+        modelBuilder.Entity<UsersRoles>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("users_roles_pkey");
 

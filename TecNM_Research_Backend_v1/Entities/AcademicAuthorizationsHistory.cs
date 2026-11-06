@@ -41,11 +41,11 @@ public partial class AcademicAuthorizationsHistory
 
     public string? Notes { get; set; }
 
-    public virtual User AuthorizedByNavigation { get; set; } = null!;
+    public virtual Users AuthorizedByNavigation { get; set; } = null!;
 
-    public virtual Document Document { get; set; } = null!;
+    public virtual Documents Document { get; set; } = null!;
 
-    public virtual CAcademicAuthorizationStatus Status { get; set; } = null!;
+    public virtual CAcademicAuthorizationStatuses Status { get; set; } = null!;
 
-    public virtual ProjectsSubmission Submission { get; set; } = null!;
+    public virtual ProjectsSubmissions Submission { get; set; } = null!;
 }

@@ -43,13 +43,13 @@ public partial class ProjectsFunding
 
     public string? Notes { get; set; }
 
-    public virtual CFundingSource FundingSource { get; set; } = null!;
+    public virtual CFundingSources FundingSource { get; set; } = null!;
 
-    public virtual Project Project { get; set; } = null!;
+    public virtual Projects Project { get; set; } = null!;
 
-    public virtual ProjectsApplication? ProjectsApplication { get; set; }
+    public virtual ProjectsApplications? ProjectsApplications { get; set; }
 
-    public virtual ICollection<ProjectsExpense> ProjectsExpenses { get; set; } = new List<ProjectsExpense>();
+    public virtual ICollection<ProjectsExpenses> ProjectsExpenses { get; set; } = new List<ProjectsExpenses>();
 
-    public virtual ICollection<ProjectsFundingDocument> ProjectsFundingDocuments { get; set; } = new List<ProjectsFundingDocument>();
+    public virtual ICollection<ProjectsFundingDocuments> ProjectsFundingDocuments { get; set; } = new List<ProjectsFundingDocuments>();
 }

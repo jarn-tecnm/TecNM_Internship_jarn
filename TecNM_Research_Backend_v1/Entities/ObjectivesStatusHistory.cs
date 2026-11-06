@@ -39,11 +39,11 @@ public partial class ObjectivesStatusHistory
 
     public string? Notes { get; set; }
 
-    public virtual User ChangedByNavigation { get; set; } = null!;
+    public virtual Users ChangedByNavigation { get; set; } = null!;
 
-    public virtual Objective Objective { get; set; } = null!;
+    public virtual Objectives Objective { get; set; } = null!;
 
-    public virtual ICollection<ObjectivesStatusHistoryDocument> ObjectivesStatusHistoryDocuments { get; set; } = new List<ObjectivesStatusHistoryDocument>();
+    public virtual ICollection<ObjectivesStatusHistoryDocuments> ObjectivesStatusHistoryDocuments { get; set; } = new List<ObjectivesStatusHistoryDocuments>();
 
-    public virtual CObjectiveStatus Status { get; set; } = null!;
+    public virtual CObjectiveStatuses Status { get; set; } = null!;
 }

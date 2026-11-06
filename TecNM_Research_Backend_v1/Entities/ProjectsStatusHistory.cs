@@ -37,9 +37,9 @@ public partial class ProjectsStatusHistory
 
     public string? Notes { get; set; }
 
-    public virtual User ChangedByNavigation { get; set; } = null!;
+    public virtual Users ChangedByNavigation { get; set; } = null!;
 
-    public virtual Project Project { get; set; } = null!;
+    public virtual Projects Project { get; set; } = null!;
 
-    public virtual CProjectStatus Status { get; set; } = null!;
+    public virtual CProjectStatuses Status { get; set; } = null!;
 }

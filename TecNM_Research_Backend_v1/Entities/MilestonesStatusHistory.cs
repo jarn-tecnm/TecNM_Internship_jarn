@@ -39,11 +39,11 @@ public partial class MilestonesStatusHistory
 
     public string? Notes { get; set; }
 
-    public virtual User ChangedByNavigation { get; set; } = null!;
+    public virtual Users ChangedByNavigation { get; set; } = null!;
 
-    public virtual Milestone Milestone { get; set; } = null!;
+    public virtual Milestones Milestone { get; set; } = null!;
 
-    public virtual ICollection<MilestonesStatusHistoryDocument> MilestonesStatusHistoryDocuments { get; set; } = new List<MilestonesStatusHistoryDocument>();
+    public virtual ICollection<MilestonesStatusHistoryDocuments> MilestonesStatusHistoryDocuments { get; set; } = new List<MilestonesStatusHistoryDocuments>();
 
-    public virtual CMilestoneStatus Status { get; set; } = null!;
+    public virtual CMilestoneStatuses Status { get; set; } = null!;
 }

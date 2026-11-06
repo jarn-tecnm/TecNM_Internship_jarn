@@ -39,11 +39,11 @@ public partial class TasksStatusHistory
 
     public string? Notes { get; set; }
 
-    public virtual User ChangedByNavigation { get; set; } = null!;
+    public virtual Users ChangedByNavigation { get; set; } = null!;
 
-    public virtual CTaskStatus Status { get; set; } = null!;
+    public virtual CTaskStatuses Status { get; set; } = null!;
 
-    public virtual Task Task { get; set; } = null!;
+    public virtual Tasks Task { get; set; } = null!;
 
-    public virtual ICollection<TasksStatusHistoryDocument> TasksStatusHistoryDocuments { get; set; } = new List<TasksStatusHistoryDocument>();
+    public virtual ICollection<TasksStatusHistoryDocuments> TasksStatusHistoryDocuments { get; set; } = new List<TasksStatusHistoryDocuments>();
 }
