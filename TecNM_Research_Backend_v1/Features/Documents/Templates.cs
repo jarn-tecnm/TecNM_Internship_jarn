@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -55,16 +56,17 @@ public record TemplateResponse(long Id, string Code, string Name, string Origina
 
 public class TemplatesService(AppDbContext db, ICurrentActor actor, ILocalFileStorage storage)
 {
-    private IQueryable<TemplateResponse> Read(bool includeDeleted = false) => db.CDocumentTemplates.AsNoTracking().Where(t => includeDeleted || t.DeletedAt == null).OrderBy(t => t.Code).ThenByDescending(t => t.VersionNumber).Select(t => new TemplateResponse(t.Id, t.Code, t.Name, t.OriginalFileName, t.MediaType, t.SizeBytes, t.Sha256, t.VersionNumber, t.IsCurrent, t.IsActive, t.IsVisible, t.DisplayOrder, t.Notes, t.CreatedAt, t.UpdatedAt, t.DeletedAt));
+    private IQueryable<CDocumentTemplates> Read(bool includeDeleted = false) => db.CDocumentTemplates.AsNoTracking().Where(t => includeDeleted || t.DeletedAt == null).OrderBy(t => t.Code).ThenByDescending(t => t.VersionNumber);
+    private static readonly Expression<Func<CDocumentTemplates, TemplateResponse>> Projection = t => new TemplateResponse(t.Id, t.Code, t.Name, t.OriginalFileName, t.MediaType, t.SizeBytes, t.Sha256, t.VersionNumber, t.IsCurrent, t.IsActive, t.IsVisible, t.DisplayOrder, t.Notes, t.CreatedAt, t.UpdatedAt, t.DeletedAt);
     public async Task<PageResponse<TemplateResponse>> ListAsync(TemplatesQuery query, CancellationToken ct)
     {
         var q = Read(query.IncludeDeleted);
         if (query.CurrentOnly) q = q.Where(t => t.IsCurrent);
         if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); q = q.Where(t => t.Code.ToLower().Contains(term) || t.Name.ToLower().Contains(term)); }
-        return await q.ToPageAsync(query, ct);
+        return await q.ToPageAsync(query, Projection, ct);
     }
-    public Task<PageResponse<TemplateResponse>> VersionsAsync(string code, PageQuery query, CancellationToken ct) => Read(query.IncludeDeleted).Where(t => t.Code == RecordActions.Code(code)).ToPageAsync(query, ct);
-    public async Task<TemplateResponse> GetAsync(long id, CancellationToken ct) => await Read().SingleOrDefaultAsync(t => t.Id == id, ct) ?? throw new ApiFault(404, "Plantilla no encontrada.");
+    public Task<PageResponse<TemplateResponse>> VersionsAsync(string code, PageQuery query, CancellationToken ct) => Read(query.IncludeDeleted).Where(t => t.Code == RecordActions.Code(code)).ToPageAsync(query, Projection, ct);
+    public async Task<TemplateResponse> GetAsync(long id, CancellationToken ct) => await Read().Where(t => t.Id == id).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Plantilla no encontrada.");
 
     // Serializa cambios por código en PostgreSQL y respeta el índice de una versión vigente.
     private Task<int> LockAsync(string code, CancellationToken ct) => db.Database.ExecuteSqlInterpolatedAsync($"SELECT pg_advisory_xact_lock(hashtextextended({code}, 0))", ct);

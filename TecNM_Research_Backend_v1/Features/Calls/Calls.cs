@@ -109,16 +109,22 @@ public class CallsService(AppDbContext db, ICurrentActor actor) : ICallsService
         if (query.CallTypeId.HasValue) q = q.Where(c => c.CallTypeId == query.CallTypeId.Value);
         if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); q = q.Where(c => c.Code.ToLower().Contains(term) || c.Name.ToLower().Contains(term)); }
         if (onlyOpen) q = OpenCalls(q, now);
-        var rows = q.OrderBy(c => c.DisplayOrder).ThenBy(c => c.Id).Select(Project(now, onlyOpen));
-        if (query.StatusId.HasValue) rows = rows.Where(c => (int)c.StatusId == query.StatusId.Value);
-        return await rows.ToPageAsync(query, ct);
+        q = query.StatusId switch
+        {
+            1 => q.Where(c => !c.IsActive),
+            2 => q.Where(c => c.IsActive && now < c.OpensAt),
+            3 => q.Where(c => c.IsActive && c.OpensAt <= now && now < c.ClosesAt),
+            4 => q.Where(c => c.IsActive && c.ClosesAt <= now),
+            _ => q
+        };
+        return await q.OrderBy(c => c.DisplayOrder).ThenBy(c => c.Id).ToPageAsync(query, Project(now, onlyOpen), ct);
     }
     public Task<List<OptionResponse>> OptionsAsync(CancellationToken ct) => OpenCalls(db.CCalls.AsNoTracking(), DateTime.UtcNow).OrderBy(c => c.DisplayOrder).ThenBy(c => c.Id).Select(c => new OptionResponse(c.Id, c.Code, c.Name)).Take(200).ToListAsync(ct);
     public async Task<CallDetailResponse> GetAsync(long id, CancellationToken ct)
     {
         var call = await ReadOneAsync(id, ct);
-        var requirements = await CallRequirementsService.Read(db).Where(r => r.CallId == id && r.DeletedAt == null).ToListAsync(ct);
-        var documents = await CallDocumentRequirementsService.Read(db).Where(r => r.CallId == id && r.DeletedAt == null).ToListAsync(ct);
+        var requirements = await CallRequirementsService.Read(db).Where(r => r.CallId == id && r.DeletedAt == null).Select(CallRequirementsService.Projection).ToListAsync(ct);
+        var documents = await CallDocumentRequirementsService.Read(db).Where(r => r.CallId == id && r.DeletedAt == null).Select(CallDocumentRequirementsService.Projection).ToListAsync(ct);
         return new(call, requirements, documents);
     }
     private async Task<CallResponse> ReadOneAsync(long id, CancellationToken ct) => await db.CCalls.AsNoTracking().Where(c => c.Id == id && c.DeletedAt == null).Select(Project(DateTime.UtcNow)).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Convocatoria no encontrada.");

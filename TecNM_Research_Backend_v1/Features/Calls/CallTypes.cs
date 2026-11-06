@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,10 +41,13 @@ public record CallTypesResponse(long Id, string Code, string Name, string? Descr
 
 public class CallTypesService(AppDbContext db, ICurrentActor actor)
 {
-    private IQueryable<CallTypesResponse> Read(bool includeDeleted = false) => db.CCallTypes.AsNoTracking().Where(e => includeDeleted || e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new CallTypesResponse(e.Id, e.Code, e.Name, e.Description, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt));
+    private IQueryable<CCallTypes> Read(bool includeDeleted = false) => db.CCallTypes.AsNoTracking().Where(e => includeDeleted || e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id);
+
+    private static readonly Expression<Func<CCallTypes, CallTypesResponse>> Projection = e => new CallTypesResponse(e.Id, e.Code, e.Name, e.Description, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt);
+
     public async Task<PageResponse<CallTypesResponse>> ListAsync(PageQuery query, CancellationToken ct)
     {
-        var rows = db.CCallTypes.AsNoTracking().Where(e => query.IncludeDeleted || e.DeletedAt == null);
+        var rows = Read(query.IncludeDeleted);
 
         if (!string.IsNullOrWhiteSpace(query.Search))
         {
@@ -51,33 +55,11 @@ public class CallTypesService(AppDbContext db, ICurrentActor actor)
             rows = rows.Where(e => e.Code.ToLower().Contains(term) || e.Name.ToLower().Contains(term));
         }
 
-        var total = await rows.CountAsync(ct);
-        var offset = ((long)query.PageNumber - 1) * query.PageSize;
-        var items = new List<CallTypesResponse>();
-
-        if (offset < total)
-        {
-            items = await rows
-                .OrderBy(e => e.DisplayOrder)
-                .ThenBy(e => e.Id)
-                .Skip((int)offset)
-                .Take(query.PageSize)
-                .Select(e => new CallTypesResponse(e.Id, e.Code, e.Name, e.Description, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt))
-                .ToListAsync(ct);
-        }
-
-        return new PageResponse<CallTypesResponse>(items, total, query.PageNumber, query.PageSize);
+        return await rows.ToPageAsync(query, Projection, ct);
     }
-    public async Task<CallTypesResponse> GetAsync(long id, CancellationToken ct)
-    {
-        var result = await db.CCallTypes
-            .AsNoTracking()
-            .Where(e => e.Id == id && e.DeletedAt == null)
-            .Select(e => new CallTypesResponse(e.Id, e.Code, e.Name, e.Description, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt))
-            .SingleOrDefaultAsync(ct);
 
-        return result ?? throw new ApiFault(404, "Tipo de convocatoria no encontrado.");
-    }
+    public async Task<CallTypesResponse> GetAsync(long id, CancellationToken ct) => await Read().Where(e => e.Id == id).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Tipo de convocatoria no encontrado.");
+    
     public Task<List<OptionResponse>> OptionsAsync(CancellationToken ct) => db.CCallTypes.AsNoTracking().Where(e => e.IsActive && e.IsVisible && e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new OptionResponse(e.Id, e.Code, e.Name)).Take(200).ToListAsync(ct);
     public async Task<CallTypesResponse> CreateAsync(CallTypesCreateRequest request, CancellationToken ct)
     {

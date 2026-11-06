@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,14 +41,15 @@ public record DocumentTypesResponse(long Id, string Code, string Name, string? D
 
 public class DocumentTypesService(AppDbContext db, ICurrentActor actor)
 {
-    private IQueryable<DocumentTypesResponse> Read(bool includeDeleted = false) => db.CDocumentTypes.AsNoTracking().Where(e => includeDeleted || e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new DocumentTypesResponse(e.Id, e.Code, e.Name, e.Description, e.TemplateId, e.Template == null ? null : e.Template.Name, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt));
+    private IQueryable<CDocumentTypes> Read(bool includeDeleted = false) => db.CDocumentTypes.AsNoTracking().Where(e => includeDeleted || e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id);
+    private static readonly Expression<Func<CDocumentTypes, DocumentTypesResponse>> Projection = e => new DocumentTypesResponse(e.Id, e.Code, e.Name, e.Description, e.TemplateId, e.Template == null ? null : e.Template.Name, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.CreatedAt, e.UpdatedAt, e.DeletedAt);
     public async Task<PageResponse<DocumentTypesResponse>> ListAsync(PageQuery query, CancellationToken ct)
     {
         var rows = Read(query.IncludeDeleted);
         if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); rows = rows.Where(e => e.Code.ToLower().Contains(term) || e.Name.ToLower().Contains(term)); }
-        return await rows.ToPageAsync(query, ct);
+        return await rows.ToPageAsync(query, Projection, ct);
     }
-    public async Task<DocumentTypesResponse> GetAsync(long id, CancellationToken ct) => await Read().SingleOrDefaultAsync(e => e.Id == id, ct) ?? throw new ApiFault(404, "Registro no encontrado.");
+    public async Task<DocumentTypesResponse> GetAsync(long id, CancellationToken ct) => await Read().Where(e => e.Id == id).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Registro no encontrado.");
     public Task<List<OptionResponse>> OptionsAsync(CancellationToken ct) => db.CDocumentTypes.AsNoTracking().Where(e => e.IsActive && e.IsVisible && e.DeletedAt == null).OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new OptionResponse(e.Id, e.Code, e.Name)).Take(200).ToListAsync(ct);
     public async Task<DocumentTypesResponse> CreateAsync(DocumentTypesCreateRequest request, CancellationToken ct)
     {

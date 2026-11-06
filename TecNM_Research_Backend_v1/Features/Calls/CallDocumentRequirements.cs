@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -38,7 +39,8 @@ public record CallDocumentRequirementResponse(long Id, long CallId, string Title
 
 public class CallDocumentRequirementsService(AppDbContext db, ICurrentActor actor)
 {
-    public static IQueryable<CallDocumentRequirementResponse> Read(AppDbContext db) => db.CallsDocumentRequirements.AsNoTracking().OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new CallDocumentRequirementResponse(e.Id, e.CallId, e.Title, e.DocumentTypeId, e.DocumentType.Name, e.DocumentType.TemplateId, e.DocumentType.Template == null ? null : e.DocumentType.Template.Name, e.WorkflowStage, e.IsRequired, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.DeletedAt));
+    public static IQueryable<CallsDocumentRequirements> Read(AppDbContext db) => db.CallsDocumentRequirements.AsNoTracking().OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id);
+    public static readonly Expression<Func<CallsDocumentRequirements, CallDocumentRequirementResponse>> Projection = e => new CallDocumentRequirementResponse(e.Id, e.CallId, e.Title, e.DocumentTypeId, e.DocumentType.Name, e.DocumentType.TemplateId, e.DocumentType.Template == null ? null : e.DocumentType.Template.Name, e.WorkflowStage, e.IsRequired, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.DeletedAt);
     private async Task ParentAsync(long callId, CancellationToken ct)
     {
         if (!await db.CCalls.AnyAsync(c => c.Id == callId && c.DeletedAt == null, ct)) throw new ApiFault(404, "Convocatoria no encontrada.");
@@ -53,12 +55,12 @@ public class CallDocumentRequirementsService(AppDbContext db, ICurrentActor acto
         await ParentAsync(callId, ct);
         var rows = Read(db).Where(e => e.CallId == callId && (query.IncludeDeleted || e.DeletedAt == null));
         if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); rows = rows.Where(e => e.Title.ToLower().Contains(term)); }
-        return await rows.ToPageAsync(query, ct);
+        return await rows.ToPageAsync(query, Projection, ct);
     }
     public async Task<CallDocumentRequirementResponse> GetAsync(long callId, long id, CancellationToken ct)
     {
         await ParentAsync(callId, ct);
-        return await Read(db).SingleOrDefaultAsync(e => e.CallId == callId && e.Id == id && e.DeletedAt == null, ct) ?? throw new ApiFault(404, "Requisito no encontrado en esta convocatoria.");
+        return await Read(db).Where(e => e.CallId == callId && e.Id == id && e.DeletedAt == null).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Requisito no encontrado en esta convocatoria.");
     }
     public async Task<CallDocumentRequirementResponse> CreateAsync(long callId, CallDocumentRequirementsCreateRequest request, CancellationToken ct)
     {

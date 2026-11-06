@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
@@ -48,6 +49,15 @@ public static class Paging
         var total = await query.CountAsync(ct);
         var offset = ((long)page.PageNumber - 1) * page.PageSize;
         var items = offset >= total ? new List<T>() : await query.Skip((int)offset).Take(page.PageSize).ToListAsync(ct);
+        return new(items, total, page.PageNumber, page.PageSize);
+    }
+    // La consulta recibida ya debe incluir filtros y un orden estable sobre entidades.
+    public static async Task<PageResponse<TResponse>> ToPageAsync<TEntity, TResponse>(this IQueryable<TEntity> query, PageQuery page, Expression<Func<TEntity, TResponse>> projection, CancellationToken ct)
+    {
+        Validate(page);
+        var total = await query.CountAsync(ct);
+        var offset = ((long)page.PageNumber - 1) * page.PageSize;
+        var items = offset >= total ? new List<TResponse>() : await query.Skip((int)offset).Take(page.PageSize).Select(projection).ToListAsync(ct);
         return new(items, total, page.PageNumber, page.PageSize);
     }
     public static void Validate(object value)

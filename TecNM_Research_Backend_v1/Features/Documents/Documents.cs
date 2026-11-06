@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -49,15 +50,16 @@ public record DocumentReferences(long Id, int Projects, int Applications, int Bu
 
 public class DocumentsService(AppDbContext db, ICurrentActor actor, ILocalFileStorage storage)
 {
-    private IQueryable<DocumentResponse> Read() => db.Documents.AsNoTracking().Where(d => d.DeletedAt == null).OrderByDescending(d => d.Id).Select(d => new DocumentResponse(d.Id, d.DocumentTypeId, d.DocumentType.Name, d.OriginalFileName, d.MediaType, d.SizeBytes, d.Sha256, d.UploadedBy, d.UploadedByNavigation.GivenName + " " + d.UploadedByNavigation.FamilyName, d.UploadedAt, d.IsActive, d.IsVisible, d.DisplayOrder, d.Notes));
+    private IQueryable<DocumentEntity> Read() => db.Documents.AsNoTracking().Where(d => d.DeletedAt == null).OrderByDescending(d => d.Id);
+    private static readonly Expression<Func<DocumentEntity, DocumentResponse>> Projection = d => new DocumentResponse(d.Id, d.DocumentTypeId, d.DocumentType.Name, d.OriginalFileName, d.MediaType, d.SizeBytes, d.Sha256, d.UploadedBy, d.UploadedByNavigation.GivenName + " " + d.UploadedByNavigation.FamilyName, d.UploadedAt, d.IsActive, d.IsVisible, d.DisplayOrder, d.Notes);
     public async Task<PageResponse<DocumentResponse>> ListAsync(DocumentsQuery query, CancellationToken ct)
     {
         var q = Read();
         if (query.DocumentTypeId.HasValue) q = q.Where(d => d.DocumentTypeId == query.DocumentTypeId.Value);
-        if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); q = q.Where(d => d.OriginalFileName.ToLower().Contains(term) || d.DocumentTypeName.ToLower().Contains(term)); }
-        return await q.ToPageAsync(query, ct);
+        if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); q = q.Where(d => d.OriginalFileName.ToLower().Contains(term) || d.DocumentType.Name.ToLower().Contains(term)); }
+        return await q.ToPageAsync(query, Projection, ct);
     }
-    public async Task<DocumentResponse> GetAsync(long id, CancellationToken ct) => await Read().SingleOrDefaultAsync(d => d.Id == id, ct) ?? throw new ApiFault(404, "Documento no encontrado.");
+    public async Task<DocumentResponse> GetAsync(long id, CancellationToken ct) => await Read().Where(d => d.Id == id).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Documento no encontrado.");
     public async Task<DocumentResponse> UploadAsync(DocumentUploadRequest request, CancellationToken ct)
     {
         Paging.Validate(request);

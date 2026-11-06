@@ -1,3 +1,4 @@
+using System.Linq.Expressions;
 using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -37,7 +38,8 @@ public record CallRequirementResponse(long Id, long CallId, string Title, string
 
 public class CallRequirementsService(AppDbContext db, ICurrentActor actor)
 {
-    public static IQueryable<CallRequirementResponse> Read(AppDbContext db) => db.CallsRequirements.AsNoTracking().OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id).Select(e => new CallRequirementResponse(e.Id, e.CallId, e.Title, e.Description, e.IsRequired, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.DeletedAt));
+    public static IQueryable<CallsRequirements> Read(AppDbContext db) => db.CallsRequirements.AsNoTracking().OrderBy(e => e.DisplayOrder).ThenBy(e => e.Id);
+    public static readonly Expression<Func<CallsRequirements, CallRequirementResponse>> Projection = e => new CallRequirementResponse(e.Id, e.CallId, e.Title, e.Description, e.IsRequired, e.IsActive, e.IsVisible, e.DisplayOrder, e.Notes, e.DeletedAt);
     private async Task ParentAsync(long callId, CancellationToken ct)
     {
         if (!await db.CCalls.AnyAsync(c => c.Id == callId && c.DeletedAt == null, ct)) throw new ApiFault(404, "Convocatoria no encontrada.");
@@ -52,12 +54,12 @@ public class CallRequirementsService(AppDbContext db, ICurrentActor actor)
         await ParentAsync(callId, ct);
         var rows = Read(db).Where(e => e.CallId == callId && (query.IncludeDeleted || e.DeletedAt == null));
         if (!string.IsNullOrWhiteSpace(query.Search)) { var term = query.Search.Trim().ToLowerInvariant(); rows = rows.Where(e => e.Title.ToLower().Contains(term)); }
-        return await rows.ToPageAsync(query, ct);
+        return await rows.ToPageAsync(query, Projection, ct);
     }
     public async Task<CallRequirementResponse> GetAsync(long callId, long id, CancellationToken ct)
     {
         await ParentAsync(callId, ct);
-        return await Read(db).SingleOrDefaultAsync(e => e.CallId == callId && e.Id == id && e.DeletedAt == null, ct) ?? throw new ApiFault(404, "Requisito no encontrado en esta convocatoria.");
+        return await Read(db).Where(e => e.CallId == callId && e.Id == id && e.DeletedAt == null).Select(Projection).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Requisito no encontrado en esta convocatoria.");
     }
     public async Task<CallRequirementResponse> CreateAsync(long callId, CallRequirementsCreateRequest request, CancellationToken ct)
     {
