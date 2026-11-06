@@ -1,8 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
-using Microsoft.IdentityModel.Tokens;
 using TecNM.Research.Data;
+using TecNM.Research.Common;
 using TecNM.Research.Features.Calls;
+using TecNM.Research.Features.Documents;
+
 
 
 var builder = WebApplication.CreateBuilder(args);
@@ -10,8 +11,9 @@ var builder = WebApplication.CreateBuilder(args);
 // Register the Controllers (JSON: camelCase)
 builder.Services.AddControllers();
 
-// Respuestas estándar para errores inesperados.
-builder.Services.AddProblemDetails();
+builder.Services.AddResearchSharedServices();
+builder.Services.AddCallsModule();
+builder.Services.AddDocumentsModule();
 
 // Setting size limits for file uploads (30MB buffer for formats and documents)
 builder.WebHost.ConfigureKestrel(serverOptions =>
@@ -42,34 +44,29 @@ builder.Services.AddCors(options =>
 });
 
 // PostgreSQL Database Context
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
+var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+if (string.IsNullOrWhiteSpace(connectionString))
+{
+    throw new InvalidOperationException("Falta configurar ConnectionStrings:DefaultConnection.");
+}
 builder.Services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
 
 
-// Feature Services
-builder.Services.AddScoped<ICallsService, CallsService>();
 
 // Application Settings
 
 var app = builder.Build();
-
-// Centralize unexpected errors.
 app.UseExceptionHandler();
+app.UseCors("AllowAll");
+app.MapControllers();
 
 // Swagger exclusively in development.
-
 if(app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
 }
-
-app.UseCors("AllowAll");
-
-app.UseAuthentication();
-app.UseAuthorization();
-
-app.MapControllers();
 
 
 
@@ -80,7 +77,7 @@ app.Lifetime.ApplicationStarted.Register(() =>
 
     Console.ForegroundColor = ConsoleColor.Cyan;
     Console.WriteLine("\n==================================================");
-    Console.WriteLine(" 🚀 RTecNM V2 BACKEND (REST API) EN EJECUCIÓN");
+    Console.WriteLine(" 🚀 TecNM Research Backend V1 (REST API) en ejecución");
     Console.WriteLine($" 📌 Servidor API iniciado en: {primaryUrl}");
     Console.WriteLine($" 🔗 Base Endpoint:             {primaryUrl}/api/v1");
     Console.WriteLine("==================================================\n");
