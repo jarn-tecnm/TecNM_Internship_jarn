@@ -3,41 +3,41 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class milestones
+public partial class Milestones
 {
-    public long id { get; set; }
+    public long Id { get; set; }
 
-    public long objective_id { get; set; }
+    public long ObjectiveId { get; set; }
 
-    public string title { get; set; } = null!;
+    public string Title { get; set; } = null!;
 
-    public string? description { get; set; }
+    public string? Description { get; set; }
 
-    public DateOnly due_on { get; set; }
+    public DateOnly DueOn { get; set; }
 
-    public bool is_active { get; set; }
+    public bool IsActive { get; set; }
 
-    public bool is_visible { get; set; }
+    public bool IsVisible { get; set; }
 
-    public int display_order { get; set; }
+    public int DisplayOrder { get; set; }
 
-    public long? created_by { get; set; }
+    public long? CreatedBy { get; set; }
 
-    public long? updated_by { get; set; }
+    public long? UpdatedBy { get; set; }
 
-    public long? deleted_by { get; set; }
+    public long? DeletedBy { get; set; }
 
-    public DateTime created_at { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime updated_at { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public DateTime? deleted_at { get; set; }
+    public DateTime? DeletedAt { get; set; }
 
-    public string? notes { get; set; }
+    public string? Notes { get; set; }
 
-    public virtual ICollection<activities> activities { get; set; } = new List<activities>();
+    public virtual ICollection<Activities> Activities { get; set; } = new List<Activities>();
 
-    public virtual ICollection<milestones_status_history> milestones_status_history { get; set; } = new List<milestones_status_history>();
+    public virtual ICollection<MilestonesStatusHistory> MilestonesStatusHistory { get; set; } = new List<MilestonesStatusHistory>();
 
-    public virtual objectives objective { get; set; } = null!;
+    public virtual Objectives Objective { get; set; } = null!;
 }

@@ -18,7 +18,7 @@ Estas rutas tienen el mismo conjunto de operaciones:
 | GET | /{id} | Registro o detalle; excluye eliminados. |
 | POST | vacío | Crear; 201 y Location. |
 | PUT | /{id} | Actualizar campos editables; 200. |
-| PATCH | /{id}/active | `{ "isActive": true }` o false; 204. |
+| PATCH | /{id}/active | `{ "IsActive": true }` o false; 204. |
 | PATCH | /{id}/visibility | `{ "isVisible": true }` o false; 204. |
 | DELETE | /{id} | Eliminación lógica; 204. |
 | PATCH | /{id}/restore | Restauración inactiva y oculta; 204. |
@@ -93,7 +93,7 @@ No hay uploadedBy, sha256, storageKey o ruta física en el contrato de carga. Lo
 | POST | /document-templates | Multipart: Code, Name, File, DisplayOrder y Notes opcionales. Crea v1 o siguiente versión y la hace vigente. |
 | PUT | /document-templates/{id} | JSON: displayOrder y notes. Solo metadatos permitidos por trigger. |
 | PATCH | /document-templates/{id}/current | Seleccionar una versión activa como vigente; 204. |
-| PATCH | /document-templates/{id}/active | JSON: isActive; 204. |
+| PATCH | /document-templates/{id}/active | JSON: IsActive; 204. |
 | PATCH | /document-templates/{id}/visibility | JSON: isVisible; 204. |
 | DELETE | /document-templates/{id} | Eliminación lógica; exige desvincular tipos y preservar otra vigente cuando corresponda. |
 | PATCH | /document-templates/{id}/restore | Restaurar inactiva y oculta; 204. |

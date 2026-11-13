@@ -3,67 +3,67 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class documents
+public partial class Documents
 {
-    public long id { get; set; }
+    public long Id { get; set; }
 
-    public long document_type_id { get; set; }
+    public long DocumentTypeId { get; set; }
 
-    public string original_file_name { get; set; } = null!;
+    public string OriginalFileName { get; set; } = null!;
 
-    public string storage_key { get; set; } = null!;
+    public string StorageKey { get; set; } = null!;
 
-    public string media_type { get; set; } = null!;
+    public string MediaType { get; set; } = null!;
 
-    public long size_bytes { get; set; }
+    public long SizeBytes { get; set; }
 
-    public string sha256 { get; set; } = null!;
+    public string Sha256 { get; set; } = null!;
 
-    public long uploaded_by { get; set; }
+    public long UploadedBy { get; set; }
 
-    public DateTime uploaded_at { get; set; }
+    public DateTime UploadedAt { get; set; }
 
-    public bool is_active { get; set; }
+    public bool IsActive { get; set; }
 
-    public bool is_visible { get; set; }
+    public bool IsVisible { get; set; }
 
-    public int display_order { get; set; }
+    public int DisplayOrder { get; set; }
 
-    public long? created_by { get; set; }
+    public long? CreatedBy { get; set; }
 
-    public long? updated_by { get; set; }
+    public long? UpdatedBy { get; set; }
 
-    public long? deleted_by { get; set; }
+    public long? DeletedBy { get; set; }
 
-    public DateTime created_at { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime updated_at { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public DateTime? deleted_at { get; set; }
+    public DateTime? DeletedAt { get; set; }
 
-    public string? notes { get; set; }
+    public string? Notes { get; set; }
 
-    public virtual ICollection<academic_authorizations_history> academic_authorizations_history { get; set; } = new List<academic_authorizations_history>();
+    public virtual ICollection<AcademicAuthorizationsHistory> AcademicAuthorizationsHistory { get; set; } = new List<AcademicAuthorizationsHistory>();
 
-    public virtual ICollection<activities_status_history_documents> activities_status_history_documents { get; set; } = new List<activities_status_history_documents>();
+    public virtual ICollection<ActivitiesStatusHistoryDocuments> ActivitiesStatusHistoryDocuments { get; set; } = new List<ActivitiesStatusHistoryDocuments>();
 
-    public virtual c_document_types document_type { get; set; } = null!;
+    public virtual CDocumentTypes DocumentType { get; set; } = null!;
 
-    public virtual ICollection<milestones_status_history_documents> milestones_status_history_documents { get; set; } = new List<milestones_status_history_documents>();
+    public virtual ICollection<MilestonesStatusHistoryDocuments> MilestonesStatusHistoryDocuments { get; set; } = new List<MilestonesStatusHistoryDocuments>();
 
-    public virtual ICollection<objectives_status_history_documents> objectives_status_history_documents { get; set; } = new List<objectives_status_history_documents>();
+    public virtual ICollection<ObjectivesStatusHistoryDocuments> ObjectivesStatusHistoryDocuments { get; set; } = new List<ObjectivesStatusHistoryDocuments>();
 
-    public virtual ICollection<projects_applications_documents> projects_applications_documents { get; set; } = new List<projects_applications_documents>();
+    public virtual ICollection<ProjectsApplicationsDocuments> ProjectsApplicationsDocuments { get; set; } = new List<ProjectsApplicationsDocuments>();
 
-    public virtual ICollection<projects_budget_documents> projects_budget_documents { get; set; } = new List<projects_budget_documents>();
+    public virtual ICollection<ProjectsBudgetDocuments> ProjectsBudgetDocuments { get; set; } = new List<ProjectsBudgetDocuments>();
 
-    public virtual ICollection<projects_documents> projects_documents { get; set; } = new List<projects_documents>();
+    public virtual ICollection<ProjectsDocuments> ProjectsDocuments { get; set; } = new List<ProjectsDocuments>();
 
-    public virtual ICollection<projects_expenses_documents> projects_expenses_documents { get; set; } = new List<projects_expenses_documents>();
+    public virtual ICollection<ProjectsExpensesDocuments> ProjectsExpensesDocuments { get; set; } = new List<ProjectsExpensesDocuments>();
 
-    public virtual ICollection<projects_funding_documents> projects_funding_documents { get; set; } = new List<projects_funding_documents>();
+    public virtual ICollection<ProjectsFundingDocuments> ProjectsFundingDocuments { get; set; } = new List<ProjectsFundingDocuments>();
 
-    public virtual ICollection<research_outputs_documents> research_outputs_documents { get; set; } = new List<research_outputs_documents>();
+    public virtual ICollection<ResearchOutputsDocuments> ResearchOutputsDocuments { get; set; } = new List<ResearchOutputsDocuments>();
 
-    public virtual users uploaded_byNavigation { get; set; } = null!;
+    public virtual Users UploadedByNavigation { get; set; } = null!;
 }

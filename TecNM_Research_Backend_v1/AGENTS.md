@@ -56,12 +56,12 @@ All entities MUST inherit from `BaseEntity` with these audit fields:
 | `DeletedBy` | `long?` | `NULL` |
 | `CreatedAt` | `DateTime` | `CURRENT_TIMESTAMP NOT NULL` |
 | `UpdatedAt` | `DateTime` | `CURRENT_TIMESTAMP NOT NULL` |
-| `DeletedAt` | `DateTime?` | `NULL` |
+| `deleted_at` | `DateTime?` | `NULL` |
 
-### isActive Protocol
+### IsActive Protocol
 - **NEVER** include `IsActive` in any `Update*Dto`
-- **Soft Delete**: `DELETE /api/v1/{domain}/{id}` → sets `IsActive=false`, `DeletedAt`, `DeletedBy`
-- **Reactivate**: `PATCH /api/v1/{domain}/{id}/activate` → sets `IsActive=true`, clears `DeletedAt`/`DeletedBy`
+- **Soft Delete**: `DELETE /api/v1/{domain}/{id}` → sets `IsActive=false`, `deleted_at`, `DeletedBy`
+- **Reactivate**: `PATCH /api/v1/{domain}/{id}/activate` → sets `IsActive=true`, clears `deleted_at`/`DeletedBy`
 
 ---
 
@@ -90,7 +90,7 @@ All entities MUST inherit from `BaseEntity` with these audit fields:
 | C# Private Fields | `_camelCase` | `_studentRepository` |
 | C# Parameters | `camelCase` | `studentId` |
 | Database Tables | `snake_case` | `students`, `residency_projects` |
-| Database Columns | `snake_case` | `first_name`, `is_active` |
+| Database Columns | `snake_case` | `first_name`, `IsActive` |
 | User Interface | **Spanish (es-MX)** | `Nombre`, `Guardar`, `Eliminar` |
 
 EF Core must use `UseSnakeCaseNamingConvention()` for PostgreSQL mapping.

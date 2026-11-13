@@ -1,8 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using TecNM.Research.Data;
 using TecNM.Research.Common;
-// using TecNM.Research.Features.Calls;
-// using TecNM.Research.Features.Documents;
+using TecNM.Research.Features.Calls;
+using TecNM.Research.Features.Documents;
 
 
 
@@ -12,8 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllers();
 
 builder.Services.AddResearchSharedServices();
-// builder.Services.AddCallsModule();
-// builder.Services.AddDocumentsModule();
+builder.Services.AddCallsModule();
+builder.Services.AddDocumentsModule();
 
 // Setting size limits for file uploads (30MB buffer for formats and documents)
 builder.WebHost.ConfigureKestrel(serverOptions =>

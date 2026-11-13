@@ -3,51 +3,51 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class researchers
+public partial class Researchers
 {
-    public long id { get; set; }
+    public long Id { get; set; }
 
-    public long user_id { get; set; }
+    public long UserId { get; set; }
 
-    public string? orcid { get; set; }
+    public string? Orcid { get; set; }
 
-    public string? professional_summary { get; set; }
+    public string? ProfessionalSummary { get; set; }
 
-    public string? research_interests { get; set; }
+    public string? ResearchInterests { get; set; }
 
-    public bool is_active { get; set; }
+    public bool IsActive { get; set; }
 
-    public bool is_visible { get; set; }
+    public bool IsVisible { get; set; }
 
-    public int display_order { get; set; }
+    public int DisplayOrder { get; set; }
 
-    public long? created_by { get; set; }
+    public long? CreatedBy { get; set; }
 
-    public long? updated_by { get; set; }
+    public long? UpdatedBy { get; set; }
 
-    public long? deleted_by { get; set; }
+    public long? DeletedBy { get; set; }
 
-    public DateTime created_at { get; set; }
+    public DateTime CreatedAt { get; set; }
 
-    public DateTime updated_at { get; set; }
+    public DateTime UpdatedAt { get; set; }
 
-    public DateTime? deleted_at { get; set; }
+    public DateTime? DeletedAt { get; set; }
 
-    public string? notes { get; set; }
+    public string? Notes { get; set; }
 
-    public virtual ICollection<academic_groups_researchers> academic_groups_researchers { get; set; } = new List<academic_groups_researchers>();
+    public virtual ICollection<AcademicGroupsResearchers> AcademicGroupsResearchers { get; set; } = new List<AcademicGroupsResearchers>();
 
-    public virtual ICollection<projects_researchers> projects_researchers { get; set; } = new List<projects_researchers>();
+    public virtual ICollection<ProjectsResearchers> ProjectsResearchers { get; set; } = new List<ProjectsResearchers>();
 
-    public virtual ICollection<research_outputs_researchers> research_outputs_researchers { get; set; } = new List<research_outputs_researchers>();
+    public virtual ICollection<ResearchOutputsResearchers> ResearchOutputsResearchers { get; set; } = new List<ResearchOutputsResearchers>();
 
-    public virtual ICollection<researchers_degrees> researchers_degrees { get; set; } = new List<researchers_degrees>();
+    public virtual ICollection<ResearchersDegrees> ResearchersDegrees { get; set; } = new List<ResearchersDegrees>();
 
-    public virtual ICollection<researchers_experiences> researchers_experiences { get; set; } = new List<researchers_experiences>();
+    public virtual ICollection<ResearchersExperiences> ResearchersExperiences { get; set; } = new List<ResearchersExperiences>();
 
-    public virtual ICollection<researchers_organizations> researchers_organizations { get; set; } = new List<researchers_organizations>();
+    public virtual ICollection<ResearchersOrganizations> ResearchersOrganizations { get; set; } = new List<ResearchersOrganizations>();
 
-    public virtual ICollection<researchers_research_lines> researchers_research_lines { get; set; } = new List<researchers_research_lines>();
+    public virtual ICollection<ResearchersResearchLines> ResearchersResearchLines { get; set; } = new List<ResearchersResearchLines>();
 
-    public virtual users user { get; set; } = null!;
+    public virtual Users User { get; set; } = null!;
 }
