@@ -1,0 +1,1464 @@
+<script setup>
+import { ref, onMounted, computed } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
+import { useAuthStore } from '@/stores/auth'
+import { useConfirm } from '@/composables/useConfirm'
+import { useAudit } from '@/composables/useAudit'
+import { useGlobalSearch } from '@/composables/useGlobalSearch'
+import apiClient, { getUploadErrorMessage } from '@/services/api'
+import TecnmPagination from '@/components/common/TecnmPagination.vue'
+import TecnmBadge from '@/components/common/TecnmBadge.vue'
+import TecnmAdvisorFilter from '@/components/common/TecnmAdvisorFilter.vue'
+import TecnmTableToolbar from '@/components/common/TecnmTableToolbar.vue'
+import TecnmExportButton from '@/components/common/TecnmExportButton.vue'
+import { useTableSort } from '@/composables/useTableSort'
+
+const route = useRoute()
+const router = useRouter()
+const authStore = useAuthStore()
+const { confirm } = useConfirm()
+const { showAudit } = useAudit()
+const { open: openSearch } = useGlobalSearch()
+
+// Estado
+const students = ref([])
+const includeInactive = ref(false)
+const excludeEvaluated = ref(true)
+const { sortBy, sortDir, toggleSort, getSortIcon, isSortActive } = useTableSort(
+  'ControlNumber',
+  'asc',
+  () => {
+    pageNumber.value = 1
+    loadStudents({ silent: true })
+  }
+)
+const searchTerm = ref('')
+const isLoading = ref(false)
+
+// Paginación
+const pageNumber = ref(1)
+const pageSize = ref(10)
+const totalCount = ref(0)
+const totalPages = ref(0)
+
+// Notificaciones
+const alertMessage = ref('')
+const alertType = ref('success')
+let alertTimer = null
+
+function showAlert(msg, type = 'success') {
+  alertMessage.value = msg
+  alertType.value = type
+  clearTimeout(alertTimer)
+  alertTimer = setTimeout(() => {
+    alertMessage.value = ''
+  }, 4500)
+}
+
+// Catálogos
+const ACADEMIC_PERIODS = [
+  { id: 1, name: 'Ene-Jun 2026' },
+  { id: 2, name: 'Ago-Dic 2026' },
+  { id: 3, name: 'Ene-Jun 2027' },
+  { id: 4, name: 'Ago-Dic 2027' },
+]
+
+const GENDER_OPTIONS = [
+  { value: 'Masculino', label: 'Masculino' },
+  { value: 'Femenino', label: 'Femenino' },
+  { value: 'Otro', label: 'Otro / No especificado' },
+]
+
+// Modal Formulario
+const isModalOpen = ref(false)
+const isEditMode = ref(false)
+const editingStudentId = ref(null)
+const isSubmitting = ref(false)
+const formError = ref('')
+
+const form = ref({
+  controlNumber: '',
+  firstName: '',
+  lastName: '',
+  lastName2: '',
+  curp: '',
+  gender: 'Masculino',
+  email: '',
+  careerId: 1,
+  academicPeriodId: 1,
+  gpa: '',
+  hasComplementaryActivities: false,
+  hasSocialService: false,
+  hasSpecialRequirements: false,
+})
+
+const canCreate = computed(() => {
+  if (authStore.isReadOnly || authStore.isCareerHead) return false
+  if (authStore.hasRole('academic', 'departmenthead') && !authStore.isAdmin) return false
+  return authStore.isAdmin || authStore.hasRole('vinculacion', 'director') || authStore.hasPermission('students.manage')
+})
+
+const canImport = computed(() => {
+  if (authStore.isCareerHead) return false
+  return (
+    authStore.isAdmin ||
+    authStore.hasPermission('students.import.excel') ||
+    authStore.hasRole('admin', 'vinculacion')
+  )
+})
+
+// Modal Importar Excel Estudiantes
+const isImportModalOpen = ref(false)
+const importFile = ref(null)
+const isImporting = ref(false)
+const importError = ref('')
+const importResult = ref(null)
+
+function openImportModal() {
+  importFile.value = null
+  isImporting.value = false
+  importError.value = ''
+  importResult.value = null
+  isImportModalOpen.value = true
+}
+
+function handleFileChange(event) {
+  const files = event.target.files
+  if (files && files.length > 0) {
+    const file = files[0]
+    if (file.size > 5 * 1024 * 1024) {
+      importError.value = 'No se pudo seleccionar: el archivo supera el límite permitido de 5MB.'
+      importFile.value = null
+      event.target.value = ''
+      return
+    }
+    importFile.value = file
+    importError.value = ''
+  } else {
+    importFile.value = null
+  }
+}
+
+async function handleImportSubmit() {
+  importError.value = ''
+  importResult.value = null
+
+  if (!importFile.value) {
+    importError.value = 'Seleccione un archivo Excel (.xlsx o .xls).'
+    return
+  }
+
+  isImporting.value = true
+  const formData = new FormData()
+  formData.append('file', importFile.value)
+
+  try {
+    const res = await apiClient.post('/v1/students/import-excel', formData, {
+      headers: { 'Content-Type': 'multipart/form-data' },
+    })
+    importResult.value = res.data
+    const created = res.data.createdCount ?? 0
+    const updated = res.data.updatedCount ?? 0
+    if (updated > 0 && created > 0) {
+      showAlert(`Importación finalizada: ${created} nuevos registrados y ${updated} actualizados.`, 'success')
+    } else if (updated > 0) {
+      showAlert(`Importación finalizada: ${updated} estudiantes actualizados exitosamente.`, 'success')
+    } else {
+      showAlert(`Importación finalizada. ${created || res.data.successCount} estudiantes registrados.`, 'success')
+    }
+    loadStudents()
+  } catch (err) {
+    importError.value = getUploadErrorMessage(err, 'importar los alumnos')
+  } finally {
+    isImporting.value = false
+  }
+}
+
+const defaultCareersMap = {
+  1: 'Ing. Informática',
+  2: 'Ing. Industrial',
+  3: 'Ing. Mecatrónica',
+  4: 'Ing. en Energías Renovables',
+  5: 'Ing. Electrónica',
+  6: 'Ing. en Gestión Empresarial',
+  7: 'Ing. Mecánica',
+}
+
+const CAREERS = ref({ ...defaultCareersMap })
+
+const selectedCareerFilter = ref(
+  authStore.isCareerHead && authStore.userCareerId
+    ? String(authStore.userCareerId)
+    : 'all'
+)
+
+const stageFilter = ref('all')
+const selectedAdvisorFilter = ref('all')
+const advisorsList = ref([])
+
+function onStageFilterChange() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+function onAdvisorFilterChange() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+async function loadAdvisorsCatalog() {
+  try {
+    const res = await apiClient.get('/v1/advisors/options')
+    advisorsList.value = res.data || []
+  } catch {
+    advisorsList.value = []
+  }
+}
+
+const sortedStudents = computed(() => {
+  return students.value
+})
+
+// Formato de fecha para display
+const MONTH_NAMES_ES = [
+  'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+  'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+]
+
+function formatTecNMDate(iso) {
+  if (!iso) return '—'
+  const d = new Date(iso)
+  if (isNaN(d.getTime())) return '—'
+  const day = String(d.getDate()).padStart(2, '0')
+  const month = MONTH_NAMES_ES[d.getMonth()]
+  const year = d.getFullYear()
+  return `${day}/${month}/${year}`
+}
+
+async function loadStudents({ silent = false } = {}) {
+  if (!silent) isLoading.value = true
+  try {
+    const isAdvisedOnly = selectedCareerFilter.value === 'my_advised'
+    const params = {
+      pageNumber: pageNumber.value,
+      pageSize: pageSize.value,
+      sortBy: sortBy.value,
+      sortDir: sortDir.value,
+      search: searchTerm.value.trim() || undefined,
+      includeInactive: includeInactive.value,
+      excludeEvaluated: excludeEvaluated.value,
+      careerId: (selectedCareerFilter.value !== 'all' && !isAdvisedOnly) ? Number(selectedCareerFilter.value) : undefined,
+      advisorId: isAdvisedOnly
+        ? (authStore.userAdvisorId || undefined)
+        : (selectedAdvisorFilter.value !== 'all' ? Number(selectedAdvisorFilter.value) : undefined),
+      residencyStage: stageFilter.value !== 'all' ? stageFilter.value : undefined,
+    }
+    const res = await apiClient.get('/v1/students', { params })
+    const data = res.data
+    students.value = Array.isArray(data) ? data : (data.items || [])
+    totalCount.value = data.totalCount || students.value.length
+    totalPages.value = data.totalPages || Math.ceil(totalCount.value / pageSize.value) || 1
+  } catch (err) {
+    if (!silent) {
+      showAlert(err.response?.data?.message || 'Error al cargar estudiantes.', 'danger')
+      students.value = []
+    }
+  } finally {
+    if (!silent) isLoading.value = false
+  }
+}
+
+function onExcludeEvaluatedChange() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+function getResidencyStageBadgeClass(stage) {
+  switch (stage) {
+    case 'En Residencia':
+    case 'Concluido / Evaluado':
+      return 'tecnm-badge-success'
+    case 'Dictamen Aprobado':
+    case 'Asesor Asignado':
+      return 'tecnm-badge-primary'
+    case 'Anteproyecto Registrado':
+    case 'Carta Cargada':
+      return 'tecnm-badge-info'
+    case 'Borrador':
+    case 'Carta Pendiente':
+      return 'tecnm-badge-warning'
+    case 'Con Observaciones':
+      return 'tecnm-badge-danger'
+    default:
+      return 'tecnm-badge-secondary'
+  }
+}
+
+function onSearchSubmit() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+function handleOpenSearch() {
+  openSearch({
+    initialSource: 'STUDENTS',
+    onSelect: (item) => {
+      if (!item) return
+      if (item.is_active === false || item.isActive === false) {
+        includeInactive.value = true
+      }
+      const itemCareerId = item.career_id ?? item.careerId
+      if (itemCareerId && selectedCareerFilter.value !== 'all' && Number(selectedCareerFilter.value) !== Number(itemCareerId)) {
+        selectedCareerFilter.value = 'all'
+      }
+      const query = item.control_number || item.controlNumber || item.full_name || item.fullName || String(item.id || '')
+      searchTerm.value = query
+      pageNumber.value = 1
+      loadStudents()
+    },
+  })
+}
+
+function onInactiveToggleChange() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+function onCareerFilterChange() {
+  pageNumber.value = 1
+  loadStudents()
+}
+
+const handleSort = toggleSort
+
+function getSortClass(col) {
+  if (sortBy.value !== col) return 'tecnm-sort-th'
+  return sortDir.value === 'asc' ? 'tecnm-sort-th tecnm-sort-asc' : 'tecnm-sort-th tecnm-sort-desc'
+}
+
+function openCreateModal() {
+  isEditMode.value = false
+  editingStudentId.value = null
+  form.value = {
+    controlNumber: '',
+    firstName: '',
+    lastName: '',
+    lastName2: '',
+    curp: '',
+    gender: 'Masculino',
+    email: '',
+    careerId: 1,
+    academicPeriodId: 1,
+    gpa: '',
+    hasComplementaryActivities: false,
+    hasSocialService: false,
+    hasSpecialRequirements: false,
+  }
+  formError.value = ''
+  isModalOpen.value = true
+}
+
+async function openEditModal(student) {
+  try {
+    const res = await apiClient.get(`/v1/students/${student.id}`)
+    const s = res.data
+    isEditMode.value = true
+    editingStudentId.value = s.id
+    const rawG = s.gender ? String(s.gender).trim().toUpperCase() : ''
+    let normG = 'Masculino'
+    if (rawG === 'F' || rawG.startsWith('FEM') || rawG.startsWith('MUJ')) {
+      normG = 'Femenino'
+    } else if (rawG === 'M' || rawG.startsWith('MASC') || rawG === 'H' || rawG.startsWith('HOMB')) {
+      normG = 'Masculino'
+    } else if (s.gender) {
+      normG = s.gender
+    }
+
+    form.value = {
+      controlNumber: s.controlNumber || '',
+      firstName: s.firstName || '',
+      lastName: s.lastName || '',
+      lastName2: s.lastName2 || '',
+      curp: s.curp || '',
+      gender: normG,
+      email: s.email || '',
+      careerId: s.careerId || 1,
+      academicPeriodId: s.academicPeriodId || 1,
+      gpa: s.gpa != null ? s.gpa : '',
+      hasComplementaryActivities: s.hasComplementaryActivities || false,
+      hasSocialService: s.hasSocialService || false,
+      hasSpecialRequirements: s.hasSpecialRequirements || false,
+    }
+    formError.value = ''
+    isModalOpen.value = true
+  } catch {
+    showAlert('Error al cargar datos del estudiante.', 'danger')
+  }
+}
+
+function validateEmailDomain(email) {
+  const allowed = ['@monclova.tecnm.mx', '@tecnm.mx', '@cenidet.tecnm.mx']
+  const lower = email.toLowerCase().trim()
+  return allowed.some((d) => lower.endsWith(d))
+}
+
+async function handleSubmit() {
+  formError.value = ''
+
+  if (!form.value.controlNumber.trim()) {
+    formError.value = 'El número de control es obligatorio.'
+    return
+  }
+  if (!form.value.firstName.trim() || !form.value.lastName.trim()) {
+    formError.value = 'El nombre y el apellido paterno son obligatorios.'
+    return
+  }
+  if (!form.value.email.trim()) {
+    formError.value = 'El correo institucional es obligatorio.'
+    return
+  }
+  if (!validateEmailDomain(form.value.email)) {
+    formError.value = 'El correo debe pertenecer al dominio institucional (@monclova.tecnm.mx).'
+    return
+  }
+
+  isSubmitting.value = true
+
+  try {
+    if (isEditMode.value) {
+      await apiClient.put(`/v1/students/${editingStudentId.value}`, {
+        firstName: form.value.firstName.trim().replace(/\s+/g, ' '),
+        lastName: form.value.lastName.trim().replace(/\s+/g, ' '),
+        lastName2: form.value.lastName2 ? form.value.lastName2.trim().replace(/\s+/g, ' ') : undefined,
+        curp: form.value.curp ? form.value.curp.replace(/\s+/g, '').toUpperCase() : undefined,
+        gender: form.value.gender || 'Masculino',
+        careerId: Number(form.value.careerId),
+        academicPeriodId: form.value.academicPeriodId ? Number(form.value.academicPeriodId) : undefined,
+        gpa: form.value.gpa !== '' ? Number(form.value.gpa) : undefined,
+        hasComplementaryActivities: form.value.hasComplementaryActivities,
+        hasSocialService: form.value.hasSocialService,
+        hasSpecialRequirements: form.value.hasSpecialRequirements,
+      })
+      showAlert('Estudiante actualizado exitosamente.', 'success')
+    } else {
+      await apiClient.post('/v1/students', {
+        controlNumber: form.value.controlNumber.replace(/\s+/g, '').toUpperCase(),
+        firstName: form.value.firstName.trim().replace(/\s+/g, ' '),
+        lastName: form.value.lastName.trim().replace(/\s+/g, ' '),
+        lastName2: form.value.lastName2 ? form.value.lastName2.trim().replace(/\s+/g, ' ') : undefined,
+        curp: form.value.curp ? form.value.curp.replace(/\s+/g, '').toUpperCase() : undefined,
+        gender: form.value.gender || 'Masculino',
+        email: form.value.email.replace(/\s+/g, '').toLowerCase(),
+        careerId: Number(form.value.careerId),
+        academicPeriodId: form.value.academicPeriodId ? Number(form.value.academicPeriodId) : undefined,
+        gpa: form.value.gpa !== '' ? Number(form.value.gpa) : undefined,
+        hasComplementaryActivities: form.value.hasComplementaryActivities,
+        hasSocialService: form.value.hasSocialService,
+        hasSpecialRequirements: form.value.hasSpecialRequirements,
+      })
+      showAlert('Estudiante registrado exitosamente.', 'success')
+    }
+    isModalOpen.value = false
+    loadStudents()
+  } catch (err) {
+    formError.value =
+      err.response?.data?.message ||
+      'Error al procesar la solicitud. Verifique los datos ingresados.'
+  } finally {
+    isSubmitting.value = false
+  }
+}
+
+async function handleDeactivate(student) {
+  const confirmed = await confirm({
+    title: 'Desactivar Estudiante',
+    message: `¿Está seguro de desactivar al estudiante ${student.fullName || student.firstName}? El expediente pasará a estado inactivo.`,
+    okText: 'Desactivar',
+    cancelText: 'Cancelar',
+  })
+  if (!confirmed) return
+
+  try {
+    await apiClient.delete(`/v1/students/${student.id}`)
+    showAlert('Estudiante desactivado correctamente.', 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al desactivar estudiante.', 'danger')
+  }
+}
+
+async function handleReactivate(student) {
+  try {
+    await apiClient.patch(`/v1/students/${student.id}/activate`)
+    showAlert('Estudiante reactivado correctamente.', 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al reactivar estudiante.', 'danger')
+  }
+}
+
+async function handleBlockStudent(student) {
+  const reason = prompt('Ingrese la razón del bloqueo (obligatorio):')
+  if (!reason || !reason.trim()) {
+    showAlert('La razón del bloqueo es obligatoria.', 'danger')
+    return
+  }
+  try {
+    await apiClient.patch(`/v1/students/${student.id}/block`, { reason: reason.trim() })
+    showAlert('Estudiante bloqueado correctamente.', 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al bloquear estudiante.', 'danger')
+  }
+}
+
+async function handleUnblockStudent(student) {
+  try {
+    await apiClient.patch(`/v1/students/${student.id}/unblock`)
+    showAlert('Estudiante desbloqueado correctamente.', 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al desbloquear estudiante.', 'danger')
+  }
+}
+
+function handleAudit(student) {
+  showAudit({
+    title: `Auditoría — Estudiante ${student.controlNumber}`,
+    item: student,
+  })
+}
+
+function viewProfile(student) {
+  router.push(`/students/profile?id=${student.id}`)
+}
+
+async function handleExportPdf() {
+  try {
+    const isAdvisedOnly = selectedCareerFilter.value === 'my_advised'
+    const params = {
+      search: searchTerm.value.trim() || undefined,
+      sortBy: sortBy.value,
+      sortDir: sortDir.value,
+      includeInactive: includeInactive.value,
+      excludeEvaluated: excludeEvaluated.value,
+      careerId: (selectedCareerFilter.value !== 'all' && !isAdvisedOnly) ? Number(selectedCareerFilter.value) : undefined,
+      advisorId: isAdvisedOnly
+        ? (authStore.userAdvisorId || undefined)
+        : (selectedAdvisorFilter.value !== 'all' ? Number(selectedAdvisorFilter.value) : undefined),
+      residencyStage: stageFilter.value !== 'all' ? stageFilter.value : undefined,
+    }
+    const res = await apiClient.get('/v1/students/export', {
+      params,
+      responseType: 'blob',
+    })
+    const blob = new Blob([res.data], { type: 'application/pdf' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'estudiantes_tecnm.pdf'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  } catch {
+    showAlert('Error al exportar el reporte PDF.', 'danger')
+  }
+}
+
+const isSendingMassLetters = ref(false)
+const isSendingIndividualLetterId = ref(null)
+
+async function handleMassSendPresentationLetters() {
+  const confirmed = await confirm({
+    title: 'Enviar Cartas de Presentación',
+    message: 'Se generará y enviará por correo electrónico la Carta de Presentación Oficial en formato PDF únicamente a los alumnos que aún no la hayan recibido. ¿Desea proceder?',
+    okText: 'Enviar Cartas',
+    cancelText: 'Cancelar',
+  })
+  if (!confirmed) return
+
+  isSendingMassLetters.value = true
+  try {
+    const res = await apiClient.post('/v1/students/presentation-letters/mass-send')
+    const count = res.data.sentCount || 0
+    showAlert(res.data.message || `Se encoló el envío para ${count} carta(s) de presentación.`, 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al procesar el envío de cartas.', 'danger')
+  } finally {
+    isSendingMassLetters.value = false
+  }
+}
+
+async function handleSendIndividualPresentationLetter(student) {
+  const confirmed = await confirm({
+    title: 'Enviar Carta de Presentación',
+    message: `¿Desea enviar la Carta de Presentación en PDF al correo (${student.email}) del alumno ${student.fullName || student.firstName}?`,
+    okText: 'Enviar',
+    cancelText: 'Cancelar',
+  })
+  if (!confirmed) return
+
+  isSendingIndividualLetterId.value = student.id
+  try {
+    await apiClient.post(`/v1/students/${student.id}/presentation-letter/send`)
+    showAlert(`Carta de presentación encolada para ${student.email} exitosamente.`, 'success')
+    loadStudents()
+  } catch (err) {
+    showAlert(err.response?.data?.message || 'Error al enviar la carta de presentación.', 'danger')
+  } finally {
+    isSendingIndividualLetterId.value = null
+  }
+}
+
+async function handleDownloadStudentTemplate() {
+  try {
+    const res = await apiClient.get('/v1/students/import/template', { responseType: 'blob' })
+    const blob = new Blob([res.data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' })
+    const url = window.URL.createObjectURL(blob)
+    const link = document.createElement('a')
+    link.href = url
+    link.download = 'Plantilla_Alumnos.xlsx'
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+    window.URL.revokeObjectURL(url)
+  } catch {
+    showAlert('Error al descargar la plantilla de alumnos.', 'danger')
+  }
+}
+
+const careersOptions = ref([])
+
+const filteredCareers = computed(() => {
+  if (authStore.isCoordinator && authStore.userCareerIds.length > 0) {
+    const res = {}
+    authStore.userCareerIds.forEach(id => {
+      if (CAREERS.value[id]) res[id] = CAREERS.value[id]
+    })
+    return res
+  }
+  return CAREERS.value
+})
+
+async function loadCareersOptions() {
+  try {
+    const res = await apiClient.get('/v1/careers/all')
+    const list = res.data || []
+    if (list.length > 0) {
+      careersOptions.value = list
+      const map = {}
+      list.forEach(c => {
+        map[c.id] = c.name
+      })
+      CAREERS.value = map
+    }
+  } catch {
+    careersOptions.value = []
+  }
+}
+
+onMounted(() => {
+  if (route.query.search) {
+    searchTerm.value = String(route.query.search)
+  } else if (route.query.controlNumber) {
+    searchTerm.value = String(route.query.controlNumber)
+  }
+  loadCareersOptions()
+  loadAdvisorsCatalog()
+  loadStudents()
+})
+</script>
+
+<template>
+  <div>
+    <!-- Barra Superior de Acciones -->
+    <div class="tecnm-actions-bar">
+      <div>
+        <h1 class="tecnm-page-title">Gestión de Estudiantes Residentes</h1>
+        <p class="tecnm-page-subtitle">Catálogo de estudiantes y consulta de expedientes</p>
+      </div>
+      <div class="tecnm-page-actions">
+        <button
+          type="button"
+          class="tecnm-btn tecnm-btn-secondary"
+          @click="handleOpenSearch"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+            <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
+          </svg>
+          <span>Abrir búsqueda</span>
+        </button>
+        <button
+          v-if="canImport"
+          id="openImportStudentModalBtn"
+          type="button"
+          class="tecnm-btn tecnm-btn-secondary"
+          @click="openImportModal"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; display: inline-block; vertical-align: middle;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5" />
+          </svg>
+          <span>Importar Excel</span>
+        </button>
+        <button
+          v-if="authStore.isAdmin || authStore.hasRole('vinculacion')"
+          id="massSendPresentationLettersBtn"
+          type="button"
+          class="tecnm-btn tecnm-btn-secondary"
+          :disabled="isSendingMassLetters"
+          @click="handleMassSendPresentationLetters"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="margin-right: 0.35rem; display: inline-block; vertical-align: middle;">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M21.75 6.75v10.5a2.25 2.25 0 01-2.25 2.25h-15a2.25 2.25 0 01-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0019.5 4.5h-15a2.25 2.25 0 00-2.25 2.25m19.5 0v.243a2.25 2.25 0 01-1.07 1.916l-7.5 4.615a2.25 2.25 0 01-2.36 0L3.32 8.91a2.25 2.25 0 01-1.07-1.916V6.75" />
+          </svg>
+          <span>{{ isSendingMassLetters ? 'Enviando...' : 'Enviar Cartas de Presentación (Nuevos)' }}</span>
+        </button>
+        <span class="tecnm-page-actions-divider" aria-hidden="true"></span>
+        <button
+          v-if="canCreate"
+          id="openCreateModalBtn"
+          type="button"
+          class="tecnm-btn tecnm-btn-primary"
+          @click="openCreateModal"
+        >
+          Registrar Nuevo Estudiante
+        </button>
+      </div>
+    </div>
+
+    <!-- Alert de Notificación -->
+    <div
+      v-if="alertMessage"
+      id="alertContainer"
+      class="tecnm-alert"
+      :class="`tecnm-alert-${alertType}`"
+      role="alert"
+    >
+      <span>{{ alertMessage }}</span>
+    </div>
+
+    <!-- Tarjeta Principal de Tabla -->
+    <div class="tecnm-card">
+      <div class="tecnm-card-header">
+        <h3 class="tecnm-card-title">Directorio de Estudiantes</h3>
+      </div>
+
+      <TecnmTableToolbar
+        v-model="searchTerm"
+        search-placeholder="Buscar por nombre, no. control o correo..."
+        search-id="studentSearchInput"
+        @search="onSearchSubmit"
+      >
+        <template #filters>
+          <div v-if="!authStore.isCareerHead" class="tecnm-d-flex tecnm-align-center tecnm-gap-2" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <label for="careerFilterSelect" class="tecnm-field-label" style="margin-bottom: 0; white-space: nowrap; font-size: 0.85rem;">Carrera:</label>
+            <select
+              id="careerFilterSelect"
+              v-model="selectedCareerFilter"
+              class="tecnm-form-control tecnm-filter-select"
+              style="min-width: 230px; font-size: 0.85rem;"
+              @change="onCareerFilterChange"
+            >
+              <option value="all">{{ authStore.isCoordinator ? 'Mis Carreras Asignadas' : 'Todas las Carreras' }}</option>
+              <option v-for="(name, id) in filteredCareers" :key="id" :value="id">
+                {{ name }}
+              </option>
+            </select>
+          </div>
+
+          <div v-else class="tecnm-d-flex tecnm-align-center tecnm-gap-2" style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <label for="careerHeadScopeSelect" class="tecnm-field-label" style="margin-bottom: 0; white-space: nowrap; font-size: 0.85rem;">Vista:</label>
+            <select
+              id="careerHeadScopeSelect"
+              v-model="selectedCareerFilter"
+              class="tecnm-form-control tecnm-filter-select"
+              style="min-width: 220px; font-size: 0.85rem;"
+              @change="onCareerFilterChange"
+            >
+              <option :value="String(authStore.userCareerId)">Mi Carrera (Jefatura)</option>
+              <option value="my_advised">Mis Asesorados (Rol Asesor)</option>
+              <option value="all">Ver Todos (Carrera + Asesorados)</option>
+            </select>
+          </div>
+
+          <TecnmAdvisorFilter
+            v-model="selectedAdvisorFilter"
+            :advisors="advisorsList"
+            empty-value="all"
+            @change="onAdvisorFilterChange"
+          />
+
+          <div style="display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap;">
+            <select
+              id="stageFilterSelect"
+              v-model="stageFilter"
+              class="tecnm-form-control tecnm-filter-select"
+              style="min-width: 200px; font-size: 0.85rem;"
+              @change="onStageFilterChange"
+            >
+              <option value="all">Estado Residencia: Todos</option>
+              <option value="Sin Anteproyecto">Sin Anteproyecto</option>
+              <option value="Borrador">Borrador</option>
+              <option value="Anteproyecto Registrado">Anteproyecto Registrado</option>
+              <option value="Dictamen Aprobado">Dictamen Aprobado</option>
+              <option value="Asesor Asignado">Asesor Asignado</option>
+              <option value="En Residencia">En Residencia</option>
+              <option value="Con Observaciones">Con Observaciones</option>
+            </select>
+          </div>
+        </template>
+
+        <template #actions>
+          <label class="tecnm-switch-label" title="Ocultar estudiantes que ya completaron su ciclo y fueron evaluados">
+            <span class="tecnm-switch">
+              <input
+                id="studentsExcludeEvaluatedToggle"
+                v-model="excludeEvaluated"
+                type="checkbox"
+                @change="onExcludeEvaluatedChange"
+              />
+              <span class="tecnm-switch-slider"></span>
+            </span>
+            Ocultar evaluados
+          </label>
+          <label v-if="!authStore.isCareerHead" class="tecnm-switch-label">
+            <span class="tecnm-switch">
+              <input
+                id="studentsIncludeInactiveToggle"
+                v-model="includeInactive"
+                type="checkbox"
+                @change="onInactiveToggleChange"
+              />
+              <span class="tecnm-switch-slider"></span>
+            </span>
+            Mostrar inactivos
+          </label>
+          <TecnmExportButton
+            id="exportStudentsBtn"
+            formats="pdf"
+            :loading="isExportingPdf"
+            @export="handleExportPdf"
+          />
+        </template>
+      </TecnmTableToolbar>
+
+      <div class="tecnm-card-body">
+        <div class="tecnm-table-responsive">
+          <table class="tecnm-table tecnm-table-striped">
+            <thead>
+              <tr>
+                <th
+                  class="tecnm-th-sortable"
+                  @click="toggleSort('ControlNumber')"
+                >
+                  N° Control
+                  <span class="tecnm-sort-icon" :class="{ active: isSortActive('ControlNumber') }">
+                    {{ getSortIcon('ControlNumber') }}
+                  </span>
+                </th>
+                <th
+                  class="tecnm-th-sortable"
+                  @click="toggleSort('FullName')"
+                >
+                  Nombre Completo
+                  <span class="tecnm-sort-icon" :class="{ active: isSortActive('FullName') }">
+                    {{ getSortIcon('FullName') }}
+                  </span>
+                </th>
+                <th
+                  class="tecnm-th-sortable"
+                  @click="toggleSort('CareerId')"
+                >
+                  Programa Educativo
+                  <span class="tecnm-sort-icon" :class="{ active: isSortActive('CareerId') }">
+                    {{ getSortIcon('CareerId') }}
+                  </span>
+                </th>
+                <th
+                  class="tecnm-th-sortable"
+                  @click="toggleSort('Email')"
+                >
+                  Correo Institucional
+                  <span class="tecnm-sort-icon" :class="{ active: isSortActive('Email') }">
+                    {{ getSortIcon('Email') }}
+                  </span>
+                </th>
+                <th
+                  class="tecnm-th-sortable"
+                  @click="toggleSort('ResidencyStage')"
+                >
+                  Estado de las Residencias
+                  <span class="tecnm-sort-icon" :class="{ active: isSortActive('ResidencyStage') }">
+                    {{ getSortIcon('ResidencyStage') }}
+                  </span>
+                </th>
+                <th class="tecnm-th-sortable">
+                  Fecha Formato 29
+                </th>
+                <th class="tecnm-th-sortable">
+                  Fecha Formato 30
+                </th>
+                <th class="tecnm-th-actions">Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="studentsTableBody">
+              <tr v-if="isLoading">
+                <td colspan="8" class="tecnm-table-empty">
+                  Cargando catálogo de estudiantes...
+                </td>
+              </tr>
+              <tr v-else-if="sortedStudents.length === 0">
+                <td colspan="8" class="tecnm-table-empty">
+                  <span v-if="includeInactive">No hay estudiantes inactivos (deshabilitados) registrados.</span>
+                  <span v-else>No se encontraron estudiantes registrados con los filtros seleccionados.</span>
+                </td>
+              </tr>
+              <tr
+                v-for="s in sortedStudents"
+                v-else
+                :key="s.id"
+              >
+                <td><strong>{{ s.controlNumber }}</strong></td>
+                <td>{{ s.fullName || `${s.firstName} ${s.lastName} ${s.lastName2 || ''}`.trim() }}</td>
+                <td>
+                  {{ CAREERS[s.careerId] || s.career || 'No especificada' }}
+                  <span
+                    v-if="authStore.isCareerHead && authStore.userCareerId && s.careerId && Number(s.careerId) !== Number(authStore.userCareerId)"
+                    class="tecnm-badge tecnm-badge-info"
+                    style="font-size: 0.7rem; margin-left: 0.35rem; display: inline-block; vertical-align: middle;"
+                    title="Estudiante de otra carrera asignado para asesoría académica"
+                  >
+                    Asesoría Externa
+                  </span>
+                </td>
+                <td>{{ s.email }}</td>
+                <td>
+                  <span
+                    class="tecnm-badge"
+                    :class="getResidencyStageBadgeClass(s.residencyStage)"
+                    style="font-size: 0.78rem; font-weight: 600;"
+                  >
+                    {{ s.residencyStage || 'Sin Anteproyecto' }}
+                  </span>
+                </td>
+                <td>{{ formatTecNMDate(s.formato29Deadline) }}</td>
+                <td>{{ formatTecNMDate(s.formato30Deadline) }}</td>
+                <td class="tecnm-row-actions">
+                  <button
+                    v-if="authStore.isAdmin || authStore.hasRole('vinculacion')"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-secondary tecnm-btn-sm"
+                    :disabled="isSendingIndividualLetterId === s.id"
+                    :title="s.isPresentationLetterSent ? 'Reenviar Carta de Presentación por Correo' : 'Enviar Carta de Presentación por Correo'"
+                    @click="handleSendIndividualPresentationLetter(s)"
+                  >
+                    {{ isSendingIndividualLetterId === s.id ? 'Enviando...' : (s.isPresentationLetterSent ? 'Reenviar' : 'Enviar Carta') }}
+                  </button>
+                  <button
+                    type="button"
+                    class="tecnm-btn tecnm-btn-secondary tecnm-btn-sm"
+                    @click="viewProfile(s)"
+                  >
+                    Expediente
+                  </button>
+                  <button
+                    v-if="!authStore.isReadOnly && !authStore.isCareerHead"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-secondary tecnm-btn-sm"
+                    @click="openEditModal(s)"
+                  >
+                    Editar
+                  </button>
+                  <button
+                    v-if="authStore.canSeeAudit"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-secondary tecnm-btn-sm"
+                    @click="handleAudit(s)"
+                  >
+                    Auditoría
+                  </button>
+                  <button
+                    v-if="s.isActive && !authStore.isReadOnly && !authStore.isCareerHead"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-danger tecnm-btn-sm"
+                    @click="handleDeactivate(s)"
+                  >
+                    Desactivar
+                  </button>
+                  <button
+                    v-else-if="!authStore.isReadOnly && !authStore.isCareerHead"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-success tecnm-btn-sm"
+                    @click="handleReactivate(s)"
+                  >
+                    Reactivar
+                  </button>
+                  
+                  <!-- Bloqueo manual solo para admin -->
+                  <button
+                    v-if="authStore.isAdmin && !s.isBlocked"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-warning tecnm-btn-sm"
+                    @click="handleBlockStudent(s)"
+                  >
+                    Bloquear
+                  </button>
+                  <button
+                    v-if="authStore.isAdmin && s.isBlocked"
+                    type="button"
+                    class="tecnm-btn tecnm-btn-success tecnm-btn-sm"
+                    @click="handleUnblockStudent(s)"
+                  >
+                    Desbloquear
+                  </button>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Paginación -->
+        <TecnmPagination
+          v-if="totalCount > 0"
+          :current-page="pageNumber"
+          :total-pages="totalPages"
+          :total-count="totalCount"
+          :page-size="pageSize"
+          @update:current-page="pageNumber = $event"
+          @page-change="loadStudents"
+        />
+      </div>
+    </div>
+
+    <!-- Modal Registrar / Editar Estudiante -->
+    <div
+      v-if="isModalOpen"
+      id="studentModal"
+      class="modal-backdrop active"
+      role="dialog"
+      aria-modal="true"
+      @click.self="isModalOpen = false"
+    >
+      <div class="modal-card">
+        <div class="tecnm-modal-header">
+          <h3 id="modalTitle" class="tecnm-modal-title">
+            {{ isEditMode ? 'Editar Estudiante' : 'Registrar Nuevo Estudiante' }}
+          </h3>
+          <button
+            type="button"
+            class="tecnm-modal-close"
+            aria-label="Cerrar"
+            @click="isModalOpen = false"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form id="studentForm" @submit.prevent="handleSubmit">
+          <div
+            v-if="formError"
+            id="studentFormAlert"
+            class="tecnm-alert tecnm-alert-danger"
+            style="margin-bottom: 1rem;"
+            role="alert"
+          >
+            <span>{{ formError }}</span>
+          </div>
+
+          <div class="tecnm-form-grid">
+            <div class="tecnm-form-group">
+              <label for="controlNumber" class="tecnm-label">Número de Control *</label>
+              <input
+                id="controlNumber"
+                v-model="form.controlNumber"
+                type="text"
+                class="tecnm-form-control"
+                placeholder="20680123"
+                :disabled="isEditMode || isSubmitting"
+                required
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="curp" class="tecnm-label">CURP</label>
+              <input
+                id="curp"
+                v-model="form.curp"
+                type="text"
+                maxlength="18"
+                class="tecnm-form-control"
+                placeholder="ABCD010203HDFRLL09"
+                style="text-transform: uppercase;"
+                :disabled="isSubmitting"
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="firstName" class="tecnm-label">Nombre(s) *</label>
+              <input
+                id="firstName"
+                v-model="form.firstName"
+                type="text"
+                class="tecnm-form-control"
+                placeholder="Juan"
+                :disabled="isSubmitting"
+                required
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="lastName" class="tecnm-label">Apellido Paterno *</label>
+              <input
+                id="lastName"
+                v-model="form.lastName"
+                type="text"
+                class="tecnm-form-control"
+                placeholder="Pérez"
+                :disabled="isSubmitting"
+                required
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="lastName2" class="tecnm-label">Apellido Materno</label>
+              <input
+                id="lastName2"
+                v-model="form.lastName2"
+                type="text"
+                class="tecnm-form-control"
+                placeholder="Gómez"
+                :disabled="isSubmitting"
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="gender" class="tecnm-label">Género</label>
+              <select
+                id="gender"
+                v-model="form.gender"
+                class="tecnm-form-control"
+                :disabled="isSubmitting"
+              >
+                <option
+                  v-for="g in GENDER_OPTIONS"
+                  :key="g.value"
+                  :value="g.value"
+                >
+                  {{ g.label }}
+                </option>
+              </select>
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="email" class="tecnm-label">Correo institucional *</label>
+              <input
+                id="email"
+                v-model="form.email"
+                type="email"
+                class="tecnm-form-control"
+                placeholder="20680123@monclova.tecnm.mx"
+                :disabled="isEditMode || isSubmitting"
+                required
+              />
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="careerId" class="tecnm-label">Carrera *</label>
+              <select
+                id="careerId"
+                v-model="form.careerId"
+                class="tecnm-form-control"
+                :disabled="isSubmitting"
+                required
+              >
+                <option value="" disabled>-- Seleccionar Carrera --</option>
+                <option
+                  v-for="c in careersOptions"
+                  :key="c.id"
+                  :value="c.id"
+                >
+                  {{ c.name }}
+                </option>
+              </select>
+            </div>
+
+            <div class="tecnm-form-group">
+              <label for="academicPeriodId" class="tecnm-label">Periodo Académico</label>
+              <select
+                id="academicPeriodId"
+                v-model="form.academicPeriodId"
+                class="tecnm-form-control"
+                :disabled="isSubmitting"
+              >
+                <option
+                  v-for="p in ACADEMIC_PERIODS"
+                  :key="p.id"
+                  :value="p.id"
+                >
+                  {{ p.name }}
+                </option>
+              </select>
+            </div>
+
+
+            <!-- Requisitos de bloqueo automático -->
+            <div class="tecnm-form-group tecnm-form-group-full">
+              <fieldset class="tecnm-fieldset">
+                <legend class="tecnm-legend">Requisitos de Ingreso (Si alguno es NO, el alumno quedará BLOQUEADO al registrarse)</legend>
+                <div class="tecnm-checkbox-group">
+                  <label class="tecnm-checkbox-label">
+                    <input
+                      type="checkbox"
+                      v-model="form.hasComplementaryActivities"
+                      class="tecnm-checkbox-input"
+                      :disabled="isSubmitting"
+                    />
+                    <span class="tecnm-checkbox-text">Actividades Complementarias</span>
+                  </label>
+                  <label class="tecnm-checkbox-label">
+                    <input
+                      type="checkbox"
+                      v-model="form.hasSocialService"
+                      class="tecnm-checkbox-input"
+                      :disabled="isSubmitting"
+                    />
+                    <span class="tecnm-checkbox-text">Servicio Social</span>
+                  </label>
+                  <label class="tecnm-checkbox-label">
+                    <input
+                      type="checkbox"
+                      v-model="form.hasSpecialRequirements"
+                      class="tecnm-checkbox-input"
+                      :disabled="isSubmitting"
+                    />
+                    <span class="tecnm-checkbox-text">Especiales</span>
+                  </label>
+                </div>
+                <p class="tecnm-form-hint">⚠ Si desmarca cualquiera, el estudiante se creará pero NO podrá iniciar sesión hasta cumplirlos.</p>
+              </fieldset>
+            </div>
+          
+          </div>
+
+          <div class="tecnm-modal-footer">
+            <button
+              id="closeModalBtn"
+              type="button"
+              class="tecnm-btn tecnm-btn-secondary"
+              :disabled="isSubmitting"
+              @click="isModalOpen = false"
+            >
+              Cancelar
+            </button>
+            <button
+              type="submit"
+              class="tecnm-btn tecnm-btn-primary"
+              :disabled="isSubmitting"
+            >
+              <span v-if="!isSubmitting">Guardar Estudiante</span>
+              <span v-else class="login-spinner"></span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+
+    <!-- Modal Importar Excel Estudiantes -->
+    <div
+      v-if="isImportModalOpen"
+      id="importStudentModal"
+      class="modal-backdrop active"
+      role="dialog"
+      aria-modal="true"
+      @click.self="isImportModalOpen = false"
+    >
+      <div class="modal-card" style="max-width: 600px;">
+        <div class="tecnm-modal-header">
+          <h3 class="tecnm-modal-title">Carga Masiva de Estudiantes vía Excel</h3>
+          <button
+            type="button"
+            class="tecnm-modal-close"
+            aria-label="Cerrar"
+            @click="isImportModalOpen = false"
+          >
+            &times;
+          </button>
+        </div>
+
+        <form @submit.prevent="handleImportSubmit">
+          <div class="tecnm-card" style="margin-bottom: 1rem; border: 1px solid var(--tecnm-border-color, #e2e8f0); background: #f8fafc; padding: 0.75rem; border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; flex-wrap: wrap; gap: 0.5rem;">
+              <span style="font-weight: 700; font-size: 0.9rem; color: var(--tecnm-primary, #1b396a); display: inline-flex; align-items: center; gap: 0.35rem;">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 14.25v-2.625a3.375 3.375 0 0 0-3.375-3.375h-1.5A1.125 1.125 0 0 1 13.5 7.125v-1.5a3.375 3.375 0 0 0-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 0 0-9-9Z" />
+                </svg>
+                <span>Especificación de Columnas</span>
+                <span style="font-size: 0.8rem; color: #475569; font-weight: 600;">(Matrícula a Email requeridos. Columnas de requisitos son opcionales para control de bloqueo)</span>
+              </span>
+              <button
+                type="button"
+                class="tecnm-btn tecnm-btn-secondary tecnm-btn-sm"
+                @click="handleDownloadStudentTemplate"
+              >
+                <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" style="margin-right: 0.25rem; display: inline-block; vertical-align: middle;">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12 12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                </svg>
+                <span>Descargar Plantilla Excel</span>
+              </button>
+            </div>
+            <div style="overflow-x: auto;">
+              <table class="tecnm-table" style="font-size: 0.8rem; margin-bottom: 0; background: #fff;">
+                <thead>
+                  <tr style="background: #eef2f6;">
+                    <th style="padding: 0.4rem 0.6rem;">Columna</th>
+                    <th style="padding: 0.4rem 0.6rem;">Formato Esperado</th>
+                    <th style="padding: 0.4rem 0.6rem;">Valores Aceptados / Ejemplo</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Matricula</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">N° de control oficial único (identificador principal)</td>
+                    <td style="padding: 0.35rem 0.6rem;"><code>20051234</code></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Apellidos</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Apellido paterno y materno separados por espacio</td>
+                    <td style="padding: 0.35rem 0.6rem;"><em>Pérez Gómez</em></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Nombre</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Nombre(s) del alumno</td>
+                    <td style="padding: 0.35rem 0.6rem;"><em>Juan Carlos</em></td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Sexo</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Género del alumno</td>
+                    <td style="padding: 0.35rem 0.6rem;">
+                      <strong><code>M</code></strong> = Masculino<br />
+                      <strong><code>F</code></strong> = Femenino
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Carrera</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Únicamente ID numérico de la carrera</td>
+                    <td style="padding: 0.35rem 0.6rem;">
+                      <code>1</code>: Ing. Informática (INF)<br />
+                      <code>2</code>: Ing. Industrial (IND)<br />
+                      <code>3</code>: Ing. Mecatrónica (MEC)<br />
+                      <code>4</code>: Ing. en Energías Renovables (IER)<br />
+                      <code>5</code>: Ing. Electrónica (ELE)<br />
+                      <code>6</code>: Ing. en Gestión Empresarial (IGE)<br />
+                      <code>7</code>: Ing. Mecánica (IME)
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Semestre</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Número entero de semestre (≥ 1, sin límite superior)</td>
+                    <td style="padding: 0.35rem 0.6rem;"><code>9</code>, <code>13</code>, etc.</td>
+                  </tr>
+                  <tr>
+                    <td style="padding: 0.35rem 0.6rem;"><code>Email</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Correo institucional del estudiante (@monclova.tecnm.mx)</td>
+                    <td style="padding: 0.35rem 0.6rem;"><code>20051234@monclova.tecnm.mx</code></td>
+                  </tr>
+                  <tr style="background: #fdf6ec;">
+                    <td style="padding: 0.35rem 0.6rem;"><code>Actividades Complementarias</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Requisito de 5 actividades complementarias liberadas</td>
+                    <td style="padding: 0.35rem 0.6rem;"><strong><code>1</code></strong> (Sí / Cumple) &bull; <strong><code>0</code></strong> (No / No cumple)</td>
+                  </tr>
+                  <tr style="background: #fdf6ec;">
+                    <td style="padding: 0.35rem 0.6rem;"><code>Servicio Social</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Requisito de servicio social liberado</td>
+                    <td style="padding: 0.35rem 0.6rem;"><strong><code>1</code></strong> (Sí / Cumple) &bull; <strong><code>0</code></strong> (No / No cumple)</td>
+                  </tr>
+                  <tr style="background: #fdf6ec;">
+                    <td style="padding: 0.35rem 0.6rem;"><code>Especiales</code></td>
+                    <td style="padding: 0.35rem 0.6rem;">Situación regular (sin adeudo de cursos especiales)</td>
+                    <td style="padding: 0.35rem 0.6rem;"><strong><code>1</code></strong> (Sí / Cumple) &bull; <strong><code>0</code></strong> (No / No cumple)</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div style="margin-top: 0.5rem; font-size: 0.78rem; color: #64748b; line-height: 1.35;">
+              ℹ <em>Si un alumno ya existe en el sistema (matrícula registrada), volver a subir el archivo no crea duplicados; actualiza y completa automáticamente los campos faltantes (como género o requisitos pendientes). Si cumple los 3 requisitos (<code>1</code>), su bloqueo automático se desactivará.</em>
+            </div>
+          </div>
+
+          <div v-if="importError" class="tecnm-alert tecnm-alert-danger" style="margin-bottom: 1rem;" role="alert">
+            <span>{{ importError }}</span>
+          </div>
+
+          <div v-if="importResult" class="tecnm-alert tecnm-alert-info" style="margin-bottom: 1rem;">
+            <strong>Resumen de Importación:</strong>
+            <ul>
+              <li>Filas procesadas: {{ importResult.totalRows }}</li>
+              <li>Nuevos registrados: {{ importResult.createdCount ?? importResult.successCount }}</li>
+              <li>Existentes actualizados: {{ importResult.updatedCount ?? 0 }}</li>
+              <li>Omitidos (Cuentas en conflicto): {{ importResult.skippedCount }}</li>
+              <li>Errores de fila: {{ importResult.errorCount }}</li>
+            </ul>
+            <div v-if="importResult.errors && importResult.errors.length > 0" style="margin-top: 0.5rem; max-height: 120px; overflow-y: auto;">
+              <small class="tecnm-text-danger">
+                <strong>Detalle de errores:</strong>
+                <ul>
+                  <li v-for="(e, idx) in importResult.errors" :key="idx">{{ e }}</li>
+                </ul>
+              </small>
+            </div>
+            <div v-if="importResult.skipped && importResult.skipped.length > 0" style="margin-top: 0.5rem; max-height: 100px; overflow-y: auto;">
+              <small class="tecnm-text-muted">
+                <strong>Omitidos:</strong>
+                <ul>
+                  <li v-for="(s, idx) in importResult.skipped" :key="idx">{{ s }}</li>
+                </ul>
+              </small>
+            </div>
+          </div>
+
+          <div class="tecnm-form-group">
+            <label for="studentExcelFile" class="tecnm-label">Seleccionar Archivo Excel (.xlsx / .xls) (Hasta 5MB) *</label>
+            <input
+              id="studentExcelFile"
+              type="file"
+              accept=".xlsx, .xls"
+              class="tecnm-form-control"
+              :disabled="isImporting"
+              required
+              @change="handleFileChange"
+            />
+            <small class="tecnm-hint">Solo se permiten archivos de hasta 5MB (.xlsx o .xls).</small>
+          </div>
+
+          <div class="tecnm-modal-footer">
+            <button
+              type="button"
+              class="tecnm-btn tecnm-btn-secondary"
+              :disabled="isImporting"
+              @click="isImportModalOpen = false"
+            >
+              Cerrar
+            </button>
+            <button
+              type="submit"
+              class="tecnm-btn tecnm-btn-primary"
+              :disabled="isImporting || !importFile"
+            >
+              <span v-if="!isImporting">Subir e Importar</span>
+              <span v-else class="login-spinner">Procesando...</span>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</template>
+
+<style scoped>
+.tecnm-row-actions {
+  display: inline-flex;
+  gap: 0.35rem;
+}
+</style>
