@@ -1,0 +1,45 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace TecNM.Research.Entities;
+
+public partial class academic_groups
+{
+    public long id { get; set; }
+
+    public string code { get; set; } = null!;
+
+    public string name { get; set; } = null!;
+
+    public long organization_id { get; set; }
+
+    public string? description { get; set; }
+
+    public bool is_active { get; set; }
+
+    public bool is_visible { get; set; }
+
+    public int display_order { get; set; }
+
+    public long? created_by { get; set; }
+
+    public long? updated_by { get; set; }
+
+    public long? deleted_by { get; set; }
+
+    public DateTime created_at { get; set; }
+
+    public DateTime updated_at { get; set; }
+
+    public DateTime? deleted_at { get; set; }
+
+    public string? notes { get; set; }
+
+    public virtual academic_groups_researchers? academic_groups_researchers { get; set; }
+
+    public virtual ICollection<academic_groups_status_history> academic_groups_status_history { get; set; } = new List<academic_groups_status_history>();
+
+    public virtual c_organizations organization { get; set; } = null!;
+
+    public virtual ICollection<projects_academic_groups> projects_academic_groups { get; set; } = new List<projects_academic_groups>();
+}

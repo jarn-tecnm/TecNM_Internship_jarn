@@ -1,0 +1,47 @@
+﻿using System;
+using System.Collections.Generic;
+
+namespace TecNM.Research.Entities;
+
+public partial class activities
+{
+    public long id { get; set; }
+
+    public long milestone_id { get; set; }
+
+    public string title { get; set; } = null!;
+
+    public string? description { get; set; }
+
+    public DateOnly starts_on { get; set; }
+
+    public DateOnly ends_on { get; set; }
+
+    public long? responsible_participant_id { get; set; }
+
+    public bool is_active { get; set; }
+
+    public bool is_visible { get; set; }
+
+    public int display_order { get; set; }
+
+    public long? created_by { get; set; }
+
+    public long? updated_by { get; set; }
+
+    public long? deleted_by { get; set; }
+
+    public DateTime created_at { get; set; }
+
+    public DateTime updated_at { get; set; }
+
+    public DateTime? deleted_at { get; set; }
+
+    public string? notes { get; set; }
+
+    public virtual ICollection<activities_status_history> activities_status_history { get; set; } = new List<activities_status_history>();
+
+    public virtual milestones milestone { get; set; } = null!;
+
+    public virtual projects_researchers? responsible_participant { get; set; }
+}

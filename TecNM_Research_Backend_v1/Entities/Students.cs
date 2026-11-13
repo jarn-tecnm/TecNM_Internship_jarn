@@ -3,41 +3,41 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class Students
+public partial class students
 {
-    public long Id { get; set; }
+    public long id { get; set; }
 
-    public long UserId { get; set; }
+    public long user_id { get; set; }
 
-    public long AcademicProgramId { get; set; }
+    public long academic_program_id { get; set; }
 
-    public string StudentNumber { get; set; } = null!;
+    public string student_number { get; set; } = null!;
 
-    public int? Semester { get; set; }
+    public int? semester { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool is_active { get; set; }
 
-    public bool IsVisible { get; set; }
+    public bool is_visible { get; set; }
 
-    public int DisplayOrder { get; set; }
+    public int display_order { get; set; }
 
-    public long? CreatedBy { get; set; }
+    public long? created_by { get; set; }
 
-    public long? UpdatedBy { get; set; }
+    public long? updated_by { get; set; }
 
-    public long? DeletedBy { get; set; }
+    public long? deleted_by { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime created_at { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime updated_at { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? deleted_at { get; set; }
 
-    public string? Notes { get; set; }
+    public string? notes { get; set; }
 
-    public virtual CAcademicPrograms AcademicProgram { get; set; } = null!;
+    public virtual c_academic_programs academic_program { get; set; } = null!;
 
-    public virtual ICollection<ProjectsStudents> ProjectsStudents { get; set; } = new List<ProjectsStudents>();
+    public virtual ICollection<projects_students> projects_students { get; set; } = new List<projects_students>();
 
-    public virtual Users User { get; set; } = null!;
+    public virtual users user { get; set; } = null!;
 }

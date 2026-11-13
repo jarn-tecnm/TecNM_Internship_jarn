@@ -3,39 +3,39 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class Objectives
+public partial class objectives
 {
-    public long Id { get; set; }
+    public long id { get; set; }
 
-    public long ProjectId { get; set; }
+    public long project_id { get; set; }
 
-    public string ObjectiveType { get; set; } = null!;
+    public string objective_type { get; set; } = null!;
 
-    public string Description { get; set; } = null!;
+    public string description { get; set; } = null!;
 
-    public bool IsActive { get; set; }
+    public bool is_active { get; set; }
 
-    public bool IsVisible { get; set; }
+    public bool is_visible { get; set; }
 
-    public int DisplayOrder { get; set; }
+    public int display_order { get; set; }
 
-    public long? CreatedBy { get; set; }
+    public long? created_by { get; set; }
 
-    public long? UpdatedBy { get; set; }
+    public long? updated_by { get; set; }
 
-    public long? DeletedBy { get; set; }
+    public long? deleted_by { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime created_at { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime updated_at { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? deleted_at { get; set; }
 
-    public string? Notes { get; set; }
+    public string? notes { get; set; }
 
-    public virtual ICollection<Milestones> Milestones { get; set; } = new List<Milestones>();
+    public virtual ICollection<milestones> milestones { get; set; } = new List<milestones>();
 
-    public virtual ICollection<ObjectivesStatusHistory> ObjectivesStatusHistory { get; set; } = new List<ObjectivesStatusHistory>();
+    public virtual ICollection<objectives_status_history> objectives_status_history { get; set; } = new List<objectives_status_history>();
 
-    public virtual Projects Project { get; set; } = null!;
+    public virtual projects project { get; set; } = null!;
 }

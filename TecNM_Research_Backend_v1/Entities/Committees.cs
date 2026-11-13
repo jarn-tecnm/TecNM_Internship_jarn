@@ -3,41 +3,41 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class Committees
+public partial class committees
 {
-    public long Id { get; set; }
+    public long id { get; set; }
 
-    public string Name { get; set; } = null!;
+    public string name { get; set; } = null!;
 
-    public long? AcademicProgramId { get; set; }
+    public long? academic_program_id { get; set; }
 
-    public DateOnly StartsOn { get; set; }
+    public DateOnly starts_on { get; set; }
 
-    public DateOnly? EndsOn { get; set; }
+    public DateOnly? ends_on { get; set; }
 
-    public bool IsActive { get; set; }
+    public bool is_active { get; set; }
 
-    public bool IsVisible { get; set; }
+    public bool is_visible { get; set; }
 
-    public int DisplayOrder { get; set; }
+    public int display_order { get; set; }
 
-    public long? CreatedBy { get; set; }
+    public long? created_by { get; set; }
 
-    public long? UpdatedBy { get; set; }
+    public long? updated_by { get; set; }
 
-    public long? DeletedBy { get; set; }
+    public long? deleted_by { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime created_at { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime updated_at { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? deleted_at { get; set; }
 
-    public string? Notes { get; set; }
+    public string? notes { get; set; }
 
-    public virtual CAcademicPrograms? AcademicProgram { get; set; }
+    public virtual c_academic_programs? academic_program { get; set; }
 
-    public virtual ICollection<CommitteesMembers> CommitteesMembers { get; set; } = new List<CommitteesMembers>();
+    public virtual ICollection<committees_members> committees_members { get; set; } = new List<committees_members>();
 
-    public virtual ICollection<ProjectsSubmissions> ProjectsSubmissions { get; set; } = new List<ProjectsSubmissions>();
+    public virtual ICollection<projects_submissions> projects_submissions { get; set; } = new List<projects_submissions>();
 }

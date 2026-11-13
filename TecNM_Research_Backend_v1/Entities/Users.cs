@@ -3,63 +3,63 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class Users
+public partial class users
 {
-    public long Id { get; set; }
+    public long id { get; set; }
 
-    public string IdentityProvider { get; set; } = null!;
+    public string identity_provider { get; set; } = null!;
 
-    public string ExternalSubject { get; set; } = null!;
+    public string external_subject { get; set; } = null!;
 
-    public string Email { get; set; } = null!;
+    public string email { get; set; } = null!;
 
-    public string GivenName { get; set; } = null!;
+    public string given_name { get; set; } = null!;
 
-    public string FamilyName { get; set; } = null!;
+    public string family_name { get; set; } = null!;
 
-    public bool IsActive { get; set; }
+    public bool is_active { get; set; }
 
-    public bool IsVisible { get; set; }
+    public bool is_visible { get; set; }
 
-    public int DisplayOrder { get; set; }
+    public int display_order { get; set; }
 
-    public long? CreatedBy { get; set; }
+    public long? created_by { get; set; }
 
-    public long? UpdatedBy { get; set; }
+    public long? updated_by { get; set; }
 
-    public long? DeletedBy { get; set; }
+    public long? deleted_by { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public DateTime created_at { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public DateTime updated_at { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
+    public DateTime? deleted_at { get; set; }
 
-    public string? Notes { get; set; }
+    public string? notes { get; set; }
 
-    public virtual ICollection<AcademicAuthorizationsHistory> AcademicAuthorizationsHistory { get; set; } = new List<AcademicAuthorizationsHistory>();
+    public virtual ICollection<academic_authorizations_history> academic_authorizations_history { get; set; } = new List<academic_authorizations_history>();
 
-    public virtual ICollection<AuditLogs> AuditLogs { get; set; } = new List<AuditLogs>();
+    public virtual ICollection<academic_groups_status_history> academic_groups_status_history { get; set; } = new List<academic_groups_status_history>();
 
-    public virtual ICollection<CommitteesMembers> CommitteesMembers { get; set; } = new List<CommitteesMembers>();
+    public virtual ICollection<activities_status_history> activities_status_history { get; set; } = new List<activities_status_history>();
 
-    public virtual ICollection<Documents> Documents { get; set; } = new List<Documents>();
+    public virtual ICollection<audit_logs> audit_logs { get; set; } = new List<audit_logs>();
 
-    public virtual ICollection<MilestonesStatusHistory> MilestonesStatusHistory { get; set; } = new List<MilestonesStatusHistory>();
+    public virtual ICollection<committees_members> committees_members { get; set; } = new List<committees_members>();
 
-    public virtual ICollection<ObjectivesStatusHistory> ObjectivesStatusHistory { get; set; } = new List<ObjectivesStatusHistory>();
+    public virtual ICollection<documents> documents { get; set; } = new List<documents>();
 
-    public virtual ICollection<ProjectsStatusHistory> ProjectsStatusHistory { get; set; } = new List<ProjectsStatusHistory>();
+    public virtual ICollection<milestones_status_history> milestones_status_history { get; set; } = new List<milestones_status_history>();
 
-    public virtual ICollection<ProjectsSubmissions> ProjectsSubmissionsAcademicAuthorizedByNavigation { get; set; } = new List<ProjectsSubmissions>();
+    public virtual ICollection<objectives_status_history> objectives_status_history { get; set; } = new List<objectives_status_history>();
 
-    public virtual ICollection<ProjectsSubmissions> ProjectsSubmissionsSubmittedByNavigation { get; set; } = new List<ProjectsSubmissions>();
+    public virtual ICollection<projects_status_history> projects_status_history { get; set; } = new List<projects_status_history>();
 
-    public virtual Researchers? Researchers { get; set; }
+    public virtual ICollection<projects_submissions> projects_submissions { get; set; } = new List<projects_submissions>();
 
-    public virtual Students? Students { get; set; }
+    public virtual researchers? researchers { get; set; }
 
-    public virtual ICollection<TasksStatusHistory> TasksStatusHistory { get; set; } = new List<TasksStatusHistory>();
+    public virtual students? students { get; set; }
 
-    public virtual ICollection<UsersRoles> UsersRoles { get; set; } = new List<UsersRoles>();
+    public virtual ICollection<users_roles> users_roles { get; set; } = new List<users_roles>();
 }

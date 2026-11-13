@@ -3,83 +3,91 @@ using System.Collections.Generic;
 
 namespace TecNM.Research.Entities;
 
-public partial class Projects
+public partial class projects
 {
-    public long Id { get; set; }
+    public long id { get; set; }
 
-    public string ReferenceCode { get; set; } = null!;
+    public string reference_code { get; set; } = null!;
 
-    public string Title { get; set; } = null!;
+    public string title { get; set; } = null!;
 
-    public long CurrencyId { get; set; }
+    public long organization_id { get; set; }
 
-    public string? Abstract { get; set; }
+    public bool is_managed_in_platform { get; set; }
 
-    public string? ProblemStatement { get; set; }
+    public long currency_id { get; set; }
 
-    public string? Justification { get; set; }
+    public string? _abstract { get; set; }
 
-    public string? TheoreticalFramework { get; set; }
+    public string? problem_statement { get; set; }
 
-    public string? Methodology { get; set; }
+    public string? justification { get; set; }
 
-    public string? ExpectedResults { get; set; }
+    public string? theoretical_framework { get; set; }
 
-    public string? BibliographicReferences { get; set; }
+    public string? methodology { get; set; }
 
-    public DateOnly StartsOn { get; set; }
+    public string? expected_results { get; set; }
 
-    public DateOnly EndsOn { get; set; }
+    public string? bibliographic_references { get; set; }
 
-    public decimal ObjectivesProgressPercentage { get; set; }
+    public DateOnly starts_on { get; set; }
 
-    public decimal MilestonesProgressPercentage { get; set; }
+    public DateOnly ends_on { get; set; }
 
-    public decimal TasksProgressPercentage { get; set; }
+    public decimal objectives_progress_percentage { get; set; }
 
-    public bool IsActive { get; set; }
+    public decimal milestones_progress_percentage { get; set; }
 
-    public bool IsVisible { get; set; }
+    public decimal activities_progress_percentage { get; set; }
 
-    public int DisplayOrder { get; set; }
+    public bool is_active { get; set; }
 
-    public long? CreatedBy { get; set; }
+    public bool is_visible { get; set; }
 
-    public long? UpdatedBy { get; set; }
+    public int display_order { get; set; }
 
-    public long? DeletedBy { get; set; }
+    public long? created_by { get; set; }
 
-    public DateTime CreatedAt { get; set; }
+    public long? updated_by { get; set; }
 
-    public DateTime UpdatedAt { get; set; }
+    public long? deleted_by { get; set; }
 
-    public DateTime? DeletedAt { get; set; }
+    public DateTime created_at { get; set; }
 
-    public string? Notes { get; set; }
+    public DateTime updated_at { get; set; }
 
-    public virtual ICollection<AuditLogs> AuditLogs { get; set; } = new List<AuditLogs>();
+    public DateTime? deleted_at { get; set; }
 
-    public virtual CCurrencies Currency { get; set; } = null!;
+    public string? notes { get; set; }
 
-    public virtual Objectives? Objectives { get; set; }
+    public virtual ICollection<audit_logs> audit_logs { get; set; } = new List<audit_logs>();
 
-    public virtual ICollection<ProjectsApplications> ProjectsApplications { get; set; } = new List<ProjectsApplications>();
+    public virtual c_currencies currency { get; set; } = null!;
 
-    public virtual ICollection<ProjectsBudgetItems> ProjectsBudgetItems { get; set; } = new List<ProjectsBudgetItems>();
+    public virtual objectives? objectives { get; set; }
 
-    public virtual ICollection<ProjectsDocuments> ProjectsDocuments { get; set; } = new List<ProjectsDocuments>();
+    public virtual c_organizations organization { get; set; } = null!;
 
-    public virtual ICollection<ProjectsFunding> ProjectsFunding { get; set; } = new List<ProjectsFunding>();
+    public virtual ICollection<projects_academic_groups> projects_academic_groups { get; set; } = new List<projects_academic_groups>();
 
-    public virtual ICollection<ProjectsResearchLines> ProjectsResearchLines { get; set; } = new List<ProjectsResearchLines>();
+    public virtual ICollection<projects_applications> projects_applications { get; set; } = new List<projects_applications>();
 
-    public virtual ICollection<ProjectsResearchers> ProjectsResearchers { get; set; } = new List<ProjectsResearchers>();
+    public virtual ICollection<projects_budget_items> projects_budget_items { get; set; } = new List<projects_budget_items>();
 
-    public virtual ICollection<ProjectsStatusHistory> ProjectsStatusHistory { get; set; } = new List<ProjectsStatusHistory>();
+    public virtual ICollection<projects_documents> projects_documents { get; set; } = new List<projects_documents>();
 
-    public virtual ICollection<ProjectsStudents> ProjectsStudents { get; set; } = new List<ProjectsStudents>();
+    public virtual ICollection<projects_funding> projects_funding { get; set; } = new List<projects_funding>();
 
-    public virtual ProjectsSubmissions? ProjectsSubmissions { get; set; }
+    public virtual ICollection<projects_research_lines> projects_research_lines { get; set; } = new List<projects_research_lines>();
 
-    public virtual ICollection<ResearchOutputs> ResearchOutputs { get; set; } = new List<ResearchOutputs>();
+    public virtual ICollection<projects_researchers> projects_researchers { get; set; } = new List<projects_researchers>();
+
+    public virtual ICollection<projects_status_history> projects_status_history { get; set; } = new List<projects_status_history>();
+
+    public virtual ICollection<projects_students> projects_students { get; set; } = new List<projects_students>();
+
+    public virtual projects_submissions? projects_submissions { get; set; }
+
+    public virtual ICollection<research_outputs> research_outputs { get; set; } = new List<research_outputs>();
 }
