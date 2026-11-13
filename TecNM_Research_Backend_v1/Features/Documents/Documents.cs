@@ -46,7 +46,7 @@ public class DocumentUploadRequest
 public class DocumentsQuery : PageQuery { [Range(1, long.MaxValue)] public long? DocumentTypeId { get; set; } }
 public record DocumentResponse(long Id, long DocumentTypeId, string DocumentTypeName, string OriginalFileName, string MediaType, long SizeBytes, string Sha256, long UploadedBy, string UploadedByName, DateTime UploadedAt, bool IsActive, bool IsVisible, int DisplayOrder, string? Notes);
 public record DownloadFile(FileStream Stream, string Name, string MediaType);
-public record DocumentReferences(long Id, int Projects, int Applications, int Budgets, int Expenses, int Funding, int Outputs, int ExternalOutputs, int ObjectivesHistory, int MilestonesHistory, int TasksHistory, int AcademicHistory, int AcademicSubmissions);
+public record DocumentReferences(long Id, int Projects, int Applications, int Budgets, int Expenses, int Funding, int Outputs, int ObjectivesHistory, int MilestonesHistory, int ActivitiesHistory, int AcademicHistory, int AcademicSubmissions);
 
 public class DocumentsService(AppDbContext db, ICurrentActor actor, ILocalFileStorage storage)
 {
@@ -81,6 +81,6 @@ public class DocumentsService(AppDbContext db, ICurrentActor actor, ILocalFileSt
     }
     public async Task<DocumentReferences> ReferencesAsync(long id, CancellationToken ct)
     {
-        return await db.Documents.AsNoTracking().Where(d => d.Id == id && d.DeletedAt == null).Select(d => new DocumentReferences(d.Id, d.ProjectsDocuments.Count, d.ProjectsApplicationsDocuments.Count, d.ProjectsBudgetDocuments.Count, d.ProjectsExpensesDocuments.Count, d.ProjectsFundingDocuments.Count, d.ResearchOutputsDocuments.Count, d.ExternalResearchOutputsDocuments.Count, d.ObjectivesStatusHistoryDocuments.Count, d.MilestonesStatusHistoryDocuments.Count, d.TasksStatusHistoryDocuments.Count, d.AcademicAuthorizationsHistory.Count, d.ProjectsSubmissions.Count)).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Documento no encontrado.");
+        return await db.Documents.AsNoTracking().Where(d => d.Id == id && d.DeletedAt == null).Select(d => new DocumentReferences(d.Id, d.ProjectsDocuments.Count, d.ProjectsApplicationsDocuments.Count, d.ProjectsBudgetDocuments.Count, d.ProjectsExpensesDocuments.Count, d.ProjectsFundingDocuments.Count, d.ResearchOutputsDocuments.Count, d.ObjectivesStatusHistoryDocuments.Count, d.MilestonesStatusHistoryDocuments.Count, d.ActivitiesStatusHistoryDocuments.Count, d.AcademicAuthorizationsHistory.Count, d.ProjectsApplicationsDocuments.Count)).SingleOrDefaultAsync(ct) ?? throw new ApiFault(404, "Documento no encontrado.");
     }
 }
