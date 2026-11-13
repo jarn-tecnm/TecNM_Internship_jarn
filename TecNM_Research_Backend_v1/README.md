@@ -236,7 +236,7 @@ For each schema update:
 Example scaffold command, run from the API project directory after configuring `ConnectionStrings:DefaultConnection`:
 
 ```bash
-dotnet ef dbcontext scaffold "Name=ConnectionStrings:DefaultConnection" Microsoft.EntityFrameworkCore.SqlServer --context AppDbContext --context-dir Data --output-dir Entities --no-onconfiguring
+dotnet ef dbcontext scaffold "Name=ConnectionStrings:DefaultConnection" Npgsql.EntityFrameworkCore.PostgreSQL --context AppDbContext --context-dir Data --output-dir Entities --no-onconfiguring --force
 ```
 
 For regeneration, add `--force` only after committing or backing up the current files and reviewing the overwrite scope. Keep custom logic outside generated files, using partial classes or separate configuration where appropriate.

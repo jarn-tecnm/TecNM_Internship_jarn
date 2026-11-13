@@ -12,161 +12,165 @@ public partial class AppDbContext : DbContext
     {
     }
 
-    public virtual DbSet<AcademicAuthorizationsHistory> AcademicAuthorizationsHistory { get; set; }
+    public virtual DbSet<AcademicAuthorizationsHistory> AcademicAuthorizationsHistories { get; set; }
 
-    public virtual DbSet<AuditLogs> AuditLogs { get; set; }
+    public virtual DbSet<AcademicGroup> AcademicGroups { get; set; }
 
-    public virtual DbSet<CAcademicAuthorizationStatuses> CAcademicAuthorizationStatuses { get; set; }
+    public virtual DbSet<AcademicGroupsResearcher> AcademicGroupsResearchers { get; set; }
 
-    public virtual DbSet<CAcademicFields> CAcademicFields { get; set; }
+    public virtual DbSet<AcademicGroupsStatusHistory> AcademicGroupsStatusHistories { get; set; }
 
-    public virtual DbSet<CAcademicPrograms> CAcademicPrograms { get; set; }
+    public virtual DbSet<AuditLog> AuditLogs { get; set; }
 
-    public virtual DbSet<CBudgetCategories> CBudgetCategories { get; set; }
+    public virtual DbSet<CAcademicAuthorizationStatus> CAcademicAuthorizationStatuses { get; set; }
 
-    public virtual DbSet<CCallTypes> CCallTypes { get; set; }
+    public virtual DbSet<CAcademicField> CAcademicFields { get; set; }
 
-    public virtual DbSet<CCalls> CCalls { get; set; }
+    public virtual DbSet<CAcademicGroupLevel> CAcademicGroupLevels { get; set; }
 
-    public virtual DbSet<CCommitteeRoles> CCommitteeRoles { get; set; }
+    public virtual DbSet<CAcademicProgram> CAcademicPrograms { get; set; }
 
-    public virtual DbSet<CCurrencies> CCurrencies { get; set; }
+    public virtual DbSet<CBudgetCategory> CBudgetCategories { get; set; }
 
-    public virtual DbSet<CDegreeLevels> CDegreeLevels { get; set; }
+    public virtual DbSet<CCall> CCalls { get; set; }
 
-    public virtual DbSet<CDocumentTemplates> CDocumentTemplates { get; set; }
+    public virtual DbSet<CCallType> CCallTypes { get; set; }
 
-    public virtual DbSet<CDocumentTypes> CDocumentTypes { get; set; }
+    public virtual DbSet<CCommitteeRole> CCommitteeRoles { get; set; }
 
-    public virtual DbSet<CFundingSources> CFundingSources { get; set; }
+    public virtual DbSet<CCurrency> CCurrencies { get; set; }
 
-    public virtual DbSet<CMilestoneStatuses> CMilestoneStatuses { get; set; }
+    public virtual DbSet<CDegreeLevel> CDegreeLevels { get; set; }
 
-    public virtual DbSet<CObjectiveStatuses> CObjectiveStatuses { get; set; }
+    public virtual DbSet<CDocumentTemplate> CDocumentTemplates { get; set; }
 
-    public virtual DbSet<COrganizationTypes> COrganizationTypes { get; set; }
+    public virtual DbSet<CDocumentType> CDocumentTypes { get; set; }
 
-    public virtual DbSet<COrganizations> COrganizations { get; set; }
+    public virtual DbSet<CFundingSource> CFundingSources { get; set; }
 
-    public virtual DbSet<CPermissions> CPermissions { get; set; }
+    public virtual DbSet<CMilestoneStatus> CMilestoneStatuses { get; set; }
 
-    public virtual DbSet<CProjectStatuses> CProjectStatuses { get; set; }
+    public virtual DbSet<CObjectiveStatus> CObjectiveStatuses { get; set; }
 
-    public virtual DbSet<CResearchLines> CResearchLines { get; set; }
+    public virtual DbSet<COrganization> COrganizations { get; set; }
 
-    public virtual DbSet<CResearchOutputsTypes> CResearchOutputsTypes { get; set; }
+    public virtual DbSet<COrganizationType> COrganizationTypes { get; set; }
 
-    public virtual DbSet<CResearchersRoles> CResearchersRoles { get; set; }
+    public virtual DbSet<CPermission> CPermissions { get; set; }
 
-    public virtual DbSet<CReviewOutcomes> CReviewOutcomes { get; set; }
+    public virtual DbSet<CProjectStatus> CProjectStatuses { get; set; }
 
-    public virtual DbSet<CReviewStatuses> CReviewStatuses { get; set; }
+    public virtual DbSet<CResearchLine> CResearchLines { get; set; }
 
-    public virtual DbSet<CRoles> CRoles { get; set; }
+    public virtual DbSet<CResearchOutputsType> CResearchOutputsTypes { get; set; }
 
-    public virtual DbSet<CTaskStatuses> CTaskStatuses { get; set; }
+    public virtual DbSet<CResearchersRole> CResearchersRoles { get; set; }
 
-    public virtual DbSet<CallsDocumentRequirements> CallsDocumentRequirements { get; set; }
+    public virtual DbSet<CReviewOutcome> CReviewOutcomes { get; set; }
 
-    public virtual DbSet<CallsRequirements> CallsRequirements { get; set; }
+    public virtual DbSet<CReviewStatus> CReviewStatuses { get; set; }
 
-    public virtual DbSet<Committees> Committees { get; set; }
+    public virtual DbSet<CRole> CRoles { get; set; }
 
-    public virtual DbSet<CommitteesMembers> CommitteesMembers { get; set; }
+    public virtual DbSet<CTaskStatus> CTaskStatuses { get; set; }
 
-    public virtual DbSet<Documents> Documents { get; set; }
+    public virtual DbSet<CallsDocumentRequirement> CallsDocumentRequirements { get; set; }
 
-    public virtual DbSet<ExternalResearchOutputs> ExternalResearchOutputs { get; set; }
+    public virtual DbSet<CallsRequirement> CallsRequirements { get; set; }
 
-    public virtual DbSet<ExternalResearchOutputsDocuments> ExternalResearchOutputsDocuments { get; set; }
+    public virtual DbSet<Committee> Committees { get; set; }
 
-    public virtual DbSet<ExternalResearchOutputsResearchers> ExternalResearchOutputsResearchers { get; set; }
+    public virtual DbSet<CommitteesMember> CommitteesMembers { get; set; }
 
-    public virtual DbSet<Milestones> Milestones { get; set; }
+    public virtual DbSet<Document> Documents { get; set; }
 
-    public virtual DbSet<MilestonesCurrentStatus> MilestonesCurrentStatus { get; set; }
+    public virtual DbSet<Milestone> Milestones { get; set; }
 
-    public virtual DbSet<MilestonesStatusHistory> MilestonesStatusHistory { get; set; }
+    public virtual DbSet<MilestonesCurrentStatus> MilestonesCurrentStatuses { get; set; }
 
-    public virtual DbSet<MilestonesStatusHistoryDocuments> MilestonesStatusHistoryDocuments { get; set; }
+    public virtual DbSet<MilestonesStatusHistory> MilestonesStatusHistories { get; set; }
 
-    public virtual DbSet<Objectives> Objectives { get; set; }
+    public virtual DbSet<MilestonesStatusHistoryDocument> MilestonesStatusHistoryDocuments { get; set; }
 
-    public virtual DbSet<ObjectivesCurrentStatus> ObjectivesCurrentStatus { get; set; }
+    public virtual DbSet<Objective> Objectives { get; set; }
 
-    public virtual DbSet<ObjectivesStatusHistory> ObjectivesStatusHistory { get; set; }
+    public virtual DbSet<ObjectivesCurrentStatus> ObjectivesCurrentStatuses { get; set; }
 
-    public virtual DbSet<ObjectivesStatusHistoryDocuments> ObjectivesStatusHistoryDocuments { get; set; }
+    public virtual DbSet<ObjectivesStatusHistory> ObjectivesStatusHistories { get; set; }
 
-    public virtual DbSet<Projects> Projects { get; set; }
+    public virtual DbSet<ObjectivesStatusHistoryDocument> ObjectivesStatusHistoryDocuments { get; set; }
 
-    public virtual DbSet<ProjectsApplications> ProjectsApplications { get; set; }
+    public virtual DbSet<Project> Projects { get; set; }
 
-    public virtual DbSet<ProjectsApplicationsDocuments> ProjectsApplicationsDocuments { get; set; }
+    public virtual DbSet<ProjectsAcademicGroup> ProjectsAcademicGroups { get; set; }
 
-    public virtual DbSet<ProjectsBudgetDocuments> ProjectsBudgetDocuments { get; set; }
+    public virtual DbSet<ProjectsApplication> ProjectsApplications { get; set; }
 
-    public virtual DbSet<ProjectsBudgetItems> ProjectsBudgetItems { get; set; }
+    public virtual DbSet<ProjectsApplicationsDocument> ProjectsApplicationsDocuments { get; set; }
 
-    public virtual DbSet<ProjectsCurrentStatus> ProjectsCurrentStatus { get; set; }
+    public virtual DbSet<ProjectsBudgetDocument> ProjectsBudgetDocuments { get; set; }
 
-    public virtual DbSet<ProjectsDocuments> ProjectsDocuments { get; set; }
+    public virtual DbSet<ProjectsBudgetItem> ProjectsBudgetItems { get; set; }
 
-    public virtual DbSet<ProjectsExpenses> ProjectsExpenses { get; set; }
+    public virtual DbSet<ProjectsCurrentStatus> ProjectsCurrentStatuses { get; set; }
 
-    public virtual DbSet<ProjectsExpensesDocuments> ProjectsExpensesDocuments { get; set; }
+    public virtual DbSet<ProjectsDocument> ProjectsDocuments { get; set; }
 
-    public virtual DbSet<ProjectsFunding> ProjectsFunding { get; set; }
+    public virtual DbSet<ProjectsExpense> ProjectsExpenses { get; set; }
 
-    public virtual DbSet<ProjectsFundingDocuments> ProjectsFundingDocuments { get; set; }
+    public virtual DbSet<ProjectsExpensesDocument> ProjectsExpensesDocuments { get; set; }
 
-    public virtual DbSet<ProjectsLeads> ProjectsLeads { get; set; }
+    public virtual DbSet<ProjectsFunding> ProjectsFundings { get; set; }
 
-    public virtual DbSet<ProjectsResearchLines> ProjectsResearchLines { get; set; }
+    public virtual DbSet<ProjectsFundingDocument> ProjectsFundingDocuments { get; set; }
 
-    public virtual DbSet<ProjectsResearchers> ProjectsResearchers { get; set; }
+    public virtual DbSet<ProjectsLead> ProjectsLeads { get; set; }
 
-    public virtual DbSet<ProjectsReviews> ProjectsReviews { get; set; }
+    public virtual DbSet<ProjectsResearchLine> ProjectsResearchLines { get; set; }
 
-    public virtual DbSet<ProjectsStatusHistory> ProjectsStatusHistory { get; set; }
+    public virtual DbSet<ProjectsResearcher> ProjectsResearchers { get; set; }
 
-    public virtual DbSet<ProjectsStudents> ProjectsStudents { get; set; }
+    public virtual DbSet<ProjectsReview> ProjectsReviews { get; set; }
 
-    public virtual DbSet<ProjectsSubmissions> ProjectsSubmissions { get; set; }
+    public virtual DbSet<ProjectsStatusHistory> ProjectsStatusHistories { get; set; }
 
-    public virtual DbSet<ResearchOutputs> ResearchOutputs { get; set; }
+    public virtual DbSet<ProjectsStudent> ProjectsStudents { get; set; }
 
-    public virtual DbSet<ResearchOutputsDocuments> ResearchOutputsDocuments { get; set; }
+    public virtual DbSet<ProjectsSubmission> ProjectsSubmissions { get; set; }
 
-    public virtual DbSet<ResearchOutputsResearchers> ResearchOutputsResearchers { get; set; }
+    public virtual DbSet<ResearchOutput> ResearchOutputs { get; set; }
 
-    public virtual DbSet<Researchers> Researchers { get; set; }
+    public virtual DbSet<ResearchOutputsDocument> ResearchOutputsDocuments { get; set; }
 
-    public virtual DbSet<ResearchersDegrees> ResearchersDegrees { get; set; }
+    public virtual DbSet<ResearchOutputsResearcher> ResearchOutputsResearchers { get; set; }
 
-    public virtual DbSet<ResearchersExperiences> ResearchersExperiences { get; set; }
+    public virtual DbSet<Researcher> Researchers { get; set; }
 
-    public virtual DbSet<ResearchersOrganizations> ResearchersOrganizations { get; set; }
+    public virtual DbSet<ResearchersDegree> ResearchersDegrees { get; set; }
 
-    public virtual DbSet<ResearchersResearchLines> ResearchersResearchLines { get; set; }
+    public virtual DbSet<ResearchersExperience> ResearchersExperiences { get; set; }
 
-    public virtual DbSet<RolesPermissions> RolesPermissions { get; set; }
+    public virtual DbSet<ResearchersOrganization> ResearchersOrganizations { get; set; }
 
-    public virtual DbSet<Students> Students { get; set; }
+    public virtual DbSet<ResearchersResearchLine> ResearchersResearchLines { get; set; }
 
-    public virtual DbSet<SubmissionsDocuments> SubmissionsDocuments { get; set; }
+    public virtual DbSet<RolesPermission> RolesPermissions { get; set; }
 
-    public virtual DbSet<Tasks> Tasks { get; set; }
+    public virtual DbSet<Student> Students { get; set; }
 
-    public virtual DbSet<TasksCurrentStatus> TasksCurrentStatus { get; set; }
+    public virtual DbSet<SubmissionsDocument> SubmissionsDocuments { get; set; }
 
-    public virtual DbSet<TasksStatusHistory> TasksStatusHistory { get; set; }
+    public virtual DbSet<Task> Tasks { get; set; }
 
-    public virtual DbSet<TasksStatusHistoryDocuments> TasksStatusHistoryDocuments { get; set; }
+    public virtual DbSet<TasksCurrentStatus> TasksCurrentStatuses { get; set; }
 
-    public virtual DbSet<Users> Users { get; set; }
+    public virtual DbSet<TasksStatusHistory> TasksStatusHistories { get; set; }
 
-    public virtual DbSet<UsersRoles> UsersRoles { get; set; }
+    public virtual DbSet<TasksStatusHistoryDocument> TasksStatusHistoryDocuments { get; set; }
+
+    public virtual DbSet<User> Users { get; set; }
+
+    public virtual DbSet<UsersRole> UsersRoles { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -176,13 +180,15 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("academic_authorizations_history", "reviews");
 
-            entity.HasIndex(e => e.SubmissionId, "fk_157195_idx");
+            entity.HasIndex(e => new { e.SubmissionId, e.DecidedAt, e.Id }, "academic_authorizations_history_latest_idx").IsDescending(false, true, true);
 
-            entity.HasIndex(e => e.StatusId, "fk_157200_idx");
+            entity.HasIndex(e => e.SubmissionId, "fk_166985_idx");
 
-            entity.HasIndex(e => e.AuthorizedBy, "fk_157205_idx");
+            entity.HasIndex(e => e.StatusId, "fk_166990_idx");
 
-            entity.HasIndex(e => e.DocumentId, "fk_157210_idx");
+            entity.HasIndex(e => e.AuthorizedBy, "fk_166995_idx");
+
+            entity.HasIndex(e => e.DocumentId, "fk_167000_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AuthorizedBy).HasColumnName("authorized_by");
@@ -203,9 +209,6 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("is_visible");
             entity.Property(e => e.Notes).HasColumnName("notes");
             entity.Property(e => e.Rationale).HasColumnName("rationale");
-            entity.Property(e => e.ReplacedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("replaced_at");
             entity.Property(e => e.StatusId).HasColumnName("status_id");
             entity.Property(e => e.SubmissionId).HasColumnName("submission_id");
             entity.Property(e => e.UpdatedAt)
@@ -213,36 +216,193 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.AuthorizedByNavigation).WithMany(p => p.AcademicAuthorizationsHistory)
+            entity.HasOne(d => d.AuthorizedByNavigation).WithMany(p => p.AcademicAuthorizationsHistories)
                 .HasForeignKey(d => d.AuthorizedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_authorized_by_fkey");
 
-            entity.HasOne(d => d.Document).WithMany(p => p.AcademicAuthorizationsHistory)
+            entity.HasOne(d => d.Document).WithMany(p => p.AcademicAuthorizationsHistories)
                 .HasForeignKey(d => d.DocumentId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_document_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.AcademicAuthorizationsHistory)
+            entity.HasOne(d => d.Status).WithMany(p => p.AcademicAuthorizationsHistories)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_status_id_fkey");
 
-            entity.HasOne(d => d.Submission).WithMany(p => p.AcademicAuthorizationsHistory)
+            entity.HasOne(d => d.Submission).WithMany(p => p.AcademicAuthorizationsHistories)
                 .HasForeignKey(d => d.SubmissionId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("academic_authorizations_history_submission_id_fkey");
         });
 
-        modelBuilder.Entity<AuditLogs>(entity =>
+        modelBuilder.Entity<AcademicGroup>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("academic_groups_pkey");
+
+            entity.ToTable("academic_groups", "academic");
+
+            entity.HasIndex(e => e.Code, "academic_groups_code_key").IsUnique();
+
+            entity.HasIndex(e => e.OrganizationId, "fk_167128_idx");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(100)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(300)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.OrganizationId).HasColumnName("organization_id");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+            entity.HasOne(d => d.Organization).WithMany(p => p.AcademicGroups)
+                .HasForeignKey(d => d.OrganizationId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_organization_id_fkey");
+        });
+
+        modelBuilder.Entity<AcademicGroupsResearcher>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("academic_groups_researchers_pkey");
+
+            entity.ToTable("academic_groups_researchers", "academic");
+
+            entity.HasIndex(e => new { e.AcademicGroupId, e.ResearcherId, e.StartsOn }, "academic_groups_researchers_academic_group_id_researcher_id_key").IsUnique();
+
+            entity.HasIndex(e => new { e.AcademicGroupId, e.ResearcherId }, "academic_groups_researchers_current_uq")
+                .IsUnique()
+                .HasFilter("((ends_on IS NULL) AND is_active AND (deleted_at IS NULL))");
+
+            entity.HasIndex(e => e.AcademicGroupId, "academic_groups_researchers_leader_uq")
+                .IsUnique()
+                .HasFilter("(is_leader AND (ends_on IS NULL) AND is_active AND (deleted_at IS NULL))");
+
+            entity.HasIndex(e => e.AcademicGroupId, "fk_167160_idx");
+
+            entity.HasIndex(e => e.ResearcherId, "fk_167165_idx");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AcademicGroupId).HasColumnName("academic_group_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.EndsOn).HasColumnName("ends_on");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsLeader).HasColumnName("is_leader");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.ResearcherId).HasColumnName("researcher_id");
+            entity.Property(e => e.StartsOn).HasColumnName("starts_on");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+            entity.HasOne(d => d.AcademicGroup).WithOne(p => p.AcademicGroupsResearcher)
+                .HasForeignKey<AcademicGroupsResearcher>(d => d.AcademicGroupId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_researchers_academic_group_id_fkey");
+
+            entity.HasOne(d => d.Researcher).WithMany(p => p.AcademicGroupsResearchers)
+                .HasForeignKey(d => d.ResearcherId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_researchers_researcher_id_fkey");
+        });
+
+        modelBuilder.Entity<AcademicGroupsStatusHistory>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("academic_groups_status_history_pkey");
+
+            entity.ToTable("academic_groups_status_history", "academic");
+
+            entity.HasIndex(e => new { e.AcademicGroupId, e.ChangedAt, e.Id }, "academic_groups_status_history_latest_idx").IsDescending(false, true, true);
+
+            entity.HasIndex(e => e.AcademicGroupId, "fk_167196_idx");
+
+            entity.HasIndex(e => e.LevelId, "fk_167201_idx");
+
+            entity.HasIndex(e => e.ChangedBy, "fk_167206_idx");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AcademicGroupId).HasColumnName("academic_group_id");
+            entity.Property(e => e.ChangedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("changed_at");
+            entity.Property(e => e.ChangedBy).HasColumnName("changed_by");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.LevelId).HasColumnName("level_id");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.Reason).HasColumnName("reason");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+            entity.HasOne(d => d.AcademicGroup).WithMany(p => p.AcademicGroupsStatusHistories)
+                .HasForeignKey(d => d.AcademicGroupId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_status_history_academic_group_id_fkey");
+
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.AcademicGroupsStatusHistories)
+                .HasForeignKey(d => d.ChangedBy)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_status_history_changed_by_fkey");
+
+            entity.HasOne(d => d.Level).WithMany(p => p.AcademicGroupsStatusHistories)
+                .HasForeignKey(d => d.LevelId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("academic_groups_status_history_level_id_fkey");
+        });
+
+        modelBuilder.Entity<AuditLog>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("audit_logs_pkey");
 
             entity.ToTable("audit_logs", "access");
 
-            entity.HasIndex(e => e.ActorUserId, "fk_157241_idx");
+            entity.HasIndex(e => e.ActorUserId, "fk_167031_idx");
 
-            entity.HasIndex(e => e.ProjectId, "fk_157246_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_167036_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Action)
@@ -297,7 +457,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("audit_logs_project_id_fkey");
         });
 
-        modelBuilder.Entity<CAcademicAuthorizationStatuses>(entity =>
+        modelBuilder.Entity<CAcademicAuthorizationStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_authorization_statuses_pkey");
 
@@ -333,7 +493,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CAcademicFields>(entity =>
+        modelBuilder.Entity<CAcademicField>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_fields_pkey");
 
@@ -369,7 +529,43 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CAcademicPrograms>(entity =>
+        modelBuilder.Entity<CAcademicGroupLevel>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("c_academic_group_levels_pkey");
+
+            entity.ToTable("c_academic_group_levels", "academic");
+
+            entity.HasIndex(e => e.Code, "c_academic_group_levels_code_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(80)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(250)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<CAcademicProgram>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_academic_programs_pkey");
 
@@ -377,7 +573,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.Code, "c_academic_programs_code_key").IsUnique();
 
-            entity.HasIndex(e => e.OrganizationId, "fk_155003_idx");
+            entity.HasIndex(e => e.OrganizationId, "fk_164902_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
@@ -413,7 +609,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_academic_programs_organization_id_fkey");
         });
 
-        modelBuilder.Entity<CBudgetCategories>(entity =>
+        modelBuilder.Entity<CBudgetCategory>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_budget_categories_pkey");
 
@@ -449,43 +645,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CCallTypes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("c_call_types_pkey");
-
-            entity.ToTable("c_call_types", "calls");
-
-            entity.HasIndex(e => e.Code, "c_call_types_code_key").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Code)
-                .HasMaxLength(80)
-                .HasColumnName("code");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Name)
-                .HasMaxLength(250)
-                .HasColumnName("name");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-        });
-
-        modelBuilder.Entity<CCalls>(entity =>
+        modelBuilder.Entity<CCall>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_calls_pkey");
 
@@ -493,9 +653,9 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.Code, "c_calls_code_key").IsUnique();
 
-            entity.HasIndex(e => e.OrganizationId, "fk_155335_idx");
+            entity.HasIndex(e => e.OrganizationId, "fk_165234_idx");
 
-            entity.HasIndex(e => e.CallTypeId, "fk_155340_idx");
+            entity.HasIndex(e => e.CallTypeId, "fk_165239_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CallTypeId).HasColumnName("call_type_id");
@@ -539,7 +699,43 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_calls_organization_id_fkey");
         });
 
-        modelBuilder.Entity<CCommitteeRoles>(entity =>
+        modelBuilder.Entity<CCallType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("c_call_types_pkey");
+
+            entity.ToTable("c_call_types", "calls");
+
+            entity.HasIndex(e => e.Code, "c_call_types_code_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(80)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(250)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<CCommitteeRole>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_committee_roles_pkey");
 
@@ -575,7 +771,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CCurrencies>(entity =>
+        modelBuilder.Entity<CCurrency>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_currencies_pkey");
 
@@ -611,7 +807,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CDegreeLevels>(entity =>
+        modelBuilder.Entity<CDegreeLevel>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_degree_levels_pkey");
 
@@ -647,7 +843,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CDocumentTemplates>(entity =>
+        modelBuilder.Entity<CDocumentTemplate>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_document_templates_pkey");
 
@@ -704,7 +900,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.VersionNumber).HasColumnName("version_number");
         });
 
-        modelBuilder.Entity<CDocumentTypes>(entity =>
+        modelBuilder.Entity<CDocumentType>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_document_types_pkey");
 
@@ -712,7 +908,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.Code, "c_document_types_code_key").IsUnique();
 
-            entity.HasIndex(e => e.TemplateId, "fk_155404_idx");
+            entity.HasIndex(e => e.TemplateId, "fk_165303_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
@@ -748,7 +944,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_document_types_template_id_fkey");
         });
 
-        modelBuilder.Entity<CFundingSources>(entity =>
+        modelBuilder.Entity<CFundingSource>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_funding_sources_pkey");
 
@@ -784,7 +980,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CMilestoneStatuses>(entity =>
+        modelBuilder.Entity<CMilestoneStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_milestone_statuses_pkey");
 
@@ -820,7 +1016,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CObjectiveStatuses>(entity =>
+        modelBuilder.Entity<CObjectiveStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_objective_statuses_pkey");
 
@@ -856,43 +1052,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<COrganizationTypes>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("c_organization_types_pkey");
-
-            entity.ToTable("c_organization_types", "academic");
-
-            entity.HasIndex(e => e.Code, "c_organization_types_code_key").IsUnique();
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.Code)
-                .HasMaxLength(80)
-                .HasColumnName("code");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Name)
-                .HasMaxLength(250)
-                .HasColumnName("name");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-        });
-
-        modelBuilder.Entity<COrganizations>(entity =>
+        modelBuilder.Entity<COrganization>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_organizations_pkey");
 
@@ -900,7 +1060,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.Code, "c_organizations_code_key").IsUnique();
 
-            entity.HasIndex(e => e.OrganizationTypeId, "fk_154972_idx");
+            entity.HasIndex(e => e.OrganizationTypeId, "fk_164871_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Code)
@@ -940,7 +1100,43 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_organizations_organization_type_id_fkey");
         });
 
-        modelBuilder.Entity<CPermissions>(entity =>
+        modelBuilder.Entity<COrganizationType>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("c_organization_types_pkey");
+
+            entity.ToTable("c_organization_types", "academic");
+
+            entity.HasIndex(e => e.Code, "c_organization_types_code_key").IsUnique();
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Code)
+                .HasMaxLength(80)
+                .HasColumnName("code");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.Description).HasColumnName("description");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Name)
+                .HasMaxLength(250)
+                .HasColumnName("name");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+        });
+
+        modelBuilder.Entity<CPermission>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_permissions_pkey");
 
@@ -976,7 +1172,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CProjectStatuses>(entity =>
+        modelBuilder.Entity<CProjectStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_project_statuses_pkey");
 
@@ -1012,7 +1208,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CResearchLines>(entity =>
+        modelBuilder.Entity<CResearchLine>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_research_lines_pkey");
 
@@ -1020,7 +1216,7 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.Code, "c_research_lines_code_key").IsUnique();
 
-            entity.HasIndex(e => e.AcademicFieldId, "fk_155059_idx");
+            entity.HasIndex(e => e.AcademicFieldId, "fk_164958_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AcademicFieldId).HasColumnName("academic_field_id");
@@ -1056,7 +1252,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("c_research_lines_academic_field_id_fkey");
         });
 
-        modelBuilder.Entity<CResearchOutputsTypes>(entity =>
+        modelBuilder.Entity<CResearchOutputsType>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_research_outputs_types_pkey");
 
@@ -1092,7 +1288,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CResearchersRoles>(entity =>
+        modelBuilder.Entity<CResearchersRole>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_researchers_roles_pkey");
 
@@ -1128,7 +1324,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CReviewOutcomes>(entity =>
+        modelBuilder.Entity<CReviewOutcome>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_review_outcomes_pkey");
 
@@ -1164,7 +1360,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CReviewStatuses>(entity =>
+        modelBuilder.Entity<CReviewStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_review_statuses_pkey");
 
@@ -1200,7 +1396,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CRoles>(entity =>
+        modelBuilder.Entity<CRole>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_roles_pkey");
 
@@ -1236,7 +1432,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CTaskStatuses>(entity =>
+        modelBuilder.Entity<CTaskStatus>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("c_task_statuses_pkey");
 
@@ -1272,7 +1468,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<CallsDocumentRequirements>(entity =>
+        modelBuilder.Entity<CallsDocumentRequirement>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calls_document_requirements_pkey");
 
@@ -1282,9 +1478,9 @@ public partial class AppDbContext : DbContext
                 .IsUnique()
                 .HasFilter("(is_active AND (deleted_at IS NULL))");
 
-            entity.HasIndex(e => e.CallId, "fk_155479_idx");
+            entity.HasIndex(e => e.CallId, "fk_165378_idx");
 
-            entity.HasIndex(e => e.DocumentTypeId, "fk_155484_idx");
+            entity.HasIndex(e => e.DocumentTypeId, "fk_165383_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CallId).HasColumnName("call_id");
@@ -1328,13 +1524,13 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("calls_document_requirements_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<CallsRequirements>(entity =>
+        modelBuilder.Entity<CallsRequirement>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("calls_requirements_pkey");
 
             entity.ToTable("calls_requirements", "calls");
 
-            entity.HasIndex(e => e.CallId, "fk_155513_idx");
+            entity.HasIndex(e => e.CallId, "fk_165412_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CallId).HasColumnName("call_id");
@@ -1370,13 +1566,13 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("calls_requirements_call_id_fkey");
         });
 
-        modelBuilder.Entity<Committees>(entity =>
+        modelBuilder.Entity<Committee>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("committees_pkey");
 
             entity.ToTable("committees", "reviews");
 
-            entity.HasIndex(e => e.AcademicProgramId, "fk_156973_idx");
+            entity.HasIndex(e => e.AcademicProgramId, "fk_166780_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.AcademicProgramId).HasColumnName("academic_program_id");
@@ -1410,7 +1606,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("committees_academic_program_id_fkey");
         });
 
-        modelBuilder.Entity<CommitteesMembers>(entity =>
+        modelBuilder.Entity<CommitteesMember>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("committees_members_pkey");
 
@@ -1426,11 +1622,11 @@ public partial class AppDbContext : DbContext
                 .IsUnique()
                 .HasFilter("(is_active AND (deleted_at IS NULL))");
 
-            entity.HasIndex(e => e.CommitteeId, "fk_157004_idx");
+            entity.HasIndex(e => e.CommitteeId, "fk_166811_idx");
 
-            entity.HasIndex(e => e.UserId, "fk_157009_idx");
+            entity.HasIndex(e => e.UserId, "fk_166816_idx");
 
-            entity.HasIndex(e => e.CommitteeRoleId, "fk_157014_idx");
+            entity.HasIndex(e => e.CommitteeRoleId, "fk_166821_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CommitteeId).HasColumnName("committee_id");
@@ -1473,7 +1669,7 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("committees_members_user_id_fkey");
         });
 
-        modelBuilder.Entity<Documents>(entity =>
+        modelBuilder.Entity<Document>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("documents_pkey");
 
@@ -1483,9 +1679,9 @@ public partial class AppDbContext : DbContext
 
             entity.HasIndex(e => e.StorageKey, "documents_storage_key_key").IsUnique();
 
-            entity.HasIndex(e => e.DocumentTypeId, "fk_155443_idx");
+            entity.HasIndex(e => e.DocumentTypeId, "fk_165342_idx");
 
-            entity.HasIndex(e => e.UploadedBy, "fk_155448_idx");
+            entity.HasIndex(e => e.UploadedBy, "fk_165347_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -1535,166 +1731,13 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("documents_uploaded_by_fkey");
         });
 
-        modelBuilder.Entity<ExternalResearchOutputs>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("external_research_outputs_pkey");
-
-            entity.ToTable("external_research_outputs", "academic");
-
-            entity.HasIndex(e => e.OutputTypeId, "fk_156774_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.BibliographicCitation).HasColumnName("bibliographic_citation");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.Description).HasColumnName("description");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.Doi)
-                .HasMaxLength(250)
-                .HasColumnName("doi");
-            entity.Property(e => e.ExternalUrl).HasColumnName("external_url");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.OutputTypeId).HasColumnName("output_type_id");
-            entity.Property(e => e.ProducedOn).HasColumnName("produced_on");
-            entity.Property(e => e.Title)
-                .HasMaxLength(500)
-                .HasColumnName("title");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-
-            entity.HasOne(d => d.OutputType).WithMany(p => p.ExternalResearchOutputs)
-                .HasForeignKey(d => d.OutputTypeId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("external_research_outputs_output_type_id_fkey");
-        });
-
-        modelBuilder.Entity<ExternalResearchOutputsDocuments>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("external_research_outputs_documents_pkey");
-
-            entity.ToTable("external_research_outputs_documents", "academic");
-
-            entity.HasIndex(e => e.ExternalResearchOutputId, "fk_156843_idx");
-
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156848_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.DocumentId).HasColumnName("document_id");
-            entity.Property(e => e.DocumentTypeId).HasColumnName("document_type_id");
-            entity.Property(e => e.ExternalResearchOutputId).HasColumnName("external_research_output_id");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsCurrent)
-                .HasDefaultValue(true)
-                .HasColumnName("is_current");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.Title)
-                .HasMaxLength(300)
-                .HasColumnName("title");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-            entity.Property(e => e.VersionNumber)
-                .HasDefaultValue(1)
-                .HasColumnName("version_number");
-
-            entity.HasOne(d => d.ExternalResearchOutput).WithMany(p => p.ExternalResearchOutputsDocuments)
-                .HasForeignKey(d => d.ExternalResearchOutputId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("external_research_outputs_docu_external_research_output_id_fkey");
-
-            entity.HasOne(d => d.Documents).WithMany(p => p.ExternalResearchOutputsDocuments)
-                .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
-                .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("external_research_outputs_doc_document_id_document_type_id_fkey");
-        });
-
-        modelBuilder.Entity<ExternalResearchOutputsResearchers>(entity =>
-        {
-            entity.HasKey(e => e.Id).HasName("external_research_outputs_researchers_pkey");
-
-            entity.ToTable("external_research_outputs_researchers", "academic");
-
-            entity.HasIndex(e => new { e.ExternalResearchOutputId, e.AuthorOrder }, "external_research_outputs_researchers_author_order_uq")
-                .IsUnique()
-                .HasFilter("(is_active AND (deleted_at IS NULL))");
-
-            entity.HasIndex(e => new { e.ExternalResearchOutputId, e.ResearcherId }, "external_research_outputs_researchers_live_uq")
-                .IsUnique()
-                .HasFilter("(is_active AND (deleted_at IS NULL))");
-
-            entity.HasIndex(e => e.ExternalResearchOutputId, "fk_156804_idx");
-
-            entity.HasIndex(e => e.ResearcherId, "fk_156809_idx");
-
-            entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AuthorOrder).HasColumnName("author_order");
-            entity.Property(e => e.Contribution).HasColumnName("contribution");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("created_at");
-            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
-            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
-            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
-            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
-            entity.Property(e => e.ExternalResearchOutputId).HasColumnName("external_research_output_id");
-            entity.Property(e => e.IsActive)
-                .HasDefaultValue(true)
-                .HasColumnName("is_active");
-            entity.Property(e => e.IsCorrespondingAuthor).HasColumnName("is_corresponding_author");
-            entity.Property(e => e.IsVisible)
-                .HasDefaultValue(true)
-                .HasColumnName("is_visible");
-            entity.Property(e => e.Notes).HasColumnName("notes");
-            entity.Property(e => e.ResearcherId).HasColumnName("researcher_id");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("CURRENT_TIMESTAMP")
-                .HasColumnName("updated_at");
-            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
-
-            entity.HasOne(d => d.ExternalResearchOutput).WithMany(p => p.ExternalResearchOutputsResearchers)
-                .HasForeignKey(d => d.ExternalResearchOutputId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("external_research_outputs_rese_external_research_output_id_fkey");
-
-            entity.HasOne(d => d.Researcher).WithMany(p => p.ExternalResearchOutputsResearchers)
-                .HasForeignKey(d => d.ResearcherId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("external_research_outputs_researchers_researcher_id_fkey");
-        });
-
-        modelBuilder.Entity<Milestones>(entity =>
+        modelBuilder.Entity<Milestone>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("milestones_pkey");
 
             entity.ToTable("milestones", "research");
 
-            entity.HasIndex(e => e.ObjectiveId, "fk_155970_idx");
+            entity.HasIndex(e => e.ObjectiveId, "fk_165877_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -1761,11 +1804,11 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("milestones_status_history", "research");
 
-            entity.HasIndex(e => e.MilestoneId, "fk_156159_idx");
+            entity.HasIndex(e => e.MilestoneId, "fk_166066_idx");
 
-            entity.HasIndex(e => e.StatusId, "fk_156164_idx");
+            entity.HasIndex(e => e.StatusId, "fk_166071_idx");
 
-            entity.HasIndex(e => e.ChangedBy, "fk_156169_idx");
+            entity.HasIndex(e => e.ChangedBy, "fk_166076_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChangedAt)
@@ -1797,31 +1840,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.MilestonesStatusHistory)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.MilestonesStatusHistories)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Milestone).WithMany(p => p.MilestonesStatusHistory)
+            entity.HasOne(d => d.Milestone).WithMany(p => p.MilestonesStatusHistories)
                 .HasForeignKey(d => d.MilestoneId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_milestone_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.MilestonesStatusHistory)
+            entity.HasOne(d => d.Status).WithMany(p => p.MilestonesStatusHistories)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<MilestonesStatusHistoryDocuments>(entity =>
+        modelBuilder.Entity<MilestonesStatusHistoryDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("milestones_status_history_documents_pkey");
 
             entity.ToTable("milestones_status_history_documents", "research");
 
-            entity.HasIndex(e => e.StatusHistoryId, "fk_156203_idx");
+            entity.HasIndex(e => e.StatusHistoryId, "fk_166110_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156208_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166115_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -1860,20 +1903,20 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("milestones_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.MilestonesStatusHistoryDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.MilestonesStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("milestones_status_history_doc_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<Objectives>(entity =>
+        modelBuilder.Entity<Objective>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("objectives_pkey");
 
             entity.ToTable("objectives", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_155943_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_165850_idx");
 
             entity.HasIndex(e => e.ProjectId, "objectives_general_uq")
                 .IsUnique()
@@ -1906,8 +1949,8 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.Project).WithOne(p => p.Objectives)
-                .HasForeignKey<Objectives>(d => d.ProjectId)
+            entity.HasOne(d => d.Project).WithOne(p => p.Objective)
+                .HasForeignKey<Objective>(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_project_id_fkey");
         });
@@ -1945,11 +1988,11 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("objectives_status_history", "research");
 
-            entity.HasIndex(e => e.ObjectiveId, "fk_156077_idx");
+            entity.HasIndex(e => e.ObjectiveId, "fk_165984_idx");
 
-            entity.HasIndex(e => e.StatusId, "fk_156082_idx");
+            entity.HasIndex(e => e.StatusId, "fk_165989_idx");
 
-            entity.HasIndex(e => e.ChangedBy, "fk_156087_idx");
+            entity.HasIndex(e => e.ChangedBy, "fk_165994_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChangedAt)
@@ -1981,31 +2024,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ObjectivesStatusHistory)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ObjectivesStatusHistories)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Objective).WithMany(p => p.ObjectivesStatusHistory)
+            entity.HasOne(d => d.Objective).WithMany(p => p.ObjectivesStatusHistories)
                 .HasForeignKey(d => d.ObjectiveId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_objective_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.ObjectivesStatusHistory)
+            entity.HasOne(d => d.Status).WithMany(p => p.ObjectivesStatusHistories)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<ObjectivesStatusHistoryDocuments>(entity =>
+        modelBuilder.Entity<ObjectivesStatusHistoryDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("objectives_status_history_documents_pkey");
 
             entity.ToTable("objectives_status_history_documents", "research");
 
-            entity.HasIndex(e => e.StatusHistoryId, "fk_156121_idx");
+            entity.HasIndex(e => e.StatusHistoryId, "fk_166028_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156126_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166033_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -2044,20 +2087,22 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("objectives_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ObjectivesStatusHistoryDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ObjectivesStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("objectives_status_history_doc_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<Projects>(entity =>
+        modelBuilder.Entity<Project>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_pkey");
 
             entity.ToTable("projects", "research");
 
-            entity.HasIndex(e => e.CurrencyId, "fk_155777_idx");
+            entity.HasIndex(e => e.OrganizationId, "fk_165679_idx");
+
+            entity.HasIndex(e => e.CurrencyId, "fk_165684_idx");
 
             entity.HasIndex(e => e.ReferenceCode, "projects_reference_code_key").IsUnique();
 
@@ -2077,6 +2122,9 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.IsActive)
                 .HasDefaultValue(true)
                 .HasColumnName("is_active");
+            entity.Property(e => e.IsManagedInPlatform)
+                .HasDefaultValue(true)
+                .HasColumnName("is_managed_in_platform");
             entity.Property(e => e.IsVisible)
                 .HasDefaultValue(true)
                 .HasColumnName("is_visible");
@@ -2089,6 +2137,7 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.ObjectivesProgressPercentage)
                 .HasPrecision(5, 2)
                 .HasColumnName("objectives_progress_percentage");
+            entity.Property(e => e.OrganizationId).HasColumnName("organization_id");
             entity.Property(e => e.ProblemStatement).HasColumnName("problem_statement");
             entity.Property(e => e.ReferenceCode)
                 .HasMaxLength(100)
@@ -2110,17 +2159,69 @@ public partial class AppDbContext : DbContext
                 .HasForeignKey(d => d.CurrencyId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_currency_id_fkey");
+
+            entity.HasOne(d => d.Organization).WithMany(p => p.Projects)
+                .HasForeignKey(d => d.OrganizationId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("projects_organization_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsApplications>(entity =>
+        modelBuilder.Entity<ProjectsAcademicGroup>(entity =>
+        {
+            entity.HasKey(e => e.Id).HasName("projects_academic_groups_pkey");
+
+            entity.ToTable("projects_academic_groups", "research");
+
+            entity.HasIndex(e => e.ProjectId, "fk_167232_idx");
+
+            entity.HasIndex(e => e.AcademicGroupId, "fk_167237_idx");
+
+            entity.HasIndex(e => new { e.ProjectId, e.AcademicGroupId }, "projects_academic_groups_live_uq")
+                .IsUnique()
+                .HasFilter("(is_active AND (deleted_at IS NULL))");
+
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.AcademicGroupId).HasColumnName("academic_group_id");
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("created_at");
+            entity.Property(e => e.CreatedBy).HasColumnName("created_by");
+            entity.Property(e => e.DeletedAt).HasColumnName("deleted_at");
+            entity.Property(e => e.DeletedBy).HasColumnName("deleted_by");
+            entity.Property(e => e.DisplayOrder).HasColumnName("display_order");
+            entity.Property(e => e.IsActive)
+                .HasDefaultValue(true)
+                .HasColumnName("is_active");
+            entity.Property(e => e.IsVisible)
+                .HasDefaultValue(true)
+                .HasColumnName("is_visible");
+            entity.Property(e => e.Notes).HasColumnName("notes");
+            entity.Property(e => e.ProjectId).HasColumnName("project_id");
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("CURRENT_TIMESTAMP")
+                .HasColumnName("updated_at");
+            entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
+
+            entity.HasOne(d => d.AcademicGroup).WithMany(p => p.ProjectsAcademicGroups)
+                .HasForeignKey(d => d.AcademicGroupId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("projects_academic_groups_academic_group_id_fkey");
+
+            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsAcademicGroups)
+                .HasForeignKey(d => d.ProjectId)
+                .OnDelete(DeleteBehavior.Restrict)
+                .HasConstraintName("projects_academic_groups_project_id_fkey");
+        });
+
+        modelBuilder.Entity<ProjectsApplication>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_applications_pkey");
 
             entity.ToTable("projects_applications", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156362_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166269_idx");
 
-            entity.HasIndex(e => e.CallId, "fk_156367_idx");
+            entity.HasIndex(e => e.CallId, "fk_166274_idx");
 
             entity.HasIndex(e => new { e.Id, e.ProjectId }, "projects_applications_id_project_id_key").IsUnique();
 
@@ -2168,15 +2269,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_applications_project_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsApplicationsDocuments>(entity =>
+        modelBuilder.Entity<ProjectsApplicationsDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_applications_documents_pkey");
 
             entity.ToTable("projects_applications_documents", "research");
 
-            entity.HasIndex(e => e.ApplicationId, "fk_156401_idx");
+            entity.HasIndex(e => e.ApplicationId, "fk_166308_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156406_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166313_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ApplicationId).HasColumnName("application_id");
@@ -2215,22 +2316,22 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_applications_documents_application_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsApplicationsDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsApplicationsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_applications_documen_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsBudgetDocuments>(entity =>
+        modelBuilder.Entity<ProjectsBudgetDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_budget_documents_pkey");
 
             entity.ToTable("projects_budget_documents", "research");
 
-            entity.HasIndex(e => e.BudgetItemId, "fk_156479_idx");
+            entity.HasIndex(e => e.BudgetItemId, "fk_166386_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156484_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166391_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BudgetItemId).HasColumnName("budget_item_id");
@@ -2269,22 +2370,22 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_budget_documents_budget_item_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsBudgetDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsBudgetDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_budget_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsBudgetItems>(entity =>
+        modelBuilder.Entity<ProjectsBudgetItem>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_budget_items_pkey");
 
             entity.ToTable("projects_budget_items", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156440_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166347_idx");
 
-            entity.HasIndex(e => e.BudgetCategoryId, "fk_156445_idx");
+            entity.HasIndex(e => e.BudgetCategoryId, "fk_166352_idx");
 
             entity.HasIndex(e => new { e.Id, e.ProjectId }, "projects_budget_items_id_project_id_key").IsUnique();
 
@@ -2356,15 +2457,15 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<ProjectsDocuments>(entity =>
+        modelBuilder.Entity<ProjectsDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_documents_pkey");
 
             entity.ToTable("projects_documents", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156326_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166233_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156331_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166238_idx");
 
             entity.HasIndex(e => new { e.Id, e.ProjectId, e.DocumentId }, "projects_documents_id_project_id_document_id_key").IsUnique();
 
@@ -2405,22 +2506,22 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_documents_project_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsExpenses>(entity =>
+        modelBuilder.Entity<ProjectsExpense>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_expenses_pkey");
 
             entity.ToTable("projects_expenses", "research");
 
-            entity.HasIndex(e => e.BudgetItemId, "fk_156598_idx");
+            entity.HasIndex(e => e.BudgetItemId, "fk_166505_idx");
 
-            entity.HasIndex(e => e.FundingId, "fk_156603_idx");
+            entity.HasIndex(e => e.FundingId, "fk_166510_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Amount)
@@ -2466,15 +2567,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_expenses_funding_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsExpensesDocuments>(entity =>
+        modelBuilder.Entity<ProjectsExpensesDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_expenses_documents_pkey");
 
             entity.ToTable("projects_expenses_documents", "research");
 
-            entity.HasIndex(e => e.ExpenseId, "fk_156637_idx");
+            entity.HasIndex(e => e.ExpenseId, "fk_166544_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156642_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166549_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -2513,7 +2614,7 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_expenses_documents_expense_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsExpensesDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsExpensesDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -2526,11 +2627,11 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("projects_funding", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156520_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166427_idx");
 
-            entity.HasIndex(e => e.FundingSourceId, "fk_156525_idx");
+            entity.HasIndex(e => e.FundingSourceId, "fk_166432_idx");
 
-            entity.HasIndex(e => new { e.ApplicationId, e.ProjectId }, "fk_156530_idx");
+            entity.HasIndex(e => new { e.ApplicationId, e.ProjectId }, "fk_166437_idx");
 
             entity.HasIndex(e => new { e.Id, e.ProjectId }, "projects_funding_id_project_id_key").IsUnique();
 
@@ -2570,31 +2671,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.FundingSource).WithMany(p => p.ProjectsFunding)
+            entity.HasOne(d => d.FundingSource).WithMany(p => p.ProjectsFundings)
                 .HasForeignKey(d => d.FundingSourceId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_funding_source_id_fkey");
 
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsFunding)
+            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsFundings)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_project_id_fkey");
 
-            entity.HasOne(d => d.ProjectsApplications).WithMany(p => p.ProjectsFunding)
+            entity.HasOne(d => d.ProjectsApplication).WithMany(p => p.ProjectsFundings)
                 .HasPrincipalKey(p => new { p.Id, p.ProjectId })
                 .HasForeignKey(d => new { d.ApplicationId, d.ProjectId })
                 .HasConstraintName("projects_funding_application_id_project_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsFundingDocuments>(entity =>
+        modelBuilder.Entity<ProjectsFundingDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_funding_documents_pkey");
 
             entity.ToTable("projects_funding_documents", "research");
 
-            entity.HasIndex(e => e.FundingId, "fk_156564_idx");
+            entity.HasIndex(e => e.FundingId, "fk_166471_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156569_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166476_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -2633,20 +2734,20 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_funding_documents_funding_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ProjectsFundingDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ProjectsFundingDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_funding_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsLeads>(entity =>
+        modelBuilder.Entity<ProjectsLead>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_leads_pkey");
 
             entity.ToTable("projects_leads", "research");
 
-            entity.HasIndex(e => e.ProjectResearcherId, "fk_155849_idx");
+            entity.HasIndex(e => e.ProjectResearcherId, "fk_165756_idx");
 
             entity.HasIndex(e => e.ProjectResearcherId, "projects_leads_participant_current_uq")
                 .IsUnique()
@@ -2679,21 +2780,21 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ProjectResearcher).WithOne(p => p.ProjectsLeads)
-                .HasForeignKey<ProjectsLeads>(d => d.ProjectResearcherId)
+            entity.HasOne(d => d.ProjectResearcher).WithOne(p => p.ProjectsLead)
+                .HasForeignKey<ProjectsLead>(d => d.ProjectResearcherId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_leads_project_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsResearchLines>(entity =>
+        modelBuilder.Entity<ProjectsResearchLine>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_research_lines_pkey");
 
             entity.ToTable("projects_research_lines", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_155908_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_165815_idx");
 
-            entity.HasIndex(e => e.ResearchLineId, "fk_155913_idx");
+            entity.HasIndex(e => e.ResearchLineId, "fk_165820_idx");
 
             entity.HasIndex(e => new { e.ProjectId, e.ResearchLineId }, "projects_research_lines_live_uq")
                 .IsUnique()
@@ -2732,17 +2833,17 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_research_lines_research_line_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsResearchers>(entity =>
+        modelBuilder.Entity<ProjectsResearcher>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_researchers_pkey");
 
             entity.ToTable("projects_researchers", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_155808_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_165715_idx");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_155813_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_165720_idx");
 
-            entity.HasIndex(e => e.ResearcherRoleId, "fk_155818_idx");
+            entity.HasIndex(e => e.ResearcherRoleId, "fk_165725_idx");
 
             entity.HasIndex(e => new { e.Id, e.ProjectId }, "projects_researchers_id_project_id_key").IsUnique();
 
@@ -2792,19 +2893,19 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_researchers_researcher_role_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsReviews>(entity =>
+        modelBuilder.Entity<ProjectsReview>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_reviews_pkey");
 
             entity.ToTable("projects_reviews", "reviews");
 
-            entity.HasIndex(e => e.StatusId, "fk_157148_idx");
+            entity.HasIndex(e => e.StatusId, "fk_166939_idx");
 
-            entity.HasIndex(e => e.OutcomeId, "fk_157153_idx");
+            entity.HasIndex(e => e.OutcomeId, "fk_166944_idx");
 
-            entity.HasIndex(e => new { e.SubmissionId, e.CommitteeId }, "fk_157158_idx");
+            entity.HasIndex(e => new { e.SubmissionId, e.CommitteeId }, "fk_166949_idx");
 
-            entity.HasIndex(e => new { e.CommitteeMemberId, e.CommitteeId }, "fk_157163_idx");
+            entity.HasIndex(e => new { e.CommitteeMemberId, e.CommitteeId }, "fk_166954_idx");
 
             entity.HasIndex(e => new { e.SubmissionId, e.CommitteeMemberId }, "projects_reviews_submission_id_committee_member_id_key").IsUnique();
 
@@ -2845,13 +2946,13 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_reviews_status_id_fkey");
 
-            entity.HasOne(d => d.CommitteesMembers).WithMany(p => p.ProjectsReviews)
+            entity.HasOne(d => d.CommitteesMember).WithMany(p => p.ProjectsReviews)
                 .HasPrincipalKey(p => new { p.Id, p.CommitteeId })
                 .HasForeignKey(d => new { d.CommitteeMemberId, d.CommitteeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("projects_reviews_committee_member_id_committee_id_fkey");
 
-            entity.HasOne(d => d.ProjectsSubmissions).WithMany(p => p.ProjectsReviews)
+            entity.HasOne(d => d.ProjectsSubmission).WithMany(p => p.ProjectsReviews)
                 .HasPrincipalKey(p => new { p.Id, p.CommitteeId })
                 .HasForeignKey(d => new { d.SubmissionId, d.CommitteeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
@@ -2864,11 +2965,11 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("projects_status_history", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156034_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_165941_idx");
 
-            entity.HasIndex(e => e.StatusId, "fk_156039_idx");
+            entity.HasIndex(e => e.StatusId, "fk_165946_idx");
 
-            entity.HasIndex(e => e.ChangedBy, "fk_156044_idx");
+            entity.HasIndex(e => e.ChangedBy, "fk_165951_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChangedAt)
@@ -2897,31 +2998,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ProjectsStatusHistory)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.ProjectsStatusHistories)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsStatusHistory)
+            entity.HasOne(d => d.Project).WithMany(p => p.ProjectsStatusHistories)
                 .HasForeignKey(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_project_id_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.ProjectsStatusHistory)
+            entity.HasOne(d => d.Status).WithMany(p => p.ProjectsStatusHistories)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_status_history_status_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsStudents>(entity =>
+        modelBuilder.Entity<ProjectsStudent>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_students_pkey");
 
             entity.ToTable("projects_students", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_155877_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_165784_idx");
 
-            entity.HasIndex(e => e.StudentId, "fk_155882_idx");
+            entity.HasIndex(e => e.StudentId, "fk_165789_idx");
 
             entity.HasIndex(e => new { e.ProjectId, e.StudentId }, "projects_students_live_uq")
                 .IsUnique()
@@ -2963,25 +3064,19 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("projects_students_student_id_fkey");
         });
 
-        modelBuilder.Entity<ProjectsSubmissions>(entity =>
+        modelBuilder.Entity<ProjectsSubmission>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("projects_submissions_pkey");
 
             entity.ToTable("projects_submissions", "reviews");
 
-            entity.HasIndex(e => e.ProjectId, "fk_157055_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166861_idx");
 
-            entity.HasIndex(e => e.CommitteeId, "fk_157060_idx");
+            entity.HasIndex(e => e.CommitteeId, "fk_166866_idx");
 
-            entity.HasIndex(e => e.SubmittedBy, "fk_157065_idx");
+            entity.HasIndex(e => e.SubmittedBy, "fk_166871_idx");
 
-            entity.HasIndex(e => e.AcademicStatusId, "fk_157070_idx");
-
-            entity.HasIndex(e => e.AcademicAuthorizedBy, "fk_157075_idx");
-
-            entity.HasIndex(e => e.AcademicDocumentId, "fk_157080_idx");
-
-            entity.HasIndex(e => new { e.ApplicationId, e.ProjectId }, "fk_157085_idx");
+            entity.HasIndex(e => new { e.ApplicationId, e.ProjectId }, "fk_166876_idx");
 
             entity.HasIndex(e => new { e.Id, e.CommitteeId }, "projects_submissions_id_committee_id_key").IsUnique();
 
@@ -2992,11 +3087,6 @@ public partial class AppDbContext : DbContext
             entity.HasIndex(e => new { e.ProjectId, e.VersionNumber }, "projects_submissions_project_id_version_number_key").IsUnique();
 
             entity.Property(e => e.Id).HasColumnName("id");
-            entity.Property(e => e.AcademicAuthorizedBy).HasColumnName("academic_authorized_by");
-            entity.Property(e => e.AcademicDecidedAt).HasColumnName("academic_decided_at");
-            entity.Property(e => e.AcademicDocumentId).HasColumnName("academic_document_id");
-            entity.Property(e => e.AcademicRationale).HasColumnName("academic_rationale");
-            entity.Property(e => e.AcademicStatusId).HasColumnName("academic_status_id");
             entity.Property(e => e.ApplicationId).HasColumnName("application_id");
             entity.Property(e => e.CommitteeId).HasColumnName("committee_id");
             entity.Property(e => e.CreatedAt)
@@ -3031,51 +3121,36 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.VersionNumber).HasColumnName("version_number");
 
-            entity.HasOne(d => d.AcademicAuthorizedByNavigation).WithMany(p => p.ProjectsSubmissionsAcademicAuthorizedByNavigation)
-                .HasForeignKey(d => d.AcademicAuthorizedBy)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("projects_submissions_academic_authorized_by_fkey");
-
-            entity.HasOne(d => d.AcademicDocument).WithMany(p => p.ProjectsSubmissions)
-                .HasForeignKey(d => d.AcademicDocumentId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("projects_submissions_academic_document_id_fkey");
-
-            entity.HasOne(d => d.AcademicStatus).WithMany(p => p.ProjectsSubmissions)
-                .HasForeignKey(d => d.AcademicStatusId)
-                .OnDelete(DeleteBehavior.Restrict)
-                .HasConstraintName("projects_submissions_academic_status_id_fkey");
-
             entity.HasOne(d => d.Committee).WithMany(p => p.ProjectsSubmissions)
                 .HasForeignKey(d => d.CommitteeId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_committee_id_fkey");
 
-            entity.HasOne(d => d.Project).WithOne(p => p.ProjectsSubmissions)
-                .HasForeignKey<ProjectsSubmissions>(d => d.ProjectId)
+            entity.HasOne(d => d.Project).WithOne(p => p.ProjectsSubmission)
+                .HasForeignKey<ProjectsSubmission>(d => d.ProjectId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_project_id_fkey");
 
-            entity.HasOne(d => d.SubmittedByNavigation).WithMany(p => p.ProjectsSubmissionsSubmittedByNavigation)
+            entity.HasOne(d => d.SubmittedByNavigation).WithMany(p => p.ProjectsSubmissions)
                 .HasForeignKey(d => d.SubmittedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("projects_submissions_submitted_by_fkey");
 
-            entity.HasOne(d => d.ProjectsApplications).WithMany(p => p.ProjectsSubmissions)
+            entity.HasOne(d => d.ProjectsApplication).WithMany(p => p.ProjectsSubmissions)
                 .HasPrincipalKey(p => new { p.Id, p.ProjectId })
                 .HasForeignKey(d => new { d.ApplicationId, d.ProjectId })
                 .HasConstraintName("projects_submissions_application_id_project_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutputs>(entity =>
+        modelBuilder.Entity<ResearchOutput>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_pkey");
 
             entity.ToTable("research_outputs", "research");
 
-            entity.HasIndex(e => e.ProjectId, "fk_156669_idx");
+            entity.HasIndex(e => e.ProjectId, "fk_166576_idx");
 
-            entity.HasIndex(e => e.OutputTypeId, "fk_156674_idx");
+            entity.HasIndex(e => e.OutputTypeId, "fk_166581_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BibliographicCitation).HasColumnName("bibliographic_citation");
@@ -3120,15 +3195,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("research_outputs_project_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutputsDocuments>(entity =>
+        modelBuilder.Entity<ResearchOutputsDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_documents_pkey");
 
             entity.ToTable("research_outputs_documents", "research");
 
-            entity.HasIndex(e => e.ResearchOutputId, "fk_156743_idx");
+            entity.HasIndex(e => e.ResearchOutputId, "fk_166650_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156748_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166655_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -3167,22 +3242,22 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("research_outputs_documents_research_output_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.ResearchOutputsDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.ResearchOutputsDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("research_outputs_documents_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchOutputsResearchers>(entity =>
+        modelBuilder.Entity<ResearchOutputsResearcher>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("research_outputs_researchers_pkey");
 
             entity.ToTable("research_outputs_researchers", "research");
 
-            entity.HasIndex(e => e.ResearchOutputId, "fk_156704_idx");
+            entity.HasIndex(e => e.ResearchOutputId, "fk_166611_idx");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_156709_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_166616_idx");
 
             entity.HasIndex(e => new { e.ResearchOutputId, e.AuthorOrder }, "research_outputs_researchers_author_order_uq")
                 .IsUnique()
@@ -3228,13 +3303,13 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("research_outputs_researchers_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<Researchers>(entity =>
+        modelBuilder.Entity<Researcher>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_pkey");
 
             entity.ToTable("researchers", "academic");
 
-            entity.HasIndex(e => e.UserId, "fk_155113_idx");
+            entity.HasIndex(e => e.UserId, "fk_165012_idx");
 
             entity.HasIndex(e => e.Orcid, "researchers_orcid_key").IsUnique();
 
@@ -3266,21 +3341,21 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
             entity.Property(e => e.UserId).HasColumnName("user_id");
 
-            entity.HasOne(d => d.User).WithOne(p => p.Researchers)
-                .HasForeignKey<Researchers>(d => d.UserId)
+            entity.HasOne(d => d.User).WithOne(p => p.Researcher)
+                .HasForeignKey<Researcher>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("researchers_user_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersDegrees>(entity =>
+        modelBuilder.Entity<ResearchersDegree>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_degrees_pkey");
 
             entity.ToTable("researchers_degrees", "academic");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_155175_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_165074_idx");
 
-            entity.HasIndex(e => e.DegreeLevelId, "fk_155180_idx");
+            entity.HasIndex(e => e.DegreeLevelId, "fk_165079_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -3325,13 +3400,13 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_degrees_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersExperiences>(entity =>
+        modelBuilder.Entity<ResearchersExperience>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_experiences_pkey");
 
             entity.ToTable("researchers_experiences", "academic");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_155209_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_165108_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -3369,15 +3444,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_experiences_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersOrganizations>(entity =>
+        modelBuilder.Entity<ResearchersOrganization>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_organizations_pkey");
 
             entity.ToTable("researchers_organizations", "academic");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_155141_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_165040_idx");
 
-            entity.HasIndex(e => e.OrganizationId, "fk_155146_idx");
+            entity.HasIndex(e => e.OrganizationId, "fk_165045_idx");
 
             entity.HasIndex(e => new { e.ResearcherId, e.OrganizationId }, "researchers_organizations_live_uq")
                 .IsUnique()
@@ -3421,15 +3496,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_organizations_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<ResearchersResearchLines>(entity =>
+        modelBuilder.Entity<ResearchersResearchLine>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("researchers_research_lines_pkey");
 
             entity.ToTable("researchers_research_lines", "academic");
 
-            entity.HasIndex(e => e.ResearcherId, "fk_155235_idx");
+            entity.HasIndex(e => e.ResearcherId, "fk_165134_idx");
 
-            entity.HasIndex(e => e.ResearchLineId, "fk_155240_idx");
+            entity.HasIndex(e => e.ResearchLineId, "fk_165139_idx");
 
             entity.HasIndex(e => new { e.ResearcherId, e.ResearchLineId }, "researchers_research_lines_live_uq")
                 .IsUnique()
@@ -3468,15 +3543,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("researchers_research_lines_researcher_id_fkey");
         });
 
-        modelBuilder.Entity<RolesPermissions>(entity =>
+        modelBuilder.Entity<RolesPermission>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("roles_permissions_pkey");
 
             entity.ToTable("roles_permissions", "access");
 
-            entity.HasIndex(e => e.RoleId, "fk_154910_idx");
+            entity.HasIndex(e => e.RoleId, "fk_164809_idx");
 
-            entity.HasIndex(e => e.PermissionId, "fk_154915_idx");
+            entity.HasIndex(e => e.PermissionId, "fk_164814_idx");
 
             entity.HasIndex(e => new { e.RoleId, e.PermissionId }, "roles_permissions_live_uq")
                 .IsUnique()
@@ -3515,15 +3590,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("roles_permissions_role_id_fkey");
         });
 
-        modelBuilder.Entity<Students>(entity =>
+        modelBuilder.Entity<Student>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("students_pkey");
 
             entity.ToTable("students", "academic");
 
-            entity.HasIndex(e => e.UserId, "fk_155270_idx");
+            entity.HasIndex(e => e.UserId, "fk_165169_idx");
 
-            entity.HasIndex(e => e.AcademicProgramId, "fk_155275_idx");
+            entity.HasIndex(e => e.AcademicProgramId, "fk_165174_idx");
 
             entity.HasIndex(e => new { e.AcademicProgramId, e.StudentNumber }, "students_live_uq")
                 .IsUnique()
@@ -3562,21 +3637,21 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("students_academic_program_id_fkey");
 
-            entity.HasOne(d => d.User).WithOne(p => p.Students)
-                .HasForeignKey<Students>(d => d.UserId)
+            entity.HasOne(d => d.User).WithOne(p => p.Student)
+                .HasForeignKey<Student>(d => d.UserId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("students_user_id_fkey");
         });
 
-        modelBuilder.Entity<SubmissionsDocuments>(entity =>
+        modelBuilder.Entity<SubmissionsDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("submissions_documents_pkey");
 
             entity.ToTable("submissions_documents", "reviews");
 
-            entity.HasIndex(e => e.SubmissionId, "fk_157113_idx");
+            entity.HasIndex(e => e.SubmissionId, "fk_166904_idx");
 
-            entity.HasIndex(e => e.ProjectDocumentId, "fk_157118_idx");
+            entity.HasIndex(e => e.ProjectDocumentId, "fk_166909_idx");
 
             entity.HasIndex(e => new { e.SubmissionId, e.ProjectDocumentId }, "submissions_documents_submission_id_project_document_id_key").IsUnique();
 
@@ -3613,15 +3688,15 @@ public partial class AppDbContext : DbContext
                 .HasConstraintName("submissions_documents_submission_id_fkey");
         });
 
-        modelBuilder.Entity<Tasks>(entity =>
+        modelBuilder.Entity<Task>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("tasks_pkey");
 
             entity.ToTable("tasks", "research");
 
-            entity.HasIndex(e => e.MilestoneId, "fk_155999_idx");
+            entity.HasIndex(e => e.MilestoneId, "fk_165906_idx");
 
-            entity.HasIndex(e => e.ResponsibleParticipantId, "fk_156004_idx");
+            entity.HasIndex(e => e.ResponsibleParticipantId, "fk_165911_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -3695,11 +3770,11 @@ public partial class AppDbContext : DbContext
 
             entity.ToTable("tasks_status_history", "research");
 
-            entity.HasIndex(e => e.TaskId, "fk_156241_idx");
+            entity.HasIndex(e => e.TaskId, "fk_166148_idx");
 
-            entity.HasIndex(e => e.StatusId, "fk_156246_idx");
+            entity.HasIndex(e => e.StatusId, "fk_166153_idx");
 
-            entity.HasIndex(e => e.ChangedBy, "fk_156251_idx");
+            entity.HasIndex(e => e.ChangedBy, "fk_166158_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.ChangedAt)
@@ -3731,31 +3806,31 @@ public partial class AppDbContext : DbContext
                 .HasColumnName("updated_at");
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
 
-            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.TasksStatusHistory)
+            entity.HasOne(d => d.ChangedByNavigation).WithMany(p => p.TasksStatusHistories)
                 .HasForeignKey(d => d.ChangedBy)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_changed_by_fkey");
 
-            entity.HasOne(d => d.Status).WithMany(p => p.TasksStatusHistory)
+            entity.HasOne(d => d.Status).WithMany(p => p.TasksStatusHistories)
                 .HasForeignKey(d => d.StatusId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_status_id_fkey");
 
-            entity.HasOne(d => d.Task).WithMany(p => p.TasksStatusHistory)
+            entity.HasOne(d => d.Task).WithMany(p => p.TasksStatusHistories)
                 .HasForeignKey(d => d.TaskId)
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_task_id_fkey");
         });
 
-        modelBuilder.Entity<TasksStatusHistoryDocuments>(entity =>
+        modelBuilder.Entity<TasksStatusHistoryDocument>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("tasks_status_history_documents_pkey");
 
             entity.ToTable("tasks_status_history_documents", "research");
 
-            entity.HasIndex(e => e.StatusHistoryId, "fk_156285_idx");
+            entity.HasIndex(e => e.StatusHistoryId, "fk_166192_idx");
 
-            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_156290_idx");
+            entity.HasIndex(e => new { e.DocumentId, e.DocumentTypeId }, "fk_166197_idx");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.CreatedAt)
@@ -3794,14 +3869,14 @@ public partial class AppDbContext : DbContext
                 .OnDelete(DeleteBehavior.Restrict)
                 .HasConstraintName("tasks_status_history_documents_status_history_id_fkey");
 
-            entity.HasOne(d => d.Documents).WithMany(p => p.TasksStatusHistoryDocuments)
+            entity.HasOne(d => d.Document).WithMany(p => p.TasksStatusHistoryDocuments)
                 .HasPrincipalKey(p => new { p.Id, p.DocumentTypeId })
                 .HasForeignKey(d => new { d.DocumentId, d.DocumentTypeId })
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("tasks_status_history_document_document_id_document_type_id_fkey");
         });
 
-        modelBuilder.Entity<Users>(entity =>
+        modelBuilder.Entity<User>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("users_pkey");
 
@@ -3845,15 +3920,15 @@ public partial class AppDbContext : DbContext
             entity.Property(e => e.UpdatedBy).HasColumnName("updated_by");
         });
 
-        modelBuilder.Entity<UsersRoles>(entity =>
+        modelBuilder.Entity<UsersRole>(entity =>
         {
             entity.HasKey(e => e.Id).HasName("users_roles_pkey");
 
             entity.ToTable("users_roles", "access");
 
-            entity.HasIndex(e => e.UserId, "fk_154879_idx");
+            entity.HasIndex(e => e.UserId, "fk_164778_idx");
 
-            entity.HasIndex(e => e.RoleId, "fk_154884_idx");
+            entity.HasIndex(e => e.RoleId, "fk_164783_idx");
 
             entity.HasIndex(e => new { e.UserId, e.RoleId }, "users_roles_live_uq")
                 .IsUnique()
